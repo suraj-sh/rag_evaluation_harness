@@ -1,0 +1,52 @@
+[
+  {
+    "id": 1,
+    "question": "What is the purpose of the AI RMF Core?",
+    "relevant_pages": [24]
+  },
+  {
+    "id": 2,
+    "question": "What are the four functions of the NIST AI RMF Core?",
+    "relevant_pages": [24]
+  },
+  {
+    "id": 3,
+    "question": "What is the purpose of the Govern function in the AI RMF?",
+    "relevant_pages": [26]
+  },
+  {
+    "id": 4,
+    "question": "Why is governance considered a cross-cutting function in the AI RMF?",
+    "relevant_pages": [24, 26]
+  },
+  {
+    "id": 5,
+    "question": "What is the purpose of the Map function in the AI RMF?",
+    "relevant_pages": [29, 30]
+  },
+  {
+    "id": 6,
+    "question": "What does the Measure function do in the AI RMF?",
+    "relevant_pages": [32, 33]
+  },
+  {
+    "id": 7,
+    "question": "What does the Manage function do in the AI RMF?",
+    "relevant_pages": [36]
+  },
+  {
+    "id": 8,
+    "question": "What are the characteristics of trustworthy AI identified by the AI RMF?",
+    "relevant_pages": [16]
+  },
+  {
+    "id": 9,
+    "question": "What is risk tolerance according to the AI RMF?",
+    "relevant_pages": [11]
+  },
+  {
+    "id": 10,
+    "question": "What are the three major categories of AI bias identified by NIST?",
+    "relevant_pages": [22]
+  }
+]
