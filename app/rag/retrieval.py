@@ -14,21 +14,21 @@ def get_retriever():
         embedding_function=embedding_model
     )
 
-    retriever = vectorstore.as_retriever(
-        search_type="mmr",
-        search_kwargs={
-            "k": 4,
-            "fetch_k": 10,
-            "lambda_mult": 0.5
-        }
-    )
-
     # retriever = vectorstore.as_retriever(
-    #     search_type="similarity",
+    #     search_type="mmr",
     #     search_kwargs={
-    #         "k": 4
+    #         "k": 4,
+    #         "fetch_k": 10,
+    #         "lambda_mult": 0.5
     #     }
     # )
+
+    retriever = vectorstore.as_retriever(
+        search_type="similarity",
+        search_kwargs={
+            "k": 4
+        }
+    )
 
     return retriever
 
