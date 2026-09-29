@@ -80,14 +80,21 @@ Checks whether at least one relevant page appears within the first two retrieved
 
 Checks whether at least one relevant page appears within the first four retrieved results.
 
-## Retrieval Strategy Comparison
 
-The initial experiment compares Similarity Search and Maximum Marginal Relevance (MMR) using the same document, questions, embeddings, chunking configuration, and `k=4`.
+## Chunking and Retrieval Experiments
 
-| Retrieval Strategy | Hit@1 | Hit@2 | Hit@4 |
-|---|---:|---:|---:|
-| Similarity | 70% | 70% | 80% |
-| MMR | 70% | 70% | 90% |
+The experiment evaluates three chunking configurations with both Similarity Search and Maximum Marginal Relevance (MMR).
+
+All experiments use the same NIST AI RMF 1.0 document, evaluation questions, embedding model, and `k=4`.
+
+| Chunk Size | Overlap | Retrieval | Hit@1 | Hit@2 | Hit@4 |
+|---:|---:|---|---:|---:|---:|
+| 1000 | 200 | Similarity | 70% | 70% | 80% |
+| 1000 | 200 | MMR | 70% | 70% | 90% |
+| 500 | 100 | Similarity | 60% | 70% | 70% |
+| 500 | 100 | MMR | 60% | 70% | 80% |
+| 1500 | 300 | Similarity | 60% | 80% | 100% |
+| 1500 | 300 | MMR | 60% | 90% | 100% |
 
 
 ### Similarity Search
@@ -114,16 +121,20 @@ retriever = vectorstore.as_retriever(
 )
 ```
 
-On the current 10-question benchmark, MMR and similarity search achieved the same Hit@1 and Hit@2 scores. MMR achieved a higher Hit@4 score.
+### Observations
 
-This result is specific to the current benchmark and configuration.
+- The 1500/300 configuration achieved the highest Hit@4 score among the tested configurations on the current benchmark.
+- Both 1500/300 configurations achieved 100% Hit@4.
+- MMR achieved a higher Hit@2 score than Similarity Search with 1500/300.
+- The 500/100 configuration performed below the 1000/200 baseline on Hit@1 and Hit@4.
+- Results are specific to the current 10-question benchmark.
 
 ## Current Configuration
 
 ```text
 Document: NIST AI RMF 1.0
-Chunk size: 1000
-Chunk overlap: 200
+Chunk size: 1500
+Chunk overlap: 300
 Embeddings: Hugging Face Embeddings
 Vector store: Chroma
 Retrieval: MMR
@@ -137,7 +148,7 @@ lambda_mult: 0.5
 - [x] Build retrieval evaluation harness
 - [x] Create initial 10-question benchmark
 - [x] Compare similarity search and MMR
-- [ ] Compare chunking strategies
+- [x] Compare chunking strategies
 - [ ] Expand evaluation dataset
 - [ ] Evaluate answer correctness
 - [ ] Measure retrieval latency
@@ -226,4 +237,3 @@ This project focuses on a different problem:
 > How do we know whether a RAG system is actually retrieving the right information?
 
 The goal is to treat RAG retrieval as an engineering system that can be measured, compared, and tested rather than relying only on subjective inspection of generated answers.
-```
