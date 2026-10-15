@@ -24,8 +24,8 @@ def create_vector_store():
 
     # 2. Split documents
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size = 1000,
-        chunk_overlap = 200
+        chunk_size = 1500,
+        chunk_overlap = 300
     )
 
     chunks = splitter.split_documents(documents)
@@ -33,7 +33,9 @@ def create_vector_store():
     print(f"Created {len(chunks)} chunks")
 
     # 3. Create embeddings
-    embedding_model = HuggingFaceEmbeddings()
+    embedding_model = HuggingFaceEmbeddings(
+        model_name="sentence-transformers/all-mpnet-base-v2"
+    )
 
     # 4. Store embeddings in Chroma
     vectorstore = Chroma.from_documents(

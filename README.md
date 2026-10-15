@@ -13,10 +13,12 @@ This project aims to:
 - Evaluate RAG retrieval quality using a fixed benchmark
 - Compare similarity search and Maximum Marginal Relevance (MMR)
 - Experiment with chunk sizes and overlap strategies
+- Compare dense retrieval, BM25, and hybrid retrieval
+- Combine dense and lexical rankings using Reciprocal Rank Fusion (RRF)
 - Measure retrieval performance using Hit@K
 - Evaluate answer correctness and groundedness
 - Measure retrieval latency
-- Experiment with reranking and hybrid retrieval
+- Experiment with reranking
 - Integrate evaluation into CI/CD
 - Detect retrieval-quality regressions automatically
 
@@ -24,30 +26,40 @@ This project aims to:
 
 ```text
 PDF Document
-     ↓
+     |
 Document Loader
-     ↓
+     |
 Text Splitting
-     ↓
+     |
 Embeddings
-     ↓
+     |
 Chroma Vector Store
-     ↓
-Retriever
-     ↓
-Retrieved Documents
-     ↓
-Evaluation Against Ground Truth
-     ↓
-Hit@1, Hit@2, Hit@4
+     |
+     +--------------------------+
+     |                          |
+Dense Retrieval            BM25 Retrieval
+     |                          |
+     +------------+-------------+
+                  |
+       Reciprocal Rank Fusion
+                  |
+       Top-K Retrieved Chunks
+                  |
+    Evaluation Against Ground Truth
+                  |
+          Hit@1, Hit@2, Hit@4
 ```
+
+The project supports both conventional vector-based retrieval and hybrid retrieval that combines dense semantic search with BM25 lexical search.
 
 ## Tech Stack
 
 - Python
+- FastAPI
 - LangChain
-- Hugging Face Embeddings
+- Hugging Face Sentence Transformers
 - Chroma
+- BM25 (`rank-bm25`)
 - PyPDF
 - NIST AI RMF 1.0
 
@@ -92,7 +104,7 @@ For example, a Hit@4 score of 80% means that at least one relevant page was retr
 
 ## Chunking and Retrieval Experiments
 
-The benchmark compares three chunking configurations with two retrieval strategies:
+The initial benchmark compares three chunking configurations with two retrieval strategies.
 
 - **Similarity Search:** Retrieves documents based on vector similarity to the query.
 - **Maximum Marginal Relevance (MMR):** Selects relevant documents while also considering diversity among the retrieved results.
@@ -100,6 +112,8 @@ The benchmark compares three chunking configurations with two retrieval strategi
 All six experiments use the same source document, 30 evaluation questions, embedding model, and `k=4`.
 
 The MMR experiments additionally use `fetch_k=10` and `lambda_mult=0.5`.
+
+A subsequent experiment evaluates hybrid retrieval using dense vector search, BM25 lexical retrieval, and Reciprocal Rank Fusion.
 
 ### Results: 30-Question Benchmark
 
@@ -111,18 +125,23 @@ The MMR experiments additionally use `fetch_k=10` and `lambda_mult=0.5`.
 | 1000 | 200 | MMR | 56.67% | 60.00% | 70.00% |
 | 1500 | 300 | Similarity | 40.00% | 60.00% | 83.33% |
 | 1500 | 300 | MMR | 40.00% | 63.33% | 86.67% |
+| 1500 | 300 | Hybrid (Dense + BM25 + RRF) | **63.33%** | **86.67%** | **93.33%** |
+
+The hybrid experiment used equal-weight Reciprocal Rank Fusion, `fetch_k=10`, and `top_k=4`, without page-level deduplication.
 
 ### Observations
 
-- **Best Hit@1:** Both 1000/200 configurations achieved 56.67%, retrieving a relevant page first for 17 of 30 questions.
-- **Best Hit@2:** The 500/100 Similarity and MMR configurations achieved 66.67%, retrieving a relevant page within the top two results for 20 questions.
-- **Best Hit@4:** The 1500/300 MMR configuration achieved 86.67%, retrieving a relevant page within the top four results for 26 questions.
-- **Effect of MMR:** MMR produced identical aggregate scores to Similarity at 500/100. At 1000/200, Similarity performed better at Hit@2 and Hit@4. At 1500/300, MMR performed better at Hit@2 and Hit@4.
-- **Chunking trade-off:** Larger chunks performed better at Hit@4 in this benchmark, but did not perform as well at Hit@1. Smaller chunks were more successful at Hit@2 but less successful at Hit@4 than the best-performing configuration.
+- **Best Hit@1:** Hybrid retrieval achieved 63.33%, retrieving a relevant page first for 19 of 30 questions.
+- **Best Hit@2:** Hybrid retrieval achieved 86.67%, retrieving a relevant page within the top two results for 26 of 30 questions.
+- **Best Hit@4:** Hybrid retrieval achieved 93.33%, retrieving a relevant page within the top four results for 28 of 30 questions.
+- **Similarity versus MMR:** MMR produced identical aggregate scores to Similarity at 500/100. At 1000/200, Similarity performed better at Hit@2 and Hit@4. At 1500/300, MMR performed better at Hit@2 and Hit@4.
+- **Hybrid retrieval:** Combining dense and lexical retrieval rankings improved all three Hit@K metrics compared with the 1500/300 Similarity baseline.
+- **Fusion strategy:** Equal-weight RRF outperformed the tested dense-weighted fusion configuration on Hit@1 and Hit@2. Page-level deduplication also reduced the measured scores in the tested experiment.
+- **Chunking trade-off:** Larger chunks performed better at Hit@4 in the original similarity and MMR experiments, but did not perform as well at Hit@1. Smaller chunks were more successful at Hit@2 in some configurations but less successful at Hit@4 than the best-performing configuration.
 
-No configuration performed best across every metric. The results demonstrate why retrieval configurations should be evaluated against a fixed benchmark instead of selecting a strategy based on assumptions alone.
+No retrieval configuration should be considered universally optimal based on these results. The findings are specific to the current document, question set, embedding model, retrieval parameters, and evaluation methodology.
 
-These findings are specific to the current document, question set, embedding model, and retrieval parameters. They should not be interpreted as universal conclusions about chunking or retrieval methods.
+The hybrid result is the strongest measured configuration in the experiments completed so far. It does not establish that hybrid retrieval will outperform other strategies on different datasets.
 
 ## Historical Results: Initial 10-Question Benchmark
 
@@ -152,6 +171,8 @@ retriever = vectorstore.as_retriever(
 )
 ```
 
+Similarity search retrieves the top `k` documents based on vector similarity to the query.
+
 ### Maximum Marginal Relevance (MMR)
 
 ```python
@@ -167,25 +188,59 @@ retriever = vectorstore.as_retriever(
 
 The `k` parameter controls the number of documents returned. In MMR, `fetch_k` controls the initial candidate pool, while `lambda_mult` controls the balance between query relevance and diversity.
 
+### Hybrid Retrieval
+
+Hybrid retrieval combines dense vector search with BM25 lexical search.
+
+The rankings are combined using Reciprocal Rank Fusion (RRF), which aggregates the positions of documents in the individual ranked lists.
+
+The fusion score follows the general form:
+
+\[
+\operatorname{RRF}(d) =
+\sum_{r \in R}
+\frac{w_r}{c + \operatorname{rank}_r(d)}
+\]
+
+where:
+
+- \(d\) is a document.
+- \(R\) is the set of retrieval rankings.
+- \(w_r\) is the weight assigned to a ranking.
+- \(\operatorname{rank}_r(d)\) is the document's rank in that ranking.
+- \(c\) is a constant that reduces the influence of high-ranking positions.
+
+The tested hybrid configuration uses equal weights for dense and BM25 retrieval, with an RRF constant of 60.
+
+```text
+Dense Retrieval ──┐
+                  ├──> Reciprocal Rank Fusion ──> Top-K Results
+BM25 Retrieval ───┘
+```
+
 ## Current Configuration
 
-The latest evaluated configuration is:
+The strongest measured configuration so far is:
 
 ```text
 Document: NIST AI RMF 1.0
-Chunk size: 1000
-Chunk overlap: 200
-Chunks created: 150
-Embeddings: Hugging Face Embeddings
+Chunk size: 1500
+Chunk overlap: 300
+Embeddings: sentence-transformers/all-mpnet-base-v2
 Vector store: Chroma
-Retrieval: MMR
-k: 4
-fetch_k: 10
-lambda_mult: 0.5
+Dense retrieval: Similarity search
+Lexical retrieval: BM25
+Fusion: Equal-weight Reciprocal Rank Fusion
+RRF constant: 60
+Candidate pool (fetch_k): 10
+Final retrieved chunks (top_k): 4
 Evaluation questions: 30
+Hit@1: 63.33%
+Hit@2: 86.67%
+Hit@4: 93.33%
 ```
 
-The configuration remains experimental. The benchmark results do not establish one universally optimal configuration.
+This describes the best measured hybrid experiment, not a universally optimal configuration. The baseline Similarity and MMR configurations remain available for comparison.
 
 ## Project Structure
 
@@ -196,7 +251,8 @@ rag_evaluation_harness/
 │   ├── main.py
 │   └── rag/
 │       ├── ingestion.py
-│       └── retrieval.py
+│       ├── retrieval.py
+│       └── hybrid_retrieval.py
 │
 ├── data/
 │   └── documents/
@@ -204,28 +260,48 @@ rag_evaluation_harness/
 │
 ├── evaluation/
 │   ├── questions.json
-│   └── evaluator.py
+│   ├── evaluator.py
+│   └── hybrid_evaluator.py
 │
 ├── experiments/
+│   └── benchmark result JSON files
+│
 ├── tests/
+├── .env
 ├── .gitignore
 ├── requirements.txt
 └── README.md
 ```
 
+The `.env` file is for local configuration and should not be committed to version control.
+
 ## Setup
 
-Install the project dependencies:
+Create and activate a Python virtual environment, then install the project dependencies.
+
+For example, using `uv`:
+
+```bash
+uv venv
+```
+
+On Windows PowerShell:
+
+```powershell
+.venv\Scripts\Activate.ps1
+```
+
+Install the dependencies:
 
 ```bash
 uv pip install -r requirements.txt
 ```
 
-Ensure the project's virtual environment is activated and the dependencies are installed before running the commands below.
+Ensure the virtual environment is activated and all dependencies are installed before running the commands below.
 
 ## Running the Project
 
-### 1. Create the vector database
+### 1. Create the Vector Database
 
 Run the ingestion pipeline:
 
@@ -235,21 +311,29 @@ python -m app.rag.ingestion
 
 This loads the NIST AI RMF 1.0 PDF, splits it into chunks, generates embeddings, and stores the vectors in Chroma.
 
-Rebuild the vector database when changing the chunk size or overlap.
+Rebuild the vector database when changing the chunk size, overlap, embedding model, or other ingestion settings that affect the stored vectors.
 
-### 2. Configure the retriever
-
-Choose Similarity Search or MMR by updating the retriever configuration in `app/rag/retrieval.py`.
-
-Switching retrieval methods does not require rebuilding the vector database when the underlying chunks and embeddings remain unchanged.
-
-### 3. Run the evaluation
+### 2. Run the Baseline Evaluation
 
 ```bash
 python -m evaluation.evaluator
 ```
 
-The evaluator runs the 30 benchmark questions against the configured retriever and reports Hit@1, Hit@2, and Hit@4.
+The evaluator runs the 30 benchmark questions against the configured baseline retriever and reports Hit@1, Hit@2, and Hit@4.
+
+Configure Similarity Search or MMR in `app/rag/retrieval.py` before running the baseline evaluation.
+
+### 3. Run the Hybrid Evaluation
+
+```bash
+python -m evaluation.hybrid_evaluator --output experiments/hybrid_1500_similarity_bm25.json
+```
+
+The hybrid evaluator runs the benchmark using dense retrieval, BM25, and RRF fusion.
+
+The `--output` argument saves detailed evaluation results to a JSON file for later inspection and comparison.
+
+Switching between Similarity, MMR, and hybrid retrieval does not require rebuilding the vector database when the stored chunks and embeddings remain unchanged.
 
 ## Implementation Status
 
@@ -258,13 +342,17 @@ The evaluator runs the 30 benchmark questions against the configured retriever a
 - [x] Expand the benchmark to 30 questions
 - [x] Compare Similarity Search and MMR
 - [x] Compare three chunking configurations
-- [x] Run all six configurations against the 30-question benchmark
+- [x] Run all six baseline configurations against the 30-question benchmark
+- [x] Implement hybrid retrieval using dense search and BM25
+- [x] Fuse retrieval rankings using Reciprocal Rank Fusion
+- [x] Compare hybrid retrieval against baseline retrieval
+- [x] Save experiment results as JSON
 - [ ] Evaluate answer correctness and groundedness
 - [ ] Measure retrieval latency
 - [ ] Add reranking
-- [ ] Experiment with hybrid retrieval
 - [ ] Add automated evaluation to CI/CD
 - [ ] Introduce retrieval-quality regression thresholds
+- [ ] Evaluate additional documents and question sets
 
 ## Future Experiments
 
@@ -274,7 +362,7 @@ Potential next steps include:
 - Measuring whether generated answers are grounded in retrieved context
 - Recording retrieval latency across configurations
 - Testing alternative embedding models
-- Experimenting with reranking and hybrid retrieval
+- Experimenting with reranking
 - Evaluating on additional documents and question sets
 - Integrating evaluation into CI/CD
 - Establishing regression thresholds to detect retrieval-quality degradation
@@ -287,4 +375,6 @@ This project focuses on a different engineering question:
 
 > How do we know whether a RAG system is actually retrieving the right information?
 
-By defining retrieval ground truth and comparing configurations using measurable metrics, the project treats retrieval as an evaluatable engineering component rather than relying solely on subjective inspection of generated answers.
+By defining retrieval ground truth and comparing configurations using measurable metrics, this project treats retrieval as an evaluatable engineering component rather than relying solely on subjective inspection of generated answers.
+
+The long-term goal is to extend the harness from retrieval evaluation to end-to-end RAG evaluation, including answer correctness, groundedness, latency, and automated regression testing.

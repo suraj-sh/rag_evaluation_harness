@@ -7,28 +7,30 @@ CHROMA_PATH = "chroma_db"
 
 def get_retriever():
 
-    embedding_model = HuggingFaceEmbeddings()
+    embedding_model = HuggingFaceEmbeddings(
+            model_name="sentence-transformers/all-mpnet-base-v2"
+    )
 
     vectorstore = Chroma(
         persist_directory=CHROMA_PATH,
         embedding_function=embedding_model
     )
 
-    retriever = vectorstore.as_retriever(
-        search_type="mmr",
-        search_kwargs={
-            "k": 4,
-            "fetch_k": 10,
-            "lambda_mult": 0.5
-        }
-    )
-
     # retriever = vectorstore.as_retriever(
-    #     search_type="similarity",
+    #     search_type="mmr",
     #     search_kwargs={
-    #         "k": 4
+    #         "k": 4,
+    #         "fetch_k": 10,
+    #         "lambda_mult": 0.5
     #     }
     # )
+
+    retriever = vectorstore.as_retriever(
+        search_type="similarity",
+        search_kwargs={
+            "k": 4
+        }
+    )
 
     return retriever
 
