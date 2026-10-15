@@ -24,8 +24,8 @@ def create_vector_store():
 
     # 2. Split documents
     splitter = RecursiveCharacterTextSplitter(
-        chunk_size = 1500,
-        chunk_overlap = 300
+        chunk_size = 1000,
+        chunk_overlap = 200
     )
 
     chunks = splitter.split_documents(documents)
