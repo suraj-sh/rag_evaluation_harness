@@ -1,6 +1,7 @@
 import json
 import os
 import argparse
+import time
 from app.rag.retrieval import get_retriever
 
 QUESTION_PATH = "evaluation/questions.json"
@@ -32,7 +33,9 @@ def evaluate_question(retriever, question, query_mode):
         query_mode
     )
 
+    start_time = time.perf_counter()
     docs = retriever.invoke(retrieval_query)
+    latency_ms = (time.perf_counter() - start_time) * 1000
 
     retrieved_pages = [
         doc.metadata.get("page")
@@ -63,6 +66,7 @@ def evaluate_question(retriever, question, query_mode):
         "query_mode": query_mode,
         "relevant_pages": relevant_pages,
         "retrieved_pages": retrieved_pages,
+        "latency_ms": round(latency_ms, 2),
         "hit_at_1": hit_at_1,
         "hit_at_2": hit_at_2,
         "hit_at_4": hit_at_4,
@@ -116,6 +120,7 @@ def main():
         print(f"Hit@1: {'YES' if result['hit_at_1'] else 'NO'}")
         print(f"Hit@2: {'YES' if result['hit_at_2'] else 'NO'}")
         print(f"Hit@4: {'YES' if result['hit_at_4'] else 'NO'}")
+        print(f"Latency: {result['latency_ms']:.2f} ms")
 
         if not result["hit_at_4"]:
             print("\nRetrieved content:")
@@ -132,7 +137,7 @@ def main():
     hits_at_4 = sum(r["hit_at_4"] for r in results)
 
     print("\n" + "=" * 50)
-    print("EVALUATION")
+    print("DENSE RETRIEVAL EVALUATION")
     print("=" * 50)
 
     print(f"Questions evaluated: {total}")
@@ -150,6 +155,26 @@ def main():
             f"Hit@4: {hits_at_4}/{total} = "
             f"{hits_at_4 / total:.2%}"
         )
+
+        latencies = [r["latency_ms"] for r in results]
+
+        print(f"\nCold-start latency: {latencies[0]:.2f} ms")
+
+        if total > 1:
+            warm_latencies = latencies[1:]
+
+            print(
+                f"Average warm-query latency: "
+                f"{sum(warm_latencies) / len(warm_latencies):.2f} ms"
+            )
+            print(
+                f"Minimum warm-query latency: "
+                f"{min(warm_latencies):.2f} ms"
+            )
+            print(
+                f"Maximum warm-query latency: "
+                f"{max(warm_latencies):.2f} ms"
+            )
 
     os.makedirs(
         os.path.dirname(args.output) or ".",

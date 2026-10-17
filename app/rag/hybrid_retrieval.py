@@ -2,11 +2,13 @@ import re
 from rank_bm25 import BM25Okapi
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
+from langchain_core.documents import Document
 from dotenv import load_dotenv
 
 load_dotenv()
 
 CHROMA_PATH = "chroma_db"
+EMBEDDING_MODEL_NAME = "sentence-transformers/all-mpnet-base-v2"
 
 
 def tokenize(text):
@@ -15,8 +17,9 @@ def tokenize(text):
 
 
 def get_hybrid_retriever():
+    """Initialize and cache the hybrid retrieval components."""
     embedding_model = HuggingFaceEmbeddings(
-        model_name="sentence-transformers/all-mpnet-base-v2"
+        model_name=EMBEDDING_MODEL_NAME
     )
 
     vectorstore = Chroma(
@@ -25,7 +28,9 @@ def get_hybrid_retriever():
     )
 
     # Load all stored chunks from Chroma.
-    stored_data = vectorstore.get(include=["documents", "metadatas"])
+    stored_data = vectorstore.get(
+        include=["documents", "metadatas"]
+    )
 
     documents = stored_data["documents"]
     metadatas = stored_data["metadatas"]
@@ -36,11 +41,25 @@ def get_hybrid_retriever():
             "Chroma contains no documents. Run ingestion first."
         )
 
-    # Build the BM25 keyword index from the same chunks.
+    # Build the BM25 keyword index once.
     tokenized_documents = [tokenize(doc) for doc in documents]
     bm25 = BM25Okapi(tokenized_documents)
 
     return vectorstore, bm25, documents, metadatas, ids
+
+
+# Cache the initialized components for reuse across queries.
+_hybrid_components = None
+
+
+def get_cached_hybrid_retriever():
+    """Return cached components, initializing them on first use."""
+    global _hybrid_components
+
+    if _hybrid_components is None:
+        _hybrid_components = get_hybrid_retriever()
+
+    return _hybrid_components
 
 
 def reciprocal_rank_fusion(
@@ -60,17 +79,23 @@ def reciprocal_rank_fusion(
     ]:
         for rank, doc in enumerate(results, start=1):
             doc_id = doc.metadata["_id"]
+
             scores[doc_id] = scores.get(doc_id, 0.0) + (
                 weight / (k + rank)
             )
             result_docs[doc_id] = doc
 
-    ranked_ids = sorted(scores, key=scores.get, reverse=True)
+    ranked_ids = sorted(
+        scores,
+        key=scores.get,
+        reverse=True,
+    )
+
     return [result_docs[doc_id] for doc_id in ranked_ids]
 
 
 def retrieve_hybrid(query, top_k=4, fetch_k=10):
-    vectorstore, bm25, documents, metadatas, ids = get_hybrid_retriever()
+    (vectorstore, bm25, documents, metadatas, ids) = get_cached_hybrid_retriever()
 
     # Dense semantic search.
     dense_docs = vectorstore.similarity_search(query, k=fetch_k)
@@ -78,29 +103,22 @@ def retrieve_hybrid(query, top_k=4, fetch_k=10):
     # Sparse keyword search.
     query_tokens = tokenize(query)
     bm25_scores = bm25.get_scores(query_tokens)
-
     bm25_indices = sorted(
         range(len(bm25_scores)),
         key=lambda i: bm25_scores[i],
-        reverse=True,
+        reverse=True
     )[:fetch_k]
-
-    from langchain_core.documents import Document
 
     bm25_docs = [
         Document(
             page_content=documents[i],
-            metadata={
-                **(metadatas[i] or {}),
-                "_id": ids[i],
-            },
+            metadata={**(metadatas[i] or {}), "_id": ids[i]}
         )
         for i in bm25_indices
     ]
 
     # Attach Chroma IDs to dense results.
     dense_docs_with_ids = []
-
     for doc in dense_docs:
         doc_id = next(
             (
@@ -115,20 +133,18 @@ def retrieve_hybrid(query, top_k=4, fetch_k=10):
             ),
             None,
         )
-
         if doc_id is not None:
             doc.metadata["_id"] = doc_id
             dense_docs_with_ids.append(doc)
 
-    # Fuse the complete rankings using equal-weight RRF.
     fused_docs = reciprocal_rank_fusion(
         dense_docs_with_ids,
         bm25_docs,
+        dense_weight=1.0,
+        bm25_weight=1.0
     )
 
-    # Return the top-ranked chunks without page-level deduplication.
     return fused_docs[:top_k]
-
 
 if __name__ == "__main__":
     query = input("Question: ")

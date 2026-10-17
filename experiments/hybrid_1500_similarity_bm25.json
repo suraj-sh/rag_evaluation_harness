@@ -12,6 +12,7 @@
             2,
             15
         ],
+        "latency_ms": 16029.52,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -29,6 +30,7 @@
             37,
             36
         ],
+        "latency_ms": 68.09,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -46,6 +48,7 @@
             25,
             24
         ],
+        "latency_ms": 60.39,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -64,6 +67,7 @@
             25,
             24
         ],
+        "latency_ms": 71.12,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -82,6 +86,7 @@
             24,
             29
         ],
+        "latency_ms": 64.5,
         "hit_at_1": false,
         "hit_at_2": false,
         "hit_at_4": true
@@ -100,6 +105,7 @@
             25,
             37
         ],
+        "latency_ms": 70.46,
         "hit_at_1": false,
         "hit_at_2": false,
         "hit_at_4": false
@@ -117,6 +123,7 @@
             37,
             25
         ],
+        "latency_ms": 69.17,
         "hit_at_1": false,
         "hit_at_2": true,
         "hit_at_4": true
@@ -134,6 +141,7 @@
             6,
             33
         ],
+        "latency_ms": 151.86,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -151,6 +159,7 @@
             37,
             37
         ],
+        "latency_ms": 77.67,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -168,6 +177,7 @@
             33,
             28
         ],
+        "latency_ms": 69.64,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -185,6 +195,7 @@
             36,
             36
         ],
+        "latency_ms": 62.76,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -202,6 +213,7 @@
             26,
             29
         ],
+        "latency_ms": 62.63,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -219,6 +231,7 @@
             8,
             10
         ],
+        "latency_ms": 64.31,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -236,6 +249,7 @@
             11,
             46
         ],
+        "latency_ms": 65.09,
         "hit_at_1": false,
         "hit_at_2": true,
         "hit_at_4": true
@@ -253,6 +267,7 @@
             19,
             16
         ],
+        "latency_ms": 70.79,
         "hit_at_1": false,
         "hit_at_2": true,
         "hit_at_4": true
@@ -270,6 +285,7 @@
             44,
             25
         ],
+        "latency_ms": 61.36,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -287,6 +303,7 @@
             42,
             12
         ],
+        "latency_ms": 80.38,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -304,6 +321,7 @@
             22,
             44
         ],
+        "latency_ms": 84.37,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -321,6 +339,7 @@
             7,
             15
         ],
+        "latency_ms": 84.57,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -338,6 +357,7 @@
             42,
             39
         ],
+        "latency_ms": 83.88,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -355,6 +375,7 @@
             39,
             24
         ],
+        "latency_ms": 85.06,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -372,6 +393,7 @@
             26,
             27
         ],
+        "latency_ms": 82.96,
         "hit_at_1": false,
         "hit_at_2": true,
         "hit_at_4": true
@@ -389,6 +411,7 @@
             46,
             25
         ],
+        "latency_ms": 84.22,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -406,6 +429,7 @@
             25,
             26
         ],
+        "latency_ms": 64.0,
         "hit_at_1": false,
         "hit_at_2": true,
         "hit_at_4": true
@@ -423,6 +447,7 @@
             32,
             29
         ],
+        "latency_ms": 63.83,
         "hit_at_1": false,
         "hit_at_2": false,
         "hit_at_4": true
@@ -440,6 +465,7 @@
             19,
             39
         ],
+        "latency_ms": 67.38,
         "hit_at_1": false,
         "hit_at_2": false,
         "hit_at_4": false
@@ -457,6 +483,7 @@
             33,
             34
         ],
+        "latency_ms": 66.69,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -474,6 +501,7 @@
             10,
             9
         ],
+        "latency_ms": 72.02,
         "hit_at_1": true,
         "hit_at_2": true,
         "hit_at_4": true
@@ -491,6 +519,7 @@
             17,
             16
         ],
+        "latency_ms": 70.99,
         "hit_at_1": false,
         "hit_at_2": true,
         "hit_at_4": true
@@ -508,6 +537,7 @@
             29,
             25
         ],
+        "latency_ms": 71.65,
         "hit_at_1": false,
         "hit_at_2": true,
         "hit_at_4": true

@@ -143,6 +143,36 @@ No retrieval configuration should be considered universally optimal based on the
 
 The hybrid result is the strongest measured configuration in the experiments completed so far. It does not establish that hybrid retrieval will outperform other strategies on different datasets.
 
+### Latency Comparison
+
+Latency measures how long the retrieval system takes to return relevant document chunks for a query.
+
+| Metric | Dense-only | Hybrid (Dense + BM25 + RRF) |
+|---|---:|---:|
+| Average warm-query latency | 73.73 ms | 74.20 ms |
+| Minimum warm-query latency | 59.36 ms | 60.39 ms |
+| Maximum warm-query latency | 155.72 ms | 151.86 ms |
+
+**Understanding the latency metrics**
+
+- **Cold-start latency:** The time taken by the first timed query when the system may still need to initialize components, such as the embedding model, vector store, or BM25 index. It can be significantly higher than subsequent queries.
+
+- **Warm-query latency:** The time taken to process a query after the required components have been initialized and are available for reuse. It better represents the retrieval latency during normal, repeated use.
+
+- **Average warm-query latency:** The arithmetic mean of the measured warm-query latencies. It gives an overall indication of typical retrieval performance.
+
+- **Minimum warm-query latency:** The shortest measured warm-query latency. It shows the fastest observed retrieval under the test conditions.
+
+- **Maximum warm-query latency:** The longest measured warm-query latency among the warm queries. It shows the slowest observed retrieval after initialization, excluding the first query.
+
+**Measurement notes**
+
+Latency was measured across 30 evaluation questions. The first query was treated separately from the remaining 29 queries when calculating warm-query statistics.
+
+The cold-start measurements from the two evaluators are not directly comparable because their timers start at different stages. The hybrid evaluator includes lazy component initialization in its first timed query, whereas the dense-only evaluator initializes its retriever before timing individual queries.
+
+The results indicate that hybrid retrieval substantially improved Hit@K scores while average warm-query latency remained nearly unchanged. These findings are preliminary and specific to the current dataset, configuration, and test environment.
+
 ## Historical Results: Initial 10-Question Benchmark
 
 Before expanding the dataset, the project used an initial benchmark of 10 questions. The results below are retained for historical reference and are **not directly comparable** with the 30-question benchmark above.
@@ -347,8 +377,8 @@ Switching between Similarity, MMR, and hybrid retrieval does not require rebuild
 - [x] Fuse retrieval rankings using Reciprocal Rank Fusion
 - [x] Compare hybrid retrieval against baseline retrieval
 - [x] Save experiment results as JSON
+- [x] Measure retrieval latency
 - [ ] Evaluate answer correctness and groundedness
-- [ ] Measure retrieval latency
 - [ ] Add reranking
 - [ ] Add automated evaluation to CI/CD
 - [ ] Introduce retrieval-quality regression thresholds

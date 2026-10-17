@@ -1,6 +1,7 @@
 import json
 import os
 import argparse
+import time
 
 from app.rag.hybrid_retrieval import retrieve_hybrid
 
@@ -15,7 +16,9 @@ def load_questions():
 
 def evaluate_question(question):
     retrieval_query = question["question"]
+    start_time = time.perf_counter()
     docs = retrieve_hybrid(retrieval_query, top_k=4, fetch_k=10)
+    latency_ms = (time.perf_counter() - start_time) * 1000
 
     retrieved_pages = [doc.metadata.get("page") for doc in docs]
     relevant_pages = question["relevant_pages"]
@@ -26,6 +29,7 @@ def evaluate_question(question):
         "retrieval_query": retrieval_query,
         "relevant_pages": relevant_pages,
         "retrieved_pages": retrieved_pages,
+        "latency_ms": round(latency_ms, 2),
         "hit_at_1": any(
             page in relevant_pages for page in retrieved_pages[:1]
         ),
@@ -63,6 +67,7 @@ def main():
         print(f"Hit@1: {'YES' if result['hit_at_1'] else 'NO'}")
         print(f"Hit@2: {'YES' if result['hit_at_2'] else 'NO'}")
         print(f"Hit@4: {'YES' if result['hit_at_4'] else 'NO'}")
+        print(f"Latency: {result['latency_ms']:.2f} ms")
 
     total = len(results)
     hits_at_1 = sum(r["hit_at_1"] for r in results)
@@ -75,10 +80,41 @@ def main():
     print(f"Questions evaluated: {total}")
 
     if total:
-        print(f"Hit@1: {hits_at_1}/{total} = {hits_at_1 / total:.2%}")
-        print(f"Hit@2: {hits_at_2}/{total} = {hits_at_2 / total:.2%}")
-        print(f"Hit@4: {hits_at_4}/{total} = {hits_at_4 / total:.2%}")
+        # Retrieval quality metrics
+        print(
+            f"Hit@1: {hits_at_1}/{total} = "
+            f"{hits_at_1 / total:.2%}"
+        )
+        print(
+            f"Hit@2: {hits_at_2}/{total} = "
+            f"{hits_at_2 / total:.2%}"
+        )
+        print(
+            f"Hit@4: {hits_at_4}/{total} = "
+            f"{hits_at_4 / total:.2%}"
+        )
 
+        # Retrieval latency metrics
+        latencies = [r["latency_ms"] for r in results]
+
+        print(f"\nCold-start latency: {latencies[0]:.2f} ms")
+
+        if total > 1:
+            warm_latencies = latencies[1:]
+
+            print(
+                f"Average warm-query latency: "
+                f"{sum(warm_latencies) / len(warm_latencies):.2f} ms"
+            )
+            print(
+                f"Minimum warm-query latency: "
+                f"{min(warm_latencies):.2f} ms"
+            )
+            print(
+                f"Maximum warm-query latency: "
+                f"{max(warm_latencies):.2f} ms"
+            )
+        
     os.makedirs(os.path.dirname(args.output) or ".", exist_ok=True)
 
     with open(args.output, "w", encoding="utf-8") as file:
