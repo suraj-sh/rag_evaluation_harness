@@ -1,0 +1,378 @@
+{
+  "dataset": "NIST AI RMF 1.0 answer evaluation",
+  "model": "gemini-3.1-flash-lite",
+  "question_count": 10,
+  "completed_count": 10,
+  "failed_count": 0,
+  "results": [
+    {
+      "id": "A01",
+      "type": "factual",
+      "question": "What are the four functions of the NIST AI RMF Core, and what is the Core intended to provide?",
+      "expected_answer_points": [
+        "The four functions are GOVERN, MAP, MEASURE, and MANAGE.",
+        "The Core provides outcomes and actions that enable dialogue, understanding, and activities to manage AI risks."
+      ],
+      "expected_citation_pages_pdf": [
+        25
+      ],
+      "abstention_expected": false,
+      "answer": "The NIST AI RMF Core is composed of four functions: **GOVERN**, **MAP**, **MEASURE**, and **MANAGE** [Page 25].\n\nThe Core is intended to provide outcomes and actions that enable dialogue, understanding, and activities to manage AI risks and responsibly develop trustworthy AI systems [Page 25].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 25
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 3
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 26
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 38
+        }
+      ],
+      "retrieval_latency_seconds": 0.343,
+      "generation_latency_seconds": 5.73,
+      "error": null
+    },
+    {
+      "id": "A02",
+      "type": "multi_fact",
+      "question": "Why is GOVERN considered a cross-cutting function, and how does it relate to the other three functions?",
+      "expected_answer_points": [
+        "GOVERN is infused throughout AI risk management.",
+        "It enables or informs MAP, MEASURE, and MANAGE rather than being a one-time step.",
+        "Governance informs and is infused throughout the other three functions."
+      ],
+      "expected_citation_pages_pdf": [
+        24,
+        26
+      ],
+      "abstention_expected": false,
+      "answer": "The GOVERN function is considered cross-cutting because it is designed to be infused throughout the entire AI risk management process and serves as an intrinsic requirement for effective management over an AI system’s lifespan and the organization’s hierarchy [Page 5, 27]. \n\nIts relationship to the other three functions (MAP, MEASURE, and MANAGE) is as follows:\n\n*   **Enabling and Informing:** GOVERN provides the structure that enables the other functions and informs them throughout the process [Page 5, 27].\n*   **Integration:** Aspects of GOVERN, particularly those related to compliance or evaluation, should be integrated into each of the other functions [Page 27].\n*   **Iterative Process:** While many users start with MAP after instituting GOVERN, the process is intended to be iterative, with cross-referencing between functions as necessary [Page 26].\n*   **Alignment:** GOVERN connects the technical aspects of AI system design and development to organizational values, principles, and strategic priorities, ensuring that the other functions align with the organization's risk tolerance and policies [Page 26, 27].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 26
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 5
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 27
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 27
+        }
+      ],
+      "retrieval_latency_seconds": 0.091,
+      "generation_latency_seconds": 10.645,
+      "error": null
+    },
+    {
+      "id": "A03",
+      "type": "context_identification",
+      "question": "When identifying an AI system's intended purpose and context, what information should be considered?",
+      "expected_answer_points": [
+        "Intended purposes and potentially beneficial uses.",
+        "Potentially harmful uses and impacts.",
+        "Relevant context and assumptions about the system's use.",
+        "Relevant information should be documented where applicable; do not replace these points with generic AI advice."
+      ],
+      "expected_citation_pages_pdf": [
+        30
+      ],
+      "abstention_expected": false,
+      "answer": "When identifying an AI system's intended purpose and context, AI Design actors should articulate and document the following information:\n\n*   The system’s concept and objectives [Page 40].\n*   Underlying assumptions [Page 40].\n*   Context and requirements [Page 40].\n\nAdditionally, explainable and interpretable AI systems should offer information that helps end users understand the system's purposes and potential impact [Page 21].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 40
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 21
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 21
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 22
+        }
+      ],
+      "retrieval_latency_seconds": 0.088,
+      "generation_latency_seconds": 17.725,
+      "error": null
+    },
+    {
+      "id": "A04",
+      "type": "multi_fact",
+      "question": "What kinds of methods can the MEASURE function use to analyze and assess AI risks?",
+      "expected_answer_points": [
+        "Quantitative, qualitative, or mixed-method approaches may be used.",
+        "Methods should be appropriate to the context and the risk or trustworthiness characteristic being assessed.",
+        "The answer should not imply that every risk must be measured only numerically."
+      ],
+      "expected_citation_pages_pdf": [
+        33,
+        34
+      ],
+      "abstention_expected": false,
+      "answer": "The MEASURE function employs quantitative, qualitative, or mixed-method tools, techniques, and methodologies to analyze, assess, benchmark, and monitor AI risk and related impacts [Page 33]. These processes should include rigorous software testing and performance assessment methodologies, which incorporate measures of uncertainty, comparisons to performance benchmarks, and formalized reporting and documentation of results [Page 33].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 33
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 34
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 33
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 33
+        }
+      ],
+      "retrieval_latency_seconds": 0.079,
+      "generation_latency_seconds": 7.408,
+      "error": null
+    },
+    {
+      "id": "A05",
+      "type": "process",
+      "question": "What does the MANAGE function do with risks identified through MAP and MEASURE?",
+      "expected_answer_points": [
+        "Prioritizes risks based on assessed impact, likelihood, or organizational context as supported by the framework.",
+        "Allocates and implements responses to address, limit, or otherwise manage prioritized risks.",
+        "Considers risk treatment, response and recovery, and communication planning."
+      ],
+      "expected_citation_pages_pdf": [
+        36,
+        37
+      ],
+      "abstention_expected": false,
+      "answer": "The MANAGE function utilizes contextual information gleaned from expert consultation and input from relevant AI actors—which is established in GOVERN and carried out in MAP—to decrease the likelihood of system failures and negative impacts [Page 36]. Additionally, measurement outcomes from the MEASURE function are utilized in the MANAGE function to assist with risk monitoring and response efforts [Page 33]. \n\nThrough the MANAGE function, framework users develop plans to respond to, recover from, and communicate about incidents or events [Page 36]. After completing the MANAGE function, users will have plans in place for prioritizing risk and for regular monitoring and improvement [Page 36].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 26
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 36
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 27
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 33
+        }
+      ],
+      "retrieval_latency_seconds": 0.281,
+      "generation_latency_seconds": 10.303,
+      "error": null
+    },
+    {
+      "id": "A06",
+      "type": "factual_list",
+      "question": "Which characteristics does NIST identify as contributing to trustworthy AI systems?",
+      "expected_answer_points": [
+        "Valid and reliable.",
+        "Safe.",
+        "Secure and resilient.",
+        "Accountable and transparent.",
+        "Explainable and interpretable.",
+        "Privacy-enhanced.",
+        "Fair, with harmful bias managed.",
+        "The characteristics need to be balanced in the system's context of use."
+      ],
+      "expected_citation_pages_pdf": [
+        16,
+        17
+      ],
+      "abstention_expected": false,
+      "answer": "NIST identifies the following characteristics as contributing to trustworthy AI systems:\n\n*   Valid and reliable [Page 17]\n*   Safe [Page 17]\n*   Secure and resilient [Page 17]\n*   Accountable and transparent [Page 17]\n*   Explainable and interpretable [Page 17]\n*   Privacy-enhanced [Page 17]\n*   Fair with harmful bias managed [Page 17]\n\nNIST notes that \"Valid & Reliable\" is a necessary condition and serves as the base for the other characteristics, while \"Accountable & Transparent\" relates to all other characteristics [Page 17]. Creating trustworthy AI requires balancing these characteristics based on the specific context of use [Page 17].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 7
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 17
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 5
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 18
+        }
+      ],
+      "retrieval_latency_seconds": 0.073,
+      "generation_latency_seconds": 11.95,
+      "error": null
+    },
+    {
+      "id": "A07",
+      "type": "definition",
+      "question": "What does risk tolerance mean in the AI RMF, and what can influence it?",
+      "expected_answer_points": [
+        "Risk tolerance is an organization's or AI actor's readiness to bear risk to achieve objectives.",
+        "It can be influenced by legal or regulatory requirements.",
+        "It is contextual and use-case-specific, and can reflect policies and norms as well as organizational priorities and resources.",
+        "It can change over time as AI systems, policies, and norms evolve."
+      ],
+      "expected_citation_pages_pdf": [
+        11
+      ],
+      "abstention_expected": false,
+      "answer": "In the AI RMF, risk tolerance refers to an organization’s or AI actor’s readiness to bear risk in order to achieve its objectives [Page 12].\n\nRisk tolerance can be influenced by the following factors:\n*   **Legal or regulatory requirements:** These can shape an organization's risk tolerance [Page 12].\n*   **Context:** Risk tolerance and the level of acceptable risk are highly contextual and specific to the application and use case [Page 12].\n*   **Policies and norms:** These may be established by AI system owners, organizations, industries, communities, or policy makers [Page 12].\n*   **Evolution over time:** Risk tolerances are likely to change as AI systems, policies, and norms evolve [Page 12].\n*   **Organizational priorities and resources:** Different organizations may have varied risk tolerances based on their specific priorities and resource considerations [Page 12].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 12
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 47
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 38
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 37
+        }
+      ],
+      "retrieval_latency_seconds": 0.087,
+      "generation_latency_seconds": 22.803,
+      "error": null
+    },
+    {
+      "id": "A08",
+      "type": "factual_list",
+      "question": "What three major categories of AI bias does NIST identify?",
+      "expected_answer_points": [
+        "Systemic bias.",
+        "Computational and statistical bias.",
+        "Human-cognitive bias.",
+        "These can occur even without prejudice, partiality, or discriminatory intent."
+      ],
+      "expected_citation_pages_pdf": [
+        22
+      ],
+      "abstention_expected": false,
+      "answer": "NIST identifies the following three major categories of AI bias:\n\n1.  **Systemic bias:** Can be present in AI datasets, organizational norms, practices, and processes across the AI lifecycle, and the broader society that uses AI systems [Page 23].\n2.  **Computational and statistical bias:** Can be present in AI datasets and algorithmic processes, often stemming from systematic errors due to non-representative samples [Page 23].\n3.  **Human-cognitive bias:** Relates to how individuals or groups perceive AI system information to make decisions, fill in missing information, or think about the purposes and functions of an AI system [Page 23].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 23
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 23
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 29
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 45
+        }
+      ],
+      "retrieval_latency_seconds": 0.077,
+      "generation_latency_seconds": 6.863,
+      "error": null
+    },
+    {
+      "id": "A09",
+      "type": "unsupported_claim_abstention",
+      "question": "What exact percentage reduction in AI risk does NIST guarantee when an organization implements the AI RMF?",
+      "expected_answer_points": [
+        "The document does not provide or guarantee an exact percentage reduction.",
+        "NIST says evaluations of AI RMF effectiveness, including ways to measure bottom-line improvements in trustworthiness, are part of future activities.",
+        "Organizations are encouraged to periodically evaluate whether the framework improves their ability to manage AI risks."
+      ],
+      "expected_citation_pages_pdf": [
+        23
+      ],
+      "abstention_expected": true,
+      "answer": "The provided documents do not state that NIST guarantees any specific percentage reduction in AI risk when an organization implements the AI RMF. \n\nInstead, the framework notes that evaluations of its effectiveness—including ways to measure improvements in the trustworthiness of AI systems—are part of future NIST activities to be conducted in conjunction with the AI community [Page 24]. Organizations are encouraged to periodically evaluate for themselves whether the AI RMF has improved their ability to manage AI risks [Page 24].",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 47
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 26
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 37
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 24
+        }
+      ],
+      "retrieval_latency_seconds": 0.071,
+      "generation_latency_seconds": 12.569,
+      "error": null
+    },
+    {
+      "id": "A10",
+      "type": "unsupported_fact_abstention",
+      "question": "According to NIST AI RMF 1.0, how many dollars did organizations collectively save in 2022 by implementing the framework?",
+      "expected_answer_points": [
+        "The provided document does not state a total dollar amount of organizational savings for 2022.",
+        "The answer should clearly acknowledge that the source does not provide this figure.",
+        "Do not invent a dollar amount or imply that NIST reported such a measurement."
+      ],
+      "expected_citation_pages_pdf": [],
+      "abstention_expected": true,
+      "answer": "The provided context does not contain information regarding the amount of money organizations saved by implementing the NIST AI RMF in 2022. Therefore, I cannot answer this question.",
+      "retrieved_sources": [
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 26
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 47
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 3
+        },
+        {
+          "source": "data/documents/nist_ai_rmf_1.0.pdf",
+          "page": 38
+        }
+      ],
+      "retrieval_latency_seconds": 0.079,
+      "generation_latency_seconds": 7.06,
+      "error": null
+    }
+  ]
+}

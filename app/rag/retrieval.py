@@ -1,10 +1,12 @@
 from dotenv import load_dotenv
 from langchain_huggingface import HuggingFaceEmbeddings
 from langchain_chroma import Chroma
+from functools import lru_cache
 load_dotenv()
 
 CHROMA_PATH = "chroma_db"
 
+@lru_cache(maxsize=1)
 def get_retriever():
 
     embedding_model = HuggingFaceEmbeddings(

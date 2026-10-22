@@ -15,10 +15,9 @@ def create_vector_store():
     loader = PyPDFLoader(PDF_PATH)
     documents = loader.load()
     for doc in documents:
-        pdf_page = doc.metadata["page"]
+        pdf_page = doc.metadata["page"] + 1
 
         doc.metadata["pdf_page"] = pdf_page
-        doc.metadata["book_page"] = pdf_page
 
     print(f"Loaded {len(documents)} pages")
 

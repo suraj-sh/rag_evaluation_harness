@@ -58,6 +58,7 @@ The project supports both conventional vector-based retrieval and hybrid retriev
 - FastAPI
 - LangChain
 - Hugging Face Sentence Transformers
+- Google Gemini (answer generation)
 - Chroma
 - BM25 (`rank-bm25`)
 - PyPDF
@@ -100,7 +101,7 @@ The evaluator reports each metric as both a count and a percentage.
 
 For example, a Hit@4 score of 80% means that at least one relevant page was retrieved within the top four results for 24 out of 30 questions.
 
-**Scope:** These metrics evaluate retrieval performance, not the correctness or faithfulness of a generated answer. Answer-level evaluation has not yet been implemented.
+**Scope:** Hit@K metrics evaluate retrieval performance, not generated-answer correctness or faithfulness. The project now also includes a separate, preliminary 10-question answer-evaluation dataset to inspect expected answer points, cited PDF pages, and abstention behavior. Citation overlap and abstention signals are partly heuristic and require manual verification; they should not be interpreted as a comprehensive answer-correctness score.
 
 ## Chunking and Retrieval Experiments
 
@@ -172,6 +173,27 @@ Latency was measured across 30 evaluation questions. The first query was treated
 The cold-start measurements from the two evaluators are not directly comparable because their timers start at different stages. The hybrid evaluator includes lazy component initialization in its first timed query, whereas the dense-only evaluator initializes its retriever before timing individual queries.
 
 The results indicate that hybrid retrieval substantially improved Hit@K scores while average warm-query latency remained nearly unchanged. These findings are preliminary and specific to the current dataset, configuration, and test environment.
+
+
+## Answer-Level Evaluation
+
+In addition to retrieval benchmarking, the project includes a separate 10-question dataset for preliminary evaluation of generated answers using the NIST AI RMF 1.0.
+
+Each evaluation question defines expected answer points, expected physical PDF citation pages where applicable, and whether the system should abstain when the source does not support a requested claim.
+
+The evaluation workflow:
+
+- Generates answers using the configured language model.
+- Records the generated answer and cited PDF pages.
+- Checks answer content against predefined expected points.
+- Measures citation-page overlap against expected pages.
+- Uses heuristic signals to inspect expected abstention behavior.
+- Saves the results as JSON for inspection and reproducibility.
+
+The current answer-evaluation run completed all 10 questions using Gemini 3.1 Flash Lite. The report is stored in `experiments/answer_evaluation_20261022_154244.json`.
+
+**Limitations:** This is an initial evaluation harness, not a validated answer-quality benchmark. Citation overlap does not establish that a citation supports a claim, and heuristic abstention detection does not establish factual correctness or groundedness. Manual review remains necessary.
+
 
 ## Historical Results: Initial 10-Question Benchmark
 
@@ -280,6 +302,7 @@ rag_evaluation_harness/
 ├── app/
 │   ├── main.py
 │   └── rag/
+│       ├── generation.py
 │       ├── ingestion.py
 │       ├── retrieval.py
 │       └── hybrid_retrieval.py
@@ -289,12 +312,18 @@ rag_evaluation_harness/
 │       └── nist_ai_rmf_1.0.pdf
 │
 ├── evaluation/
-│   ├── questions.json
-│   ├── evaluator.py
-│   └── hybrid_evaluator.py
+│    ├── questions.json
+│    ├── evaluator.py
+│    ├── hybrid_evaluator.py
+│    ├── answer_questions.json
+│    ├── answer_evaluator.py
+│    └── score_answers.py
 │
 ├── experiments/
 │   └── benchmark result JSON files
+│
+├── scripts/
+│   └── fix_page_metadata.py
 │
 ├── tests/
 ├── .env
@@ -365,6 +394,18 @@ The `--output` argument saves detailed evaluation results to a JSON file for lat
 
 Switching between Similarity, MMR, and hybrid retrieval does not require rebuilding the vector database when the stored chunks and embeddings remain unchanged.
 
+### 4. Run Answer-Level Evaluation
+
+```bash
+python -m evaluation.answer_evaluator
+```
+
+### 5. Score an Existing Answer-Evaluation Report
+
+```bash
+python -m evaluation.score_answers
+```
+
 ## Implementation Status
 
 - [x] Build the retrieval evaluation harness
@@ -378,7 +419,10 @@ Switching between Similarity, MMR, and hybrid retrieval does not require rebuild
 - [x] Compare hybrid retrieval against baseline retrieval
 - [x] Save experiment results as JSON
 - [x] Measure retrieval latency
-- [ ] Evaluate answer correctness and groundedness
+- [x] Implement preliminary answer-level evaluation for a separate 10-question dataset
+- [x] Check expected answer points, citation-page overlap, and abstention signals
+- [ ] Improve automated answer-correctness and groundedness scoring
+- [ ] Manually validate answer-evaluation results
 - [ ] Add reranking
 - [ ] Add automated evaluation to CI/CD
 - [ ] Introduce retrieval-quality regression thresholds
@@ -388,7 +432,9 @@ Switching between Similarity, MMR, and hybrid retrieval does not require rebuild
 
 Potential next steps include:
 
-- Adding reference answers to evaluate answer correctness
+- Strengthening reference-answer criteria and automated answer-correctness evaluation
+- Improving groundedness checks to verify that citations support generated claims
+- Adding robust evaluation metrics beyond heuristic citation overlap and abstention signals
 - Measuring whether generated answers are grounded in retrieved context
 - Recording retrieval latency across configurations
 - Testing alternative embedding models
