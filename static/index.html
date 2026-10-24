@@ -1,0 +1,87 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <title>RAG Evaluation Harness</title>
+</head>
+<body>
+    <header>
+        <h1>RAG Evaluation Harness</h1>
+        <p>Ask questions about the NIST AI Risk Management Framework.</p>
+        <p class="document-link">
+            Source document:
+            <a href="https://nvlpubs.nist.gov/nistpubs/ai/NIST.AI.100-1.pdf" target="_blank" rel="noopener noreferrer">
+                View the original NIST AI RMF 1.0 PDF
+                <span aria-hidden="true">↗</span>
+            </a>
+        </p>
+    </header>
+
+    <main>
+        <form id="question-form">
+            <label for="question">Your question</label>
+            <textarea
+                id="question"
+                name="question"
+                rows="4"
+                maxlength="2000"
+                placeholder="Ask a question about the document..."
+                required
+            ></textarea>
+            <button type="submit" id="submit-button">Ask question</button>
+            <button type="button" id="clear-button">Clear</button>
+        </form>
+
+        <section id="example-questions">
+            <h2>Not sure what to ask?</h2>
+            <p>Try one of these questions about the NIST AI Risk Management Framework.</p>
+
+            <div class="suggestion-list">
+                <button type="button" class="suggestion-button"
+                        data-question="What are the seven characteristics of trustworthy AI?">
+                    What makes AI trustworthy?
+                </button>
+
+                <button type="button" class="suggestion-button"
+                        data-question="What are the four functions of the NIST AI RMF?">
+                    What are the four functions of the AI RMF?
+                </button>
+
+                <button type="button" class="suggestion-button"
+                        data-question="What does the GOVERN function do?">
+                    Explain the GOVERN function
+                </button>
+
+                <button type="button" class="suggestion-button"
+                        data-question="Does the NIST AI RMF guarantee a specific percentage of AI risk reduction?">
+                    Does the framework guarantee risk reduction?
+                </button>
+            </div>
+        </section>
+
+        <div id="status-container" role="status" aria-live="polite">
+            <span id="loading-spinner" hidden aria-hidden="true"></span>
+            <p id="status"></p>
+        </div>
+
+        <section id="answer-section" hidden>
+            <h2>Answer</h2>
+            <div id="answer"></div>
+            <h2>Pages cited in answer</h2>
+            <ul id="citations"></ul>
+            <h2>Retrieved document passages</h2>
+            <ul id="sources"></ul>
+            <h2>Performance</h2>
+            <ul id="timings">
+                <li>Retrieval: —</li>
+                <li>Generation: —</li>
+                <li>Total: —</li>
+            </ul>
+        </section>
+    </main>
+
+    <script src="/static/app.js"></script>
+</body>
+</html>

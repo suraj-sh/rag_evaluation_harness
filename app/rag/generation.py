@@ -62,7 +62,15 @@ Answer:
         max_retries=2
     )
 
-    response = llm.invoke(prompt)
+    try:
+        response = llm.invoke(prompt)
+    except Exception as exc:
+        print(f"Gemini generation failed: {type(exc).__name__}: {exc}")
+        raise RuntimeError(
+            "The AI service is temporarily unavailable. "
+            "Please wait a moment and try again."
+        ) from exc
+
     content = response.content
 
     if isinstance(content, str):
