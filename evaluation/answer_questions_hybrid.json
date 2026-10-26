@@ -1,0 +1,167 @@
+{
+  "dataset_name": "NIST AI RMF 1.0 answer evaluation",
+  "version": "1.0",
+  "source_document": "NIST AI 100-1, Artificial Intelligence Risk Management Framework (AI RMF 1.0), January 2023",
+  "page_numbering": "citation_pages_pdf uses the zero-based PDF page metadata value used by PyPDFLoader and intended to match this project’s page labels (physical PDF page number = value + 1).",
+  "evaluation_guidance": [
+    "Evaluate answer content against expected_answer_points; wording need not match exactly.",
+    "A claim should be supported by retrieved context from the source document.",
+    "Check that each page citation actually supports the claim it accompanies.",
+    "For abstention cases, a good answer explicitly says the document does not establish the requested fact and does not invent a number or guarantee."
+  ],
+  "questions": [
+    {
+      "id": "A01",
+      "type": "factual",
+      "question": "What are the four functions of the NIST AI RMF Core, and what is the Core intended to provide?",
+      "expected_answer_points": [
+        "The four functions are GOVERN, MAP, MEASURE, and MANAGE.",
+        "The Core provides outcomes and actions that enable dialogue, understanding, and activities to manage AI risks."
+      ],
+      "citation_pages_pdf": [
+        24
+      ],
+      "abstention_expected": false
+    },
+    {
+      "id": "A02",
+      "type": "multi_fact",
+      "question": "Why is GOVERN considered a cross-cutting function, and how does it relate to the other three functions?",
+      "expected_answer_points": [
+        "GOVERN is infused throughout AI risk management.",
+        "It enables or informs MAP, MEASURE, and MANAGE rather than being a one-time step.",
+        "Governance informs and is infused throughout the other three functions."
+      ],
+      "citation_pages_pdf": [
+        25,
+        26,
+        27
+      ],
+      "abstention_expected": false
+    },
+    {
+      "id": "A03",
+      "type": "context_identification",
+      "question": "When identifying an AI system's intended purpose and context, what information should be considered?",
+      "retrieval_query": "MAP 1.1 and MAP 5.1: intended purposes and potentially beneficial uses; context-specific laws, norms, expectations, deployment settings, users and their expectations; assumptions, limitations, and risks across the AI lifecycle; potential positive and harmful impacts and their likelihood and magnitude; known and foreseeable negative impacts related to intended use; risks of AI systems used beyond their intended use; and which of these considerations must be understood, identified, and documented.",
+      "expected_answer_points": [
+        "Intended purposes and potentially beneficial uses.",
+        "Potentially harmful uses and impacts.",
+        "Relevant context and assumptions about the system's use.",
+        "Relevant information should be documented where applicable; do not replace these points with generic AI advice."
+      ],
+      "citation_pages_pdf": [
+        30
+      ],
+      "abstention_expected": false
+    },
+    {
+      "id": "A04",
+      "type": "multi_fact",
+      "question": "What kinds of methods can the MEASURE function use to analyze and assess AI risks?",
+      "retrieval_query": "NIST AI RMF MEASURE function: quantitative, qualitative, or mixed methods for assessing AI risks and trustworthiness characteristics; choose appropriate measurement methods based on the context of use and the specific risk or trustworthiness characteristic being assessed; qualitative assessment when risks cannot be measured numerically; uncertainty, benchmarks, and limitations of measurement.",
+      "expected_answer_points": [
+        "Quantitative, qualitative, or mixed-method approaches may be used.",
+        "Methods should be appropriate to the context and the risk or trustworthiness characteristic being assessed.",
+        "The answer should not imply that every risk must be measured only numerically."
+      ],
+      "citation_pages_pdf": [
+        33,
+        34
+      ],
+      "abstention_expected": false
+    },
+    {
+      "id": "A05",
+      "type": "process",
+      "question": "What does the MANAGE function do with risks identified through MAP and MEASURE?",
+      "expected_answer_points": [
+        "Prioritizes risks based on assessed impact, likelihood, or organizational context as supported by the framework.",
+        "Allocates and implements responses to address, limit, or otherwise manage prioritized risks.",
+        "Considers risk treatment, response and recovery, and communication planning."
+      ],
+      "citation_pages_pdf": [
+        36,
+        37
+      ],
+      "abstention_expected": false
+    },
+    {
+      "id": "A06",
+      "type": "factual_list",
+      "question": "Which characteristics does NIST identify as contributing to trustworthy AI systems?",
+      "expected_answer_points": [
+        "Valid and reliable.",
+        "Safe.",
+        "Secure and resilient.",
+        "Accountable and transparent.",
+        "Explainable and interpretable.",
+        "Privacy-enhanced.",
+        "Fair, with harmful bias managed.",
+        "The characteristics need to be balanced in the system's context of use."
+      ],
+      "citation_pages_pdf": [
+        16,
+        17
+      ],
+      "abstention_expected": false
+    },
+    {
+      "id": "A07",
+      "type": "definition",
+      "question": "What does risk tolerance mean in the AI RMF, and what can influence it?",
+      "expected_answer_points": [
+        "Risk tolerance is an organization's or AI actor's readiness to bear risk to achieve objectives.",
+        "It can be influenced by legal or regulatory requirements.",
+        "It is contextual and use-case-specific, and can reflect policies and norms as well as organizational priorities and resources.",
+        "It can change over time as AI systems, policies, and norms evolve."
+      ],
+      "citation_pages_pdf": [
+        11
+      ],
+      "abstention_expected": false
+    },
+    {
+      "id": "A08",
+      "type": "factual_list",
+      "question": "What three major categories of AI bias does NIST identify?",
+      "expected_answer_points": [
+        "Systemic bias.",
+        "Computational and statistical bias.",
+        "Human-cognitive bias.",
+        "These can occur even without prejudice, partiality, or discriminatory intent."
+      ],
+      "citation_pages_pdf": [
+        22
+      ],
+      "abstention_expected": false
+    },
+    {
+      "id": "A09",
+      "type": "unsupported_claim_abstention",
+      "question": "What exact percentage reduction in AI risk does NIST guarantee when an organization implements the AI RMF?",
+      "expected_answer_points": [
+        "The document does not provide or guarantee an exact percentage reduction.",
+        "NIST says evaluations of AI RMF effectiveness, including ways to measure bottom-line improvements in trustworthiness, are part of future activities.",
+        "Organizations are encouraged to periodically evaluate whether the framework improves their ability to manage AI risks."
+      ],
+      "citation_pages_pdf": [
+        23
+      ],
+      "abstention_expected": true,
+      "retrieval_query": "NIST AI RMF 1.0 section 4 Effectiveness of the AI RMF: evaluations of AI RMF effectiveness are future NIST activities; ways to measure bottom-line improvements in AI system trustworthiness; organizations are encouraged to periodically evaluate whether the AI RMF has improved their ability to manage AI risks; does NIST guarantee a specific percentage reduction in AI risk?"
+    },
+    {
+      "id": "A10",
+      "type": "unsupported_fact_abstention",
+      "question": "According to NIST AI RMF 1.0, how many dollars did organizations collectively save in 2022 by implementing the framework?",
+      "expected_answer_points": [
+        "The provided document does not state a total dollar amount of organizational savings for 2022.",
+        "The answer should clearly acknowledge that the source does not provide this figure.",
+        "Do not invent a dollar amount or imply that NIST reported such a measurement."
+      ],
+      "citation_pages_pdf": [],
+      "abstention_expected": true
+    }
+  ]
+}

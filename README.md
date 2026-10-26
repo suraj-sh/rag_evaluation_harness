@@ -142,7 +142,21 @@ The hybrid experiment used equal-weight Reciprocal Rank Fusion, `fetch_k=10`, an
 
 No retrieval configuration should be considered universally optimal based on these results. The findings are specific to the current document, question set, embedding model, retrieval parameters, and evaluation methodology.
 
-The hybrid result is the strongest measured configuration in the experiments completed so far. It does not establish that hybrid retrieval will outperform other strategies on different datasets.
+The equal-weight hybrid configuration was the strongest performer in the original chunking and retrieval comparison. Subsequent experiments evaluated additional retrieval configurations, including query-enhanced retrieval, which achieved stronger measured Hit@K scores. These later experiments are reported separately below.
+
+### Later Retrieval Experiments
+
+After the original chunking benchmark, additional experiments evaluated alternative retrieval configurations using the 30-question retrieval benchmark.
+
+| Retrieval configuration | Hit@1 | Hit@2 | Hit@4 |
+|---|---:|---:|---:|
+| Dense-only baseline | 40.00% | 60.00% | 83.33% |
+| Hybrid, equal-weight RRF | 63.33% | 86.67% | 93.33% |
+| Query-enhanced retrieval | **73.33%** | **96.67%** | **96.67%** |
+
+Query-enhanced retrieval achieved the strongest recorded Hit@K results among these experiments. These results are specific to the current document, benchmark questions, and tested configurations; they do not establish performance on other datasets.
+
+These experiments represent a later stage of evaluation than the original chunking comparison. Comparisons should be interpreted in the context of the retrieval configuration and evaluation methodology used.
 
 ### Latency Comparison
 
@@ -190,9 +204,11 @@ The evaluation workflow:
 - Uses heuristic signals to inspect expected abstention behavior.
 - Saves the results as JSON for inspection and reproducibility.
 
-The current answer-evaluation run completed all 10 questions using Gemini 3.1 Flash Lite. The report is stored in `experiments/answer_evaluation_20261022_154244.json`.
+The project saves answer-evaluation runs as JSON reports in `experiments/`. Multiple reports are retained to support comparison and reproducibility. The scoring utility can select a specific saved report, allowing an earlier run to be evaluated independently of the most recently generated report.
 
 **Limitations:** This is an initial evaluation harness, not a validated answer-quality benchmark. Citation overlap does not establish that a citation supports a claim, and heuristic abstention detection does not establish factual correctness or groundedness. Manual review remains necessary.
+
+Expected citation pages use zero-based PDF page indices in the evaluation data, while displayed citations such as `[Page 25]` use one-based numbering. The scoring utility converts citation numbers before comparing them with expected indices. PDF viewer page labels may differ from physical PDF page indices, so citation results should be checked against the source document.
 
 
 ## Historical Results: Initial 10-Question Benchmark
@@ -298,38 +314,51 @@ This describes the best measured hybrid experiment, not a universally optimal co
 
 ```text
 rag_evaluation_harness/
-│
 ├── app/
 │   ├── main.py
 │   └── rag/
 │       ├── generation.py
+│       ├── hybrid_retrieval.py
 │       ├── ingestion.py
-│       ├── retrieval.py
-│       └── hybrid_retrieval.py
+│       └── retrieval.py
 │
 ├── data/
 │   └── documents/
 │       └── nist_ai_rmf_1.0.pdf
 │
 ├── evaluation/
-│    ├── questions.json
-│    ├── evaluator.py
-│    ├── hybrid_evaluator.py
-│    ├── answer_questions.json
-│    ├── answer_evaluator.py
-│    └── score_answers.py
+│   ├── answer_evaluator.py
+│   ├── answer_questions_hybrid.json
+│   ├── answer_review.json
+│   ├── dense_evaluator.py
+│   ├── answer_questions.json
+│   ├── evaluator.py
+│   ├── hybrid_evaluator_candidates.py
+│   ├── hybrid_evaluator.py
+│   ├── map_query_evaluator.py
+│   ├── mmr_evaluator.py
+│   ├── questions_query_enhanced.json
+│   ├── questions.json
+│   └── score_answers.py
 │
 ├── experiments/
-│   └── benchmark result JSON files
+│   └── benchmark and answer-evaluation JSON reports
 │
 ├── scripts/
 │   └── fix_page_metadata.py
 │
+├── static/
+│   ├── app.js
+│   ├── index.html
+│   └── style.css
+│
 ├── tests/
+│   └── test_citation_parser.py
+│
 ├── .env
 ├── .gitignore
-├── requirements.txt
-└── README.md
+├── README.md
+└── requirements.txt
 ```
 
 The `.env` file is for local configuration and should not be committed to version control.
@@ -405,6 +434,23 @@ python -m evaluation.answer_evaluator
 ```bash
 python -m evaluation.score_answers
 ```
+## Testing
+
+Run the unit tests from the project root with the virtual environment activated:
+
+```powershell
+python -m unittest discover -s tests -v
+```
+
+The current tests cover citation-page parsing, including single-page citations, multiple pages, page ranges, duplicate citations, missing citations, and reverse ranges.
+
+Check for whitespace errors before committing:
+
+```powershell
+git diff --check
+```
+
+These checks validate citation parsing and patch formatting; they do not independently validate retrieval quality or generated-answer correctness.
 
 ## Implementation Status
 
@@ -421,6 +467,8 @@ python -m evaluation.score_answers
 - [x] Measure retrieval latency
 - [x] Implement preliminary answer-level evaluation for a separate 10-question dataset
 - [x] Check expected answer points, citation-page overlap, and abstention signals
+- [x] Add unit tests for citation-page parsing
+- [x] Support scoring a specific saved answer-evaluation report
 - [ ] Improve automated answer-correctness and groundedness scoring
 - [ ] Manually validate answer-evaluation results
 - [ ] Add reranking

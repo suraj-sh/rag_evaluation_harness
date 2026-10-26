@@ -1,0 +1,242 @@
+{
+  "dataset": "answer_questions.json",
+  "review_method": "manual",
+  "review_status": "pending",
+  "results": [
+    {
+      "id": "A01",
+      "answer_points": [
+        {
+          "point": "The four functions are GOVERN, MAP, MEASURE, and MANAGE.",
+          "status": "pass",
+          "notes": "Correctly lists all four functions; supported by PDF page 25."
+        },
+        {
+          "point": "The Core provides outcomes and actions that enable dialogue, understanding, and activities to manage AI risks.",
+          "status": "pass",
+          "notes": "Accurately describes the Core's intended purpose; supported by PDF page 25."
+        }
+      ]
+    },
+    {
+      "id": "A02",
+      "answer_points": [
+        {
+          "point": "GOVERN is infused throughout AI risk management.",
+          "status": "pass",
+          "notes": "The answer explicitly states this and cites page 27."
+        },
+        {
+          "point": "It enables or informs MAP, MEASURE, and MANAGE rather than being a one-time step.",
+          "status": "pass",
+          "notes": "The answer explains enabling, informing, and integration across the other functions."
+        },
+        {
+          "point": "Governance informs and is infused throughout the other three functions.",
+          "status": "pass",
+          "notes": "The answer explicitly describes governance as cross-cutting and cites page 27."
+        }
+      ]
+    },
+    {
+      "id": "A03",
+      "answer_points": [
+        {
+          "point": "Intended purposes and potentially beneficial uses.",
+          "status": "pass",
+          "notes": "The latest answer explicitly identifies intended purposes and potentially beneficial uses. Supported by MAP 1.1 on PDF page 31."
+        },
+        {
+          "point": "Potentially harmful uses and impacts.",
+          "status": "pass",
+          "notes": "The latest answer identifies positive and negative impacts on individuals, communities, organizations, society, and the planet. It also mentions foreseeable negative impacts and risks beyond intended use. Supported by the retrieved MAP discussion on PDF pages 30-31."
+        },
+        {
+          "point": "Relevant context and assumptions about the system's use.",
+          "status": "pass",
+          "notes": "The latest answer explicitly covers context-specific laws, norms, expectations, deployment settings, users, assumptions, and limitations."
+        },
+        {
+          "point": "Relevant information should be documented where applicable; do not replace these points with generic AI advice.",
+          "status": "pass",
+          "notes": "The latest answer explicitly states that the listed information categories should be considered and documented, then identifies the relevant categories from MAP 1.1 and related subcategories."
+        }
+      ]
+    },
+    {
+      "id": "A04",
+      "answer_points": [
+        {
+          "point": "Quantitative, qualitative, or mixed-method approaches may be used.",
+          "status": "pass",
+          "notes": "Explicitly lists quantitative, qualitative, and mixed-method approaches."
+        },
+        {
+          "point": "Methods should be appropriate to the context and the risk or trustworthiness characteristic being assessed.",
+          "status": "pass",
+          "notes": "Explicitly states that methods and metrics should fit the context of use and the specific risk or trustworthiness characteristic."
+        },
+        {
+          "point": "The answer should not imply that every risk must be measured only numerically.",
+          "status": "pass",
+          "notes": "Includes qualitative and mixed methods and documents risks or characteristics that cannot be measured; does not require every risk to be quantified."
+        }
+      ]
+    },
+    {
+      "id": "A05",
+      "answer_points": [
+        {
+          "point": "Prioritizes risks based on assessed impact, likelihood, or organizational context as supported by the framework.",
+          "status": "pass",
+          "notes": "Explicitly states that documented risks are prioritized based on impact, likelihood, and available resources or methods."
+        },
+        {
+          "point": "Allocates and implements responses to address, limit, or otherwise manage prioritized risks.",
+          "status": "pass",
+          "notes": "Covers developing, planning, documenting, and implementing risk responses, with mitigation, transfer, avoidance, and acceptance as response options."
+        },
+        {
+          "point": "Considers risk treatment, response and recovery, and communication planning.",
+          "status": "pass",
+          "notes": "Explicitly considers resources required to manage risks and viable non-AI alternatives."
+        }
+      ]
+    },
+    {
+      "id": "A06",
+      "answer_points": [
+        {
+          "point": "Valid and reliable.",
+          "status": "pass",
+          "notes": "Explicitly listed."
+        },
+        {
+          "point": "Safe.",
+          "status": "pass",
+          "notes": "Explicitly listed."
+        },
+        {
+          "point": "Secure and resilient.",
+          "status": "pass",
+          "notes": "Explicitly listed."
+        },
+        {
+          "point": "Accountable and transparent.",
+          "status": "pass",
+          "notes": "Explicitly listed."
+        },
+        {
+          "point": "Explainable and interpretable.",
+          "status": "pass",
+          "notes": "Explicitly listed."
+        },
+        {
+          "point": "Privacy-enhanced.",
+          "status": "pass",
+          "notes": "Explicitly listed."
+        },
+        {
+          "point": "Fair, with harmful bias managed.",
+          "status": "pass",
+          "notes": "Explicitly listed."
+        },
+        {
+          "point": "The characteristics need to be balanced in the system's context of use.",
+          "status": "pass",
+          "notes": "States that characteristics should be balanced based on context of use."
+        }
+      ]
+    },
+    {
+      "id": "A07",
+      "answer_points": [
+        {
+          "point": "Risk tolerance is an organization's or AI actor's readiness to bear risk to achieve objectives.",
+          "status": "pass",
+          "notes": "Accurately defines risk tolerance."
+        },
+        {
+          "point": "It can be influenced by legal or regulatory requirements.",
+          "status": "pass",
+          "notes": "Explicitly covers legal and regulatory requirements."
+        },
+        {
+          "point": "It is contextual and use-case-specific, and can reflect policies and norms as well as organizational priorities and resources.",
+          "status": "pass",
+          "notes": "Covers context, use case, policies, norms, priorities, and resources."
+        },
+        {
+          "point": "It can change over time as AI systems, policies, and norms evolve.",
+          "status": "pass",
+          "notes": "Explicitly states risk tolerances can change as AI systems, policies, and norms evolve."
+        }
+      ]
+    },
+    {
+      "id": "A08",
+      "answer_points": [
+        {
+          "point": "Systemic bias.",
+          "status": "pass",
+          "notes": "Correctly names systemic bias."
+        },
+        {
+          "point": "Computational and statistical bias.",
+          "status": "pass",
+          "notes": "Correctly names computational and statistical bias."
+        },
+        {
+          "point": "Human-cognitive bias.",
+          "status": "pass",
+          "notes": "Correctly names human-cognitive bias."
+        },
+        {
+          "point": "These can occur even without prejudice, partiality, or discriminatory intent.",
+          "status": "pass",
+          "notes": "The latest answer explicitly states that all three bias categories can occur in the absence of prejudice, partiality, or discriminatory intent. It cites PDF page 23."
+        }
+      ]
+    },
+    {
+      "id": "A09",
+      "answer_points": [
+        {
+          "point": "The document does not provide or guarantee an exact percentage reduction.",
+          "status": "pass",
+          "notes": "Clearly rejects the premise that NIST guarantees a specific percentage reduction."
+        },
+        {
+          "point": "NIST says evaluations of AI RMF effectiveness, including ways to measure bottom-line improvements in trustworthiness, are part of future activities.",
+          "status": "pass",
+          "notes": "Accurately describes effectiveness evaluation as future NIST activity."
+        },
+        {
+          "point": "Organizations are encouraged to periodically evaluate whether the framework improves their ability to manage AI risks.",
+          "status": "pass",
+          "notes": "Explicitly states that organizations should periodically evaluate whether the framework improves risk management."
+        }
+      ]
+    },
+    {
+      "id": "A10",
+      "answer_points": [
+        {
+          "point": "The provided document does not state a total dollar amount of organizational savings for 2022.",
+          "status": "pass",
+          "notes": "Clearly states that the provided documents do not contain the requested savings amount."
+        },
+        {
+          "point": "The answer should clearly acknowledge that the source does not provide this figure.",
+          "status": "pass",
+          "notes": "Explicitly acknowledges that the information is not available in the provided context."
+        },
+        {
+          "point": "Do not invent a dollar amount or imply that NIST reported such a measurement.",
+          "status": "pass",
+          "notes": "Does not invent a number or claim NIST reported a savings measurement."
+        }
+      ]
+    }
+  ]
+}

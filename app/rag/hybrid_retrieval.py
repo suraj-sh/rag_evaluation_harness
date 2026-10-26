@@ -94,11 +94,30 @@ def reciprocal_rank_fusion(
     return [result_docs[doc_id] for doc_id in ranked_ids]
 
 
-def retrieve_hybrid(query, top_k=4, fetch_k=10):
+def retrieve_hybrid(query, top_k=4, fetch_k=10, dense_weight=1.0, bm25_weight=1.0,):
     (vectorstore, bm25, documents, metadatas, ids) = get_cached_hybrid_retriever()
 
-    # Dense semantic search.
-    dense_docs = vectorstore.similarity_search(query, k=fetch_k)
+   # Dense semantic search with original Chroma IDs.
+    query_embedding = vectorstore._embedding_function.embed_query(query)
+
+    dense_results = vectorstore._collection.query(
+        query_embeddings=[query_embedding],
+        n_results=fetch_k,
+        include=["documents", "metadatas"],
+    )
+
+    dense_docs = []
+
+    for i, doc_id in enumerate(dense_results["ids"][0]):
+        dense_docs.append(
+            Document(
+                page_content=dense_results["documents"][0][i],
+                metadata={
+                    **(dense_results["metadatas"][0][i] or {}),
+                    "_id": doc_id,
+                },
+            )
+        )
 
     # Sparse keyword search.
     query_tokens = tokenize(query)
@@ -117,31 +136,12 @@ def retrieve_hybrid(query, top_k=4, fetch_k=10):
         for i in bm25_indices
     ]
 
-    # Attach Chroma IDs to dense results.
-    dense_docs_with_ids = []
-    for doc in dense_docs:
-        doc_id = next(
-            (
-                ids[i]
-                for i in range(len(documents))
-                if documents[i] == doc.page_content
-                and metadatas[i] == {
-                    key: value
-                    for key, value in doc.metadata.items()
-                    if key != "_id"
-                }
-            ),
-            None,
-        )
-        if doc_id is not None:
-            doc.metadata["_id"] = doc_id
-            dense_docs_with_ids.append(doc)
 
     fused_docs = reciprocal_rank_fusion(
-        dense_docs_with_ids,
+        dense_docs,
         bm25_docs,
-        dense_weight=1.0,
-        bm25_weight=1.0
+        dense_weight=dense_weight,
+        bm25_weight=bm25_weight,
     )
 
     return fused_docs[:top_k]

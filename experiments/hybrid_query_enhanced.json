@@ -1,0 +1,545 @@
+[
+    {
+        "id": 1,
+        "question": "What is the purpose of the AI RMF Core?",
+        "retrieval_query": "What is the purpose of the AI RMF Core?",
+        "relevant_pages": [
+            24
+        ],
+        "retrieved_pages": [
+            24,
+            37,
+            2,
+            15
+        ],
+        "latency_ms": 18311.78,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 2,
+        "question": "What are the four functions of the NIST AI RMF Core?",
+        "retrieval_query": "What are the four functions of the NIST AI RMF Core?",
+        "relevant_pages": [
+            24
+        ],
+        "retrieved_pages": [
+            24,
+            25,
+            37,
+            36
+        ],
+        "latency_ms": 78.75,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 3,
+        "question": "What is the purpose of the Govern function in the AI RMF?",
+        "retrieval_query": "What is the purpose of the Govern function in the AI RMF?",
+        "relevant_pages": [
+            26
+        ],
+        "retrieved_pages": [
+            26,
+            26,
+            25,
+            24
+        ],
+        "latency_ms": 74.58,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 4,
+        "question": "Why is governance considered a cross-cutting function in the AI RMF?",
+        "retrieval_query": "Why is governance considered a cross-cutting function in the AI RMF?",
+        "relevant_pages": [
+            24,
+            26
+        ],
+        "retrieved_pages": [
+            26,
+            4,
+            25,
+            24
+        ],
+        "latency_ms": 79.28,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 5,
+        "question": "What is the purpose of the Map function in the AI RMF?",
+        "retrieval_query": "MAP function purpose: understand the context of AI systems, intended purposes, beneficial uses, potential negative impacts, limitations, risks, and whether deployment should proceed.",
+        "relevant_pages": [
+            29,
+            30
+        ],
+        "retrieved_pages": [
+            29,
+            30,
+            31,
+            32
+        ],
+        "latency_ms": 98.56,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 6,
+        "question": "What does the Measure function do in the AI RMF?",
+        "retrieval_query": "What does the Measure function do in the AI RMF?",
+        "relevant_pages": [
+            32,
+            33
+        ],
+        "retrieved_pages": [
+            24,
+            34,
+            25,
+            37
+        ],
+        "latency_ms": 83.56,
+        "hit_at_1": false,
+        "hit_at_2": false,
+        "hit_at_4": false
+    },
+    {
+        "id": 7,
+        "question": "What does the Manage function do in the AI RMF?",
+        "retrieval_query": "What does the Manage function do in the AI RMF?",
+        "relevant_pages": [
+            36
+        ],
+        "retrieved_pages": [
+            24,
+            36,
+            37,
+            25
+        ],
+        "latency_ms": 82.41,
+        "hit_at_1": false,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 8,
+        "question": "What are the characteristics of trustworthy AI identified by the AI RMF?",
+        "retrieval_query": "What are the characteristics of trustworthy AI identified by the AI RMF?",
+        "relevant_pages": [
+            16
+        ],
+        "retrieved_pages": [
+            16,
+            4,
+            6,
+            33
+        ],
+        "latency_ms": 84.84,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 9,
+        "question": "What is risk tolerance according to the AI RMF?",
+        "retrieval_query": "What is risk tolerance according to the AI RMF?",
+        "relevant_pages": [
+            11
+        ],
+        "retrieved_pages": [
+            11,
+            11,
+            37,
+            37
+        ],
+        "latency_ms": 82.9,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 10,
+        "question": "What are the three major categories of AI bias identified by NIST?",
+        "retrieval_query": "What are the three major categories of AI bias identified by NIST?",
+        "relevant_pages": [
+            22
+        ],
+        "retrieved_pages": [
+            22,
+            22,
+            33,
+            28
+        ],
+        "latency_ms": 69.18,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 11,
+        "question": "What does the MANAGE function address regarding response, recovery, and communication?",
+        "retrieval_query": "What does the MANAGE function address regarding response, recovery, and communication?",
+        "relevant_pages": [
+            37
+        ],
+        "retrieved_pages": [
+            37,
+            32,
+            36,
+            36
+        ],
+        "latency_ms": 62.88,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 12,
+        "question": "What factors can influence an organization's risk tolerance?",
+        "retrieval_query": "What factors can influence an organization's risk tolerance?",
+        "relevant_pages": [
+            11
+        ],
+        "retrieved_pages": [
+            11,
+            11,
+            26,
+            29
+        ],
+        "latency_ms": 65.24,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 13,
+        "question": "What should happen when an AI system presents unacceptable negative risk levels?",
+        "retrieval_query": "What should happen when an AI system presents unacceptable negative risk levels?",
+        "relevant_pages": [
+            12
+        ],
+        "retrieved_pages": [
+            12,
+            12,
+            8,
+            10
+        ],
+        "latency_ms": 67.27,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 14,
+        "question": "What organizational mechanisms are needed for AI risk management to be effective?",
+        "retrieval_query": "What organizational mechanisms are needed for AI risk management to be effective?",
+        "relevant_pages": [
+            13
+        ],
+        "retrieved_pages": [
+            26,
+            13,
+            11,
+            46
+        ],
+        "latency_ms": 78.16,
+        "hit_at_1": false,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 15,
+        "question": "What is the relationship between transparency, explainability, and interpretability?",
+        "retrieval_query": "What is the relationship between transparency, explainability, and interpretability?",
+        "relevant_pages": [
+            21
+        ],
+        "retrieved_pages": [
+            20,
+            21,
+            19,
+            16
+        ],
+        "latency_ms": 89.25,
+        "hit_at_1": false,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 16,
+        "question": "What is systemic bias according to the AI RMF?",
+        "retrieval_query": "What is systemic bias according to the AI RMF?",
+        "relevant_pages": [
+            22
+        ],
+        "retrieved_pages": [
+            22,
+            22,
+            44,
+            25
+        ],
+        "latency_ms": 104.15,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 17,
+        "question": "What is computational and statistical bias according to the AI RMF?",
+        "retrieval_query": "What is computational and statistical bias according to the AI RMF?",
+        "relevant_pages": [
+            22
+        ],
+        "retrieved_pages": [
+            22,
+            22,
+            42,
+            12
+        ],
+        "latency_ms": 96.16,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 18,
+        "question": "What is human-cognitive bias according to the AI RMF?",
+        "retrieval_query": "What is human-cognitive bias according to the AI RMF?",
+        "relevant_pages": [
+            22
+        ],
+        "retrieved_pages": [
+            22,
+            44,
+            22,
+            44
+        ],
+        "latency_ms": 189.99,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 19,
+        "question": "What does the AI RMF say about the relationship between the four Core functions?",
+        "retrieval_query": "What does the AI RMF say about the relationship between the four Core functions?",
+        "relevant_pages": [
+            24
+        ],
+        "retrieved_pages": [
+            24,
+            25,
+            7,
+            15
+        ],
+        "latency_ms": 84.71,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 20,
+        "question": "Are the actions in the AI RMF Core intended to be a checklist or an ordered set of steps?",
+        "retrieval_query": "Are the actions in the AI RMF Core intended to be a checklist or an ordered set of steps?",
+        "relevant_pages": [
+            24
+        ],
+        "retrieved_pages": [
+            24,
+            15,
+            42,
+            39
+        ],
+        "latency_ms": 94.54,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 21,
+        "question": "What is the purpose of the AI RMF Playbook?",
+        "retrieval_query": "What is the purpose of the AI RMF Playbook?",
+        "relevant_pages": [
+            25
+        ],
+        "retrieved_pages": [
+            25,
+            36,
+            39,
+            24
+        ],
+        "latency_ms": 65.08,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 22,
+        "question": "What does the GOVERN function enable within the AI risk management process?",
+        "retrieval_query": "What does the GOVERN function enable within the AI risk management process?",
+        "relevant_pages": [
+            26
+        ],
+        "retrieved_pages": [
+            25,
+            26,
+            26,
+            27
+        ],
+        "latency_ms": 67.87,
+        "hit_at_1": false,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 23,
+        "question": "What does the AI RMF recommend regarding ongoing monitoring and periodic review of the risk management process?",
+        "retrieval_query": "What does the AI RMF recommend regarding ongoing monitoring and periodic review of the risk management process?",
+        "relevant_pages": [
+            27
+        ],
+        "retrieved_pages": [
+            27,
+            26,
+            46,
+            25
+        ],
+        "latency_ms": 70.88,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 24,
+        "question": "What does the GOVERN function require regarding AI system inventories?",
+        "retrieval_query": "What does the GOVERN function require regarding AI system inventories?",
+        "relevant_pages": [
+            27
+        ],
+        "retrieved_pages": [
+            28,
+            27,
+            25,
+            26
+        ],
+        "latency_ms": 59.59,
+        "hit_at_1": false,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 25,
+        "question": "What does the MAP function provide for the MEASURE and MANAGE functions?",
+        "retrieval_query": "MAP function results and outputs: how the context established in MAP informs risk measurement, risk analysis, risk evaluation, and risk management decisions in the NIST AI Risk Management Framework.",
+        "relevant_pages": [
+            29
+        ],
+        "retrieved_pages": [
+            29,
+            32,
+            35,
+            25
+        ],
+        "latency_ms": 90.97,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 26,
+        "question": "What information should be considered when identifying the intended purpose and context of an AI system?",
+        "retrieval_query": "MAP 1.1 intended purpose and context: intended uses, potentially beneficial uses, laws, norms, expectations, deployment settings, users, positive and negative impacts, assumptions, limitations, and risks throughout the AI lifecycle.",
+        "relevant_pages": [
+            30
+        ],
+        "retrieved_pages": [
+            30,
+            29,
+            31,
+            45
+        ],
+        "latency_ms": 94.76,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 27,
+        "question": "What types of methods can the MEASURE function use to analyze and assess AI risks?",
+        "retrieval_query": "What types of methods can the MEASURE function use to analyze and assess AI risks?",
+        "relevant_pages": [
+            32
+        ],
+        "retrieved_pages": [
+            32,
+            32,
+            33,
+            34
+        ],
+        "latency_ms": 69.13,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 28,
+        "question": "How should approaches and metrics for measuring AI risks be selected?",
+        "retrieval_query": "How should approaches and metrics for measuring AI risks be selected?",
+        "relevant_pages": [
+            33
+        ],
+        "retrieved_pages": [
+            33,
+            10,
+            10,
+            9
+        ],
+        "latency_ms": 68.28,
+        "hit_at_1": true,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 29,
+        "question": "What should be documented when an AI risk or trustworthiness characteristic cannot be measured?",
+        "retrieval_query": "What should be documented when an AI risk or trustworthiness characteristic cannot be measured?",
+        "relevant_pages": [
+            33
+        ],
+        "retrieved_pages": [
+            9,
+            33,
+            17,
+            16
+        ],
+        "latency_ms": 70.04,
+        "hit_at_1": false,
+        "hit_at_2": true,
+        "hit_at_4": true
+    },
+    {
+        "id": 30,
+        "question": "What does the MANAGE function do with the risks identified through the MAP and MEASURE functions?",
+        "retrieval_query": "What does the MANAGE function do with the risks identified through the MAP and MEASURE functions?",
+        "relevant_pages": [
+            36
+        ],
+        "retrieved_pages": [
+            25,
+            36,
+            29,
+            25
+        ],
+        "latency_ms": 71.44,
+        "hit_at_1": false,
+        "hit_at_2": true,
+        "hit_at_4": true
+    }
+]
