@@ -87,19 +87,34 @@
       "id": "A05",
       "answer_points": [
         {
-          "point": "Prioritizes risks based on assessed impact, likelihood, or organizational context as supported by the framework.",
+          "point": "Prioritizes the treatment of documented AI risks based on impact, likelihood, and available resources or methods.",
           "status": "pass",
-          "notes": "Explicitly states that documented risks are prioritized based on impact, likelihood, and available resources or methods."
+          "notes": "Checks risk treatment prioritization."
         },
         {
-          "point": "Allocates and implements responses to address, limit, or otherwise manage prioritized risks.",
-          "status": "pass",
-          "notes": "Covers developing, planning, documenting, and implementing risk responses, with mitigation, transfer, avoidance, and acceptance as response options."
+          "point": "Determines whether the AI system achieves its intended purposes and stated objectives, and whether development or deployment should proceed.",
+          "status": "pending",
+          "notes": "MANAGE 1.1. Assess this criterion separately for each answer report; the shared review cannot establish report-specific coverage."
         },
         {
-          "point": "Considers risk treatment, response and recovery, and communication planning.",
+          "point": "Develops, plans, and documents responses to high-priority risks, including options to mitigate, transfer, avoid, or accept risks.",
           "status": "pass",
-          "notes": "Explicitly considers resources required to manage risks and viable non-AI alternatives."
+          "notes": "Checks high-priority risk response planning and supported response options."
+        },
+        {
+          "point": "Documents negative residual risks for downstream acquirers and end users.",
+          "status": "pass",
+          "notes": "Checks the MANAGE 1.4 documentation requirement."
+        },
+        {
+          "point": "Plans, prepares, implements, and documents strategies to maximize AI benefits and minimize negative impacts, informed by relevant AI actors.",
+          "status": "pass",
+          "notes": "Checks the risk-benefit strategy requirement."
+        },
+        {
+          "point": "Considers resources required to manage risks and viable non-AI alternatives.",
+          "status": "pass",
+          "notes": "Checks the MANAGE 2.1 resource and alternative-system consideration."
         }
       ]
     },

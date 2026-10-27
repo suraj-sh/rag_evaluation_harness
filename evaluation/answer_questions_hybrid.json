@@ -76,9 +76,12 @@
       "type": "process",
       "question": "What does the MANAGE function do with risks identified through MAP and MEASURE?",
       "expected_answer_points": [
-        "Prioritizes risks based on assessed impact, likelihood, or organizational context as supported by the framework.",
-        "Allocates and implements responses to address, limit, or otherwise manage prioritized risks.",
-        "Considers risk treatment, response and recovery, and communication planning."
+        "Prioritizes the treatment of documented AI risks based on impact, likelihood, and available resources or methods.",
+        "Determines whether the AI system achieves its intended purposes and stated objectives, and whether its development or deployment should proceed.",
+        "Develops, plans, and documents responses to high-priority risks, including options to mitigate, transfer, avoid, or accept risks.",
+        "Documents negative residual risks for downstream acquirers and end users.",
+        "Plans, prepares, implements, and documents strategies to maximize AI benefits and minimize negative impacts, informed by relevant AI actors.",
+        "Considers the resources required to manage risks and viable non-AI alternatives."
       ],
       "citation_pages_pdf": [
         36,

@@ -7,6 +7,7 @@ PROJECT_ROOT = Path(__file__).resolve().parent.parent
 REPORT_DIR = PROJECT_ROOT / "experiments"
 REPORT_PATTERN = "answer_evaluation_*.json"
 REVIEW_PATH = PROJECT_ROOT / "evaluation" / "answer_review.json"
+REVIEW_DIR = PROJECT_ROOT / "evaluation" / "reviews"
 DEFAULT_QUESTIONS_PATH = (
     PROJECT_ROOT / "evaluation" / "answer_questions_hybrid.json"
 )
@@ -80,8 +81,62 @@ def load_expected_citation_pages():
     }
 
 
-def load_review():
-    with REVIEW_PATH.open("r", encoding="utf-8") as file:
+def load_expected_answer_points():
+    """Load current expected answer points by question ID."""
+    with DEFAULT_QUESTIONS_PATH.open("r", encoding="utf-8") as file:
+        dataset = json.load(file)
+
+    return {
+        item["id"]: item.get("expected_answer_points", [])
+        for item in dataset.get("questions", [])
+    }
+
+
+def find_dataset_mismatches(report, expected_points_by_id):
+    """Find report questions whose expected points differ from the dataset."""
+    mismatches = []
+
+    for result in report.get("results", []):
+        question_id = result.get("id")
+        report_points = result.get("expected_answer_points", [])
+        current_points = expected_points_by_id.get(question_id)
+
+        if current_points is None:
+            mismatches.append(
+                (question_id, "Question ID is missing from the current dataset")
+            )
+        elif report_points != current_points:
+            mismatches.append(
+                (question_id, "Expected answer points differ from the current dataset")
+            )
+
+    return mismatches
+
+
+def find_review_findings(expected_points, point_statuses):
+    """Return review findings for expected points that are not passed."""
+    findings = []
+
+    for point in expected_points:
+        status = point_statuses.get(point, "pending")
+
+        if status not in VALID_REVIEW_STATUSES:
+            status = "pending"
+
+        if status != "pass":
+            findings.append((status, point))
+
+    return findings
+
+
+def load_review(review_path=None):
+    """Load a manual review from a supplied path or the default review."""
+    path = Path(review_path) if review_path else REVIEW_PATH
+
+    if not path.is_absolute():
+        path = PROJECT_ROOT / path
+
+    with path.open("r", encoding="utf-8-sig") as file:
         review = json.load(file)
 
     if review.get("review_method") != "manual":
@@ -115,16 +170,39 @@ def main():
         default=None,
         help="Path to a specific answer evaluation report JSON",
     )
+    arg_parser.add_argument(
+        "--review",
+        type=str,
+        default=None,
+        help="Path to a manual review JSON file; defaults to answer_review.json",
+    )
     args = arg_parser.parse_args()
 
     report_path, report = load_report(args.report)
     expected_pages_by_id = load_expected_citation_pages()
-    review, review_by_id = load_review()
+    expected_points_by_id = load_expected_answer_points()
+    review, review_by_id = load_review(args.review)
+
+    dataset_mismatches = find_dataset_mismatches(
+        report,
+        expected_points_by_id,
+    )
 
     print(f"Report: {report_path.name}")
     print(f"Questions: {report['question_count']}")
     print(f"Completed: {report['completed_count']}")
     print(f"Failed: {report['failed_count']}\n")
+
+    if dataset_mismatches:
+        print("WARNING: Historical report/dataset mismatches detected:")
+        for question_id, reason in dataset_mismatches:
+            print(f"  - {question_id}: {reason}")
+        print(
+            "Historical report values are unchanged. "
+            "Review comparisons may be incomplete.\n"
+        )
+    else:
+        print("Report expected points match the current dataset.\n")
 
     citation_checks = 0
     citation_matches = 0
@@ -162,7 +240,12 @@ def main():
             for point in review_result.get("answer_points", []):
                 point_statuses[point["point"]] = point["status"]
 
-        expected_points = result.get("expected_answer_points", [])
+        # Score the answer against the current rubric.
+        # Historical report data remains unchanged.
+        expected_points = expected_points_by_id.get(
+            question_id,
+            result.get("expected_answer_points", []),
+        )
 
         if expected_points:
             questions_with_points += 1
@@ -191,6 +274,12 @@ def main():
                 "ALL POINTS PASS" if all_pass
                 else "INCOMPLETE OR NEEDS REVIEW",
             )
+            findings = find_review_findings(expected_points, point_statuses)
+
+            if findings:
+                print("Review findings requiring attention:")
+                for status, point in findings:
+                    print(f"  - [{status.upper()}] {point}")
 
         cited_pages = extract_cited_pages(answer)
 
