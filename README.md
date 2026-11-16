@@ -15,10 +15,14 @@ This project aims to:
 - Experiment with chunk sizes and overlap strategies
 - Compare dense retrieval, BM25, and hybrid retrieval
 - Combine dense and lexical rankings using Reciprocal Rank Fusion (RRF)
-- Measure retrieval performance using Hit@K
-- Evaluate answer correctness and groundedness
-- Measure retrieval latency
-- Experiment with reranking
+- Evaluate query-enhanced retrieval strategies
+- Experiment with page-level candidate aggregation and deduplication
+- Evaluate cross-encoder reranking
+- Compare PyTorch and ONNX inference backends
+- Evaluate FP32 and INT8 model quantization
+- Measure retrieval and reranking latency
+- Evaluate candidate-pool sizes and their impact on reranking quality and latency
+- Evaluate answer correctness and citation behavior
 - Integrate evaluation into CI/CD
 - Detect retrieval-quality regressions automatically
 
@@ -188,6 +192,229 @@ The cold-start measurements from the two evaluators are not directly comparable 
 
 The results indicate that hybrid retrieval substantially improved Hit@K scores while average warm-query latency remained nearly unchanged. These findings are preliminary and specific to the current dataset, configuration, and test environment.
 
+## Advanced Hybrid Retrieval and Reranking
+
+After the initial hybrid retrieval experiments, further work focused on improving candidate selection and ranking quality.
+
+The advanced retrieval pipeline combines:
+
+1. Dense vector retrieval for semantic matching.
+2. BM25 lexical retrieval for keyword-based matching.
+3. Reciprocal Rank Fusion (RRF) to combine the rankings.
+4. Page-level aggregation and deduplication to reduce repeated results from the same PDF page.
+5. Cross-encoder reranking to reorder candidates based on query-document relevance.
+
+Unlike the initial retrieval methods, which rank documents using independently calculated retrieval scores, a cross-encoder jointly evaluates the query and candidate document.
+
+The final retrieval comparison used a candidate pool of `fetch_k=20` and returned `top_k=4` results.
+
+The cross-encoder used was:
+
+`cross-encoder/ms-marco-MiniLM-L-6-v2`
+
+## Final Retrieval Comparison
+
+The final retrieval comparison evaluated four configurations using the same 30-question benchmark.
+
+| Retrieval configuration | Hit@1 | Hit@2 | Hit@4 | MRR | nDCG@4 |
+|---|---:|---:|---:|---:|---:|
+| Dense-only | 46.67% | 63.33% | 83.33% | 0.6056 | 0.6494 |
+| BM25 | 70.00% | 80.00% | 96.67% | 0.8056 | 0.8421 |
+| Hybrid RRF | 76.67% | 93.33% | 100% | 0.8722 | 0.8946 |
+| Hybrid RRF + Reranker | **86.67%** | **96.67%** | **100%** | **0.9278** | **0.9438** |
+
+### Observations
+
+- Dense retrieval achieved a Hit@1 of 46.67%.
+- BM25 outperformed dense retrieval on this benchmark.
+- Hybrid retrieval improved ranking quality by combining semantic and lexical retrieval.
+- Cross-encoder reranking improved Hit@1 from 76.67% to 86.67%.
+- The reranked configuration achieved an MRR of 0.9278 and nDCG@4 of 0.9438.
+- All 30 questions retrieved at least one relevant page within the top four results.
+
+These results are specific to the NIST AI RMF document, the current benchmark, and the tested configurations. The 30-question dataset is a development benchmark rather than an independent held-out test set.
+
+## Retrieval and Reranking Latency
+
+The final retrieval comparison measured the latency of individual stages in the hybrid retrieval pipeline.
+
+| Component | Mean latency |
+|---|---:|
+| Embedding generation | 91.326 ms |
+| Dense search | 6.493 ms |
+| Dense document conversion | 0.226 ms |
+| BM25 search | 1.136 ms |
+| BM25 document conversion | 0.224 ms |
+| RRF fusion | 0.179 ms |
+| **Total hybrid retrieval** | **99.588 ms** |
+| Cross-encoder reranking stage | 1,909.745 ms |
+
+### Observations
+
+- Embedding generation accounts for most of the initial hybrid retrieval latency.
+- Dense and BM25 search operations are comparatively inexpensive.
+- Cross-encoder reranking introduces a substantial additional inference cost.
+- The reranking stage dominates the measured retrieval pipeline latency.
+
+These are stage-level measurements from the retrieval comparison experiment, not a single end-to-end API latency measurement.
+
+
+## Candidate-Pool Size Optimization
+
+The previous experiments showed that cross-encoder reranking improved retrieval quality but introduced substantial inference latency.
+
+A further experiment investigated whether reducing the number of candidates passed to the cross-encoder could reduce latency without sacrificing retrieval quality.
+
+### Experimental Methodology
+
+The experiment used the existing hybrid retrieval pipeline:
+
+1. Retrieve candidates using dense retrieval and BM25.
+2. Combine the rankings using Reciprocal Rank Fusion (RRF).
+3. Aggregate and deduplicate candidates at the PDF-page level.
+4. Truncate the ranked candidate list to the selected candidate-pool size.
+5. Rerank the remaining candidates using the cross-encoder.
+6. Evaluate the final top-four results against the existing 30-question benchmark.
+
+The following candidate-pool configurations were compared:
+
+- Top 10
+- Top 15
+- Top 20
+- Full candidate pool
+
+The hybrid retrieval configuration used `fetch_k=20` for each retriever. The full candidate pool therefore varied in size after page-level aggregation and deduplication.
+
+### Candidate-Pool Evaluation Results
+
+| Candidate Pool | Candidate Recall | Hit@1 | Hit@4 | MRR | nDCG@4 |
+|---|---:|---:|---:|---:|---:|
+| Top 10 | 100% | **90.00%** | 100% | **0.9444** | **0.9561** |
+| Top 15 | 100% | 86.67% | 100% | 0.9278 | 0.9438 |
+| Top 20 | 100% | 86.67% | 100% | 0.9278 | 0.9438 |
+| Full | 100% | 86.67% | 100% | 0.9278 | 0.9438 |
+
+All four configurations achieved 100% candidate recall across the 30 evaluation questions.
+
+The actual number of unique page candidates varied after aggregation:
+
+| Candidate Pool | Mean Candidates | Minimum | Maximum |
+|---|---:|---:|---:|
+| Top 10 | 10.00 | 10 | 10 |
+| Top 15 | 15.00 | 15 | 15 |
+| Top 20 | 19.87 | 17 | 20 |
+| Full | 22.83 | 17 | 29 |
+
+### Latency Comparison
+
+The initial candidate-pool experiment was followed by two additional latency runs comparing Top 10 against the Full candidate pool.
+
+The following values represent the average of the three run-level mean measurements.
+
+| Metric | Top 10 | Full | Reduction |
+|---|---:|---:|---:|
+| Mean reranker latency | 1,193.58 ms | 2,763.39 ms | **56.8%** |
+| Mean total latency | 1,375.60 ms | 2,945.41 ms | **53.3%** |
+
+Total latency includes hybrid retrieval and the reranking stage.
+
+The repeated measurements showed consistent reranker latency reductions:
+
+- Initial experiment: 55.14%
+- Repeat 1: 57.43%
+- Repeat 2: 58.05%
+
+### Observations
+
+- Top 10 achieved the highest Hit@1, MRR, and nDCG@4 among the tested configurations.
+- All candidate-pool configurations retained 100% candidate recall on the current benchmark.
+- Hit@4 remained at 100% across all configurations.
+- Top 10 reduced mean reranker latency by approximately 56.8% compared with the Full candidate pool.
+- Mean total latency decreased by approximately 53.3%.
+- The Top 10 configuration did not sacrifice measured retrieval quality on this benchmark.
+
+### Selected Configuration
+
+Top 10 was selected as the preferred candidate-pool size for the current benchmark.
+
+It achieved the best measured ranking metrics while substantially reducing reranking latency.
+
+These results are specific to the current NIST AI RMF document, 30-question development benchmark, retrieval configuration, cross-encoder, and local test environment. They do not establish that Top 10 will be optimal for other documents or datasets.
+
+The latency measurements are experimental observations rather than universal performance guarantees.
+
+
+## Cross-Encoder Backend Optimization
+
+After evaluating the retrieval-quality improvements from cross-encoder reranking, the next experiment focused on reducing inference latency.
+
+Three inference backends were evaluated using the same cross-encoder model:
+
+`cross-encoder/ms-marco-MiniLM-L-6-v2`
+
+The evaluated configurations were:
+
+- PyTorch FP32
+- ONNX FP32
+- ONNX INT8
+
+### Backend Comparison
+
+| Metric | PyTorch FP32 | ONNX FP32 | ONNX INT8 |
+|---|---:|---:|---:|
+| Hit@1 | 86.67% | 86.67% | 83.33% |
+| Hit@2 | 96.67% | 96.67% | 96.67% |
+| Hit@4 | 100% | 100% | 100% |
+| MRR | 0.9278 | 0.9278 | 0.9111 |
+| nDCG@4 | 0.9438 | 0.9438 | 0.9314 |
+| Mean inference latency | 2341.02 ms | 2814.89 ms | **2098.23 ms** |
+| Median inference latency | 1981.72 ms | 2400.11 ms | **1785.45 ms** |
+| P95 inference latency | 4156.74 ms | 4399.20 ms | 3971.15 ms |
+
+### Model Size Comparison
+
+| Backend | Model size |
+|---|---:|
+| ONNX FP32 | 86.80 MB |
+| ONNX INT8 | 22.01 MB |
+
+INT8 quantization reduced the model size by approximately 74.65%.
+
+### Observations
+
+- ONNX FP32 reproduced the PyTorch retrieval results, achieving 100% top-four page-set agreement across the 30 questions.
+- ONNX FP32 was approximately 20.24% slower than PyTorch in this benchmark.
+- ONNX INT8 reduced mean inference latency by approximately 10.38% compared with PyTorch FP32.
+- INT8 maintained 100% Hit@4 but showed a small reduction in Hit@1, MRR, and nDCG@4.
+- INT8 provided a useful model-size and inference-latency trade-off.
+
+### Measurement Limitations
+
+These results come from a single 30-question run. The backends were executed in a fixed order, with warm-up performed only on the first question. Latency differences should therefore be treated as experimental observations rather than definitive performance guarantees.
+
+## INT8 Ranking Stability Analysis
+
+A further diagnostic compared the relevant-page rankings produced by PyTorch FP32 and ONNX INT8.
+
+Across the 30 evaluation questions:
+
+| Comparison | Number of questions |
+|---|---:|
+| Same top-four set and same relevant-page rank | 22 |
+| Same top-four set but different relevant-page rank | 3 |
+| Different top-four set but same relevant-page rank | 5 |
+| Different top-four set and different relevant-page rank | 0 |
+
+Only three questions experienced a change in the relevant page's position:
+
+- One question improved under INT8.
+- Two questions regressed under INT8.
+
+The aggregate MRR difference was -0.0167.
+
+Most observed differences involved the selection or ordering of non-relevant candidates rather than a change in the relevant page's position.
+
+This diagnostic provides additional insight into ranking stability but does not establish complete equivalence between FP32 and INT8.
 
 ## Answer-Level Evaluation
 
@@ -286,29 +513,52 @@ Dense Retrieval ──┐
 BM25 Retrieval ───┘
 ```
 
-## Current Configuration
 
-The strongest measured configuration so far is:
+## Configuration Used in the Final Retrieval Comparison
+
+The following configuration corresponds to the four-way retrieval comparison reported earlier in this README. It used a candidate pool of 20 before the subsequent candidate-pool optimization experiment.
+
+The optimized Top 10 candidate-pool configuration and its results are documented in the Candidate-Pool Size Optimization section.
+
 
 ```text
-Document: NIST AI RMF 1.0
+Source document: NIST AI RMF 1.0
+
 Chunk size: 1500
 Chunk overlap: 300
-Embeddings: sentence-transformers/all-mpnet-base-v2
+
+Embedding model:
+sentence-transformers/all-mpnet-base-v2
+
 Vector store: Chroma
 Dense retrieval: Similarity search
 Lexical retrieval: BM25
+
 Fusion: Equal-weight Reciprocal Rank Fusion
 RRF constant: 60
-Candidate pool (fetch_k): 10
-Final retrieved chunks (top_k): 4
+
+Candidate pool: 20
+Final results: 4
+
+Page-level aggregation: Enabled
+
+Reranker:
+cross-encoder/ms-marco-MiniLM-L-6-v2
+
+Reference backend: PyTorch FP32
+
 Evaluation questions: 30
-Hit@1: 63.33%
-Hit@2: 86.67%
-Hit@4: 93.33%
+
+Hit@1: 86.67%
+Hit@2: 96.67%
+Hit@4: 100%
+
+MRR: 0.9278
+nDCG@4: 0.9438
 ```
 
-This describes the best measured hybrid experiment, not a universally optimal configuration. The baseline Similarity and MMR configurations remain available for comparison.
+The subsequent candidate-pool experiment selected Top 10 as the preferred reranking configuration, achieving Hit@1 of 90.00%, Hit@4 of 100%, MRR of 0.9444, and nDCG@4 of 0.9561, with 100% candidate recall on the current benchmark.
+
 
 ## Project Structure
 
@@ -317,6 +567,7 @@ rag_evaluation_harness/
 ├── app/
 │   ├── main.py
 │   └── rag/
+│       ├── embedding_model.py
 │       ├── generation.py
 │       ├── hybrid_retrieval.py
 │       ├── ingestion.py
@@ -329,20 +580,25 @@ rag_evaluation_harness/
 ├── evaluation/
 │   ├── answer_evaluator.py
 │   ├── answer_questions_hybrid.json
-│   ├── answer_review.json
-│   ├── dense_evaluator.py
 │   ├── answer_questions.json
+│   ├── answer_review.json
+│   ├── candidate_pool_experiment.py
+│   ├── candidate_pool_latency_repeat.py
+│   ├── compare_answer_reports.py
+│   ├── dense_evaluator.py
 │   ├── evaluator.py
 │   ├── hybrid_evaluator_candidates.py
 │   ├── hybrid_evaluator.py
 │   ├── map_query_evaluator.py
+│   ├── metrics.py
 │   ├── mmr_evaluator.py
 │   ├── questions_query_enhanced.json
 │   ├── questions.json
+│   ├── retrieval_comparison.py
 │   └── score_answers.py
 │
 ├── experiments/
-│   └── benchmark and answer-evaluation JSON reports
+│   └── Retrieval, candidate-pool, latency, and answer-evaluation JSON reports
 │
 ├── scripts/
 │   └── fix_page_metadata.py
@@ -365,9 +621,15 @@ The `.env` file is for local configuration and should not be committed to versio
 
 ## Setup
 
-Create and activate a Python virtual environment, then install the project dependencies.
+### Prerequisites
 
-For example, using `uv`:
+- Python 3.11
+- `uv` for dependency management
+- A Google Gemini API key for answer generation
+
+### 1. Create a Virtual Environment
+
+Create and activate a Python virtual environment:
 
 ```bash
 uv venv
@@ -379,11 +641,23 @@ On Windows PowerShell:
 .venv\Scripts\Activate.ps1
 ```
 
-Install the dependencies:
+### 2. Install Dependencies
 
 ```bash
 uv pip install -r requirements.txt
 ```
+
+### 3. Configure Environment Variables
+
+Create a `.env` file in the project root:
+
+```env
+GOOGLE_API_KEY=your_google_api_key
+```
+
+Keep your API key private. Do not commit `.env` to version control.
+
+The NIST AI RMF 1.0 source PDF is included in the repository at `data/documents/nist_ai_rmf_1.0.pdf`.
 
 Ensure the virtual environment is activated and all dependencies are installed before running the commands below.
 
@@ -423,13 +697,38 @@ The `--output` argument saves detailed evaluation results to a JSON file for lat
 
 Switching between Similarity, MMR, and hybrid retrieval does not require rebuilding the vector database when the stored chunks and embeddings remain unchanged.
 
-### 4. Run Answer-Level Evaluation
+
+### 4. Run the Candidate-Pool Experiment
+
+```powershell
+python -m evaluation.candidate_pool_experiment --fetch-k 20 --top-k 4 --warmup
+```
+
+This experiment compares candidate-pool sizes of 10, 15, 20, and Full before cross-encoder reranking.
+
+It evaluates candidate recall, ranking quality, and latency, and saves the detailed results to:
+
+`experiments/candidate_pool_experiment.json`
+
+### 5. Repeat the Candidate-Pool Latency Comparison
+
+```powershell
+python -m evaluation.candidate_pool_latency_repeat --repeats 2 --fetch-k 20
+```
+
+This experiment performs two additional latency runs comparing Top 10 against the Full candidate pool.
+
+The results are saved to:
+
+`experiments/candidate_pool_latency_repeat.json`
+
+### 6. Run Answer-Level Evaluation
 
 ```bash
 python -m evaluation.answer_evaluator
 ```
 
-### 5. Score an Existing Answer-Evaluation Report
+### 7. Score an Existing Answer-Evaluation Report
 
 ```bash
 python -m evaluation.score_answers
@@ -439,10 +738,17 @@ python -m evaluation.score_answers
 Run the unit tests from the project root with the virtual environment activated:
 
 ```powershell
-python -m unittest discover -s tests -v
+python -m pytest -v
 ```
 
-The current tests cover citation-page parsing, including single-page citations, multiple pages, page ranges, duplicate citations, missing citations, and reverse ranges.
+The test suite covers:
+
+- Citation-page parsing, including single pages, multiple pages, page ranges, duplicate citations, missing citations, and reverse ranges.
+- Hybrid retrieval and Reciprocal Rank Fusion behavior.
+- Answer-evaluation report comparison.
+- Expected-answer-point scoring and validation.
+
+The current test suite contains 31 tests.
 
 Check for whitespace errors before committing:
 
@@ -450,7 +756,7 @@ Check for whitespace errors before committing:
 git diff --check
 ```
 
-These checks validate citation parsing and patch formatting; they do not independently validate retrieval quality or generated-answer correctness.
+These tests validate implementation behavior. They do not independently establish retrieval quality or generated-answer correctness.
 
 ## Implementation Status
 
@@ -459,37 +765,44 @@ These checks validate citation parsing and patch formatting; they do not indepen
 - [x] Expand the benchmark to 30 questions
 - [x] Compare Similarity Search and MMR
 - [x] Compare three chunking configurations
-- [x] Run all six baseline configurations against the 30-question benchmark
-- [x] Implement hybrid retrieval using dense search and BM25
-- [x] Fuse retrieval rankings using Reciprocal Rank Fusion
-- [x] Compare hybrid retrieval against baseline retrieval
+- [x] Run all six baseline configurations
+- [x] Implement dense and BM25 hybrid retrieval
+- [x] Implement Reciprocal Rank Fusion
+- [x] Evaluate query-enhanced retrieval
+- [x] Implement page-level candidate aggregation and deduplication
+- [x] Implement cross-encoder reranking
+- [x] Compare dense, BM25, hybrid, and reranked retrieval
+- [x] Measure retrieval and reranking latency
+- [x] Benchmark PyTorch FP32, ONNX FP32, and ONNX INT8
+- [x] Analyze INT8 ranking differences against FP32
 - [x] Save experiment results as JSON
-- [x] Measure retrieval latency
-- [x] Implement preliminary answer-level evaluation for a separate 10-question dataset
-- [x] Check expected answer points, citation-page overlap, and abstention signals
+- [x] Implement preliminary answer-level evaluation
+- [x] Evaluate expected answer points, citation-page overlap, and abstention signals
 - [x] Add unit tests for citation-page parsing
-- [x] Support scoring a specific saved answer-evaluation report
+- [x] Support scoring saved answer-evaluation reports
+- [x] Compare candidate-pool sizes of 10, 15, 20, and Full
+- [x] Validate candidate recall and per-question ranking differences
+- [x] Repeat candidate-pool latency measurements across three runs
+- [x] Select Top 10 as the preferred candidate-pool size for the current benchmark
 - [ ] Improve automated answer-correctness and groundedness scoring
 - [ ] Manually validate answer-evaluation results
-- [ ] Add reranking
-- [ ] Add automated evaluation to CI/CD
+- [ ] Integrate evaluation into CI/CD
 - [ ] Introduce retrieval-quality regression thresholds
 - [ ] Evaluate additional documents and question sets
 
 ## Future Experiments
 
-Potential next steps include:
+Potential future improvements include:
 
-- Strengthening reference-answer criteria and automated answer-correctness evaluation
-- Improving groundedness checks to verify that citations support generated claims
-- Adding robust evaluation metrics beyond heuristic citation overlap and abstention signals
-- Measuring whether generated answers are grounded in retrieved context
-- Recording retrieval latency across configurations
-- Testing alternative embedding models
-- Experimenting with reranking
-- Evaluating on additional documents and question sets
-- Integrating evaluation into CI/CD
-- Establishing regression thresholds to detect retrieval-quality degradation
+- Strengthening reference-answer criteria and answer-correctness evaluation.
+- Implementing claim-level citation verification.
+- Improving groundedness evaluation beyond citation-page overlap.
+- Validating generated answers through manual review.
+- Evaluating on independent held-out question sets.
+- Testing additional source documents and embedding models.
+- Integrating retrieval evaluation into CI/CD.
+- Establishing retrieval-quality regression thresholds.
+- Exploring production-oriented inference optimization.
 
 ## Why This Project?
 

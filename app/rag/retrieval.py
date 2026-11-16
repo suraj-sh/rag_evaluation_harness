@@ -1,5 +1,5 @@
-from dotenv import load_dotenv
-from langchain_huggingface import HuggingFaceEmbeddings
+﻿from dotenv import load_dotenv
+from app.rag.embedding_model import get_embedding_model
 from langchain_chroma import Chroma
 from functools import lru_cache
 load_dotenv()
@@ -9,9 +9,7 @@ CHROMA_PATH = "chroma_db"
 @lru_cache(maxsize=1)
 def get_retriever():
 
-    embedding_model = HuggingFaceEmbeddings(
-            model_name="sentence-transformers/all-mpnet-base-v2"
-    )
+    embedding_model = get_embedding_model()
 
     vectorstore = Chroma(
         persist_directory=CHROMA_PATH,

@@ -1,6 +1,5 @@
 __pycache__/
-.git
-
-chroma_db/
 .venv/
 .env
+chroma_db/
+/experiments/models/

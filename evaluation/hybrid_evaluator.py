@@ -9,8 +9,8 @@ QUESTION_PATH = "evaluation/questions.json"
 RESULTS_DIR = "experiments"
 
 
-def load_questions():
-    with open(QUESTION_PATH, "r", encoding="utf-8") as file:
+def load_questions(question_path=QUESTION_PATH):
+    with open(question_path, "r", encoding="utf-8") as file:
         return json.load(file)
 
 
@@ -45,6 +45,11 @@ def evaluate_question(question):
 def main():
     parser = argparse.ArgumentParser()
     parser.add_argument(
+        "--questions",
+        default=QUESTION_PATH,
+        help="Path to the question JSON file",
+    )
+    parser.add_argument(
         "--output",
         default=os.path.join(
             RESULTS_DIR, "hybrid_1500_similarity_bm25.json"
@@ -53,7 +58,7 @@ def main():
     )
     args = parser.parse_args()
 
-    questions = load_questions()
+    questions = load_questions(args.questions)
     results = []
 
     for question in questions:

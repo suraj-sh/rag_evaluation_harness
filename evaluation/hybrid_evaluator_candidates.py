@@ -13,8 +13,13 @@ def load_questions():
     with open(QUESTION_PATH, "r", encoding="utf-8") as file:
         return json.load(file)
 
-
-def evaluate_question(question):
+def evaluate_question(
+    question,
+    fetch_k=10,
+    dense_weight=1.0,
+    bm25_weight=1.0,
+    rrf_k=60,
+):
     retrieval_query = question.get(
         "retrieval_query",
         question["question"],
@@ -24,9 +29,11 @@ def evaluate_question(question):
     docs = retrieve_hybrid(
         retrieval_query,
         top_k=4,
-        fetch_k=10,
-        dense_weight=1.0,
-        bm25_weight=1.0,
+        fetch_k=fetch_k,
+        dense_weight=dense_weight,
+        bm25_weight=bm25_weight,
+        rrf_k=rrf_k,
+
     )
 
     latency_ms = round(
@@ -34,7 +41,10 @@ def evaluate_question(question):
         2,
     )
 
-    retrieved_pages = [doc.metadata.get("page") for doc in docs]
+    retrieved_pages = [
+        doc.metadata.get("page")
+        for doc in docs
+    ]
     relevant_pages = question["relevant_pages"]
 
     return {
@@ -61,7 +71,7 @@ def main():
     parser.add_argument(
         "--output",
         default=os.path.join(
-            RESULTS_DIR, "hybrid_equal_weights_fetch10.json"
+            RESULTS_DIR, "hybrid_selective_fetch20.json"
         ),
         help="Path to save detailed evaluation results",
     )
@@ -70,6 +80,30 @@ def main():
         default=QUESTION_PATH,
         help="Path to the benchmark questions JSON file",
     )
+    parser.add_argument(
+        "--fetch-k",
+        type=int,
+        default=10,
+        help="Number of candidates retrieved from each retrieval method",
+    )
+    parser.add_argument(
+        "--dense-weight",
+        type=float,
+        default=1.0,
+        help="Weight for dense retrieval in reciprocal rank fusion",
+    )
+    parser.add_argument(
+        "--bm25-weight",
+        type=float,
+        default=1.0,
+        help="Weight for BM25 retrieval in reciprocal rank fusion",
+    )
+    parser.add_argument(
+        "--rrf-k",
+        type=int,
+        default=60,
+        help="RRF rank constant; smaller values emphasize higher ranks",
+    )
     args = parser.parse_args()
 
     with open(args.questions, "r", encoding="utf-8") as file:
@@ -77,7 +111,13 @@ def main():
     results = []
 
     for question in questions:
-        result = evaluate_question(question)
+        result = evaluate_question(
+            question,
+            fetch_k=args.fetch_k,
+            dense_weight=args.dense_weight,
+            bm25_weight=args.bm25_weight,
+            rrf_k=args.rrf_k,
+        )
         results.append(result)
 
         print(f"\nQuestion {result['id']}:")

@@ -1,0 +1,4730 @@
+{
+  "questions_evaluated": 30,
+  "fetch_k": 20,
+  "top_k": 4,
+  "warmup_runs": 2,
+  "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "evaluation_duration_seconds": 58.143,
+  "latency_methodology": {
+    "dense": "Embedding + dense search + dense document conversion. Component latency, not an independent execution.",
+    "bm25": "BM25 scoring/ranking + BM25 document conversion. Component latency, not an independent execution.",
+    "hybrid": "Total warm retrieval latency returned by retrieve_hybrid(), including embedding, dense search, BM25, conversions, and RRF.",
+    "hybrid_reranker": "Hybrid retrieval latency + CrossEncoder reranker stage. The reranker stage includes pair construction, model prediction, and sorting of all unique page candidates.",
+    "warmup": "Warm-up executions are excluded from evaluation metrics and latency statistics."
+  },
+  "latency_summary": {
+    "embedding_ms": {
+      "mean_ms": 102.288,
+      "median_ms": 86.189
+    },
+    "dense_search_ms": {
+      "mean_ms": 7.249,
+      "median_ms": 6.858
+    },
+    "dense_conversion_ms": {
+      "mean_ms": 0.247,
+      "median_ms": 0.276
+    },
+    "bm25_search_ms": {
+      "mean_ms": 1.145,
+      "median_ms": 1.098
+    },
+    "bm25_conversion_ms": {
+      "mean_ms": 0.228,
+      "median_ms": 0.246
+    },
+    "rrf_ms": {
+      "mean_ms": 0.184,
+      "median_ms": 0.192
+    },
+    "total_retrieval_ms": {
+      "mean_ms": 111.345,
+      "median_ms": 94.172
+    },
+    "reranker_stage_ms": {
+      "mean_ms": 1824.826,
+      "median_ms": 1665.582
+    }
+  },
+  "configurations": {
+    "dense": {
+      "metrics": {
+        "hit_at_1": 0.4667,
+        "hit_at_2": 0.6333,
+        "hit_at_4": 0.8333,
+        "precision_at_1": 0.4667,
+        "precision_at_2": 0.3167,
+        "precision_at_4": 0.225,
+        "recall_at_1": 0.4333,
+        "recall_at_2": 0.6,
+        "recall_at_4": 0.8167,
+        "reciprocal_rank": 0.6056,
+        "ndcg_at_4": 0.6494,
+        "average_latency_ms": 109.784,
+        "median_latency_ms": 92.703
+      },
+      "results": [
+        {
+          "id": 1,
+          "question": "What is the purpose of the AI RMF Core?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            37,
+            15,
+            25
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 2,
+          "question": "What are the four functions of the NIST AI RMF Core?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            25,
+            37,
+            15
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 3,
+          "question": "What is the purpose of the Govern function in the AI RMF?",
+          "relevant_pages": [
+            26
+          ],
+          "retrieved_pages": [
+            25,
+            26,
+            35,
+            37
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 4,
+          "question": "Why is governance considered a cross-cutting function in the AI RMF?",
+          "relevant_pages": [
+            24,
+            26
+          ],
+          "retrieved_pages": [
+            26,
+            4,
+            25,
+            24
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 0.5,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 0.5,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 0.8772153153380493
+        },
+        {
+          "id": 5,
+          "question": "What is the purpose of the Map function in the AI RMF?",
+          "relevant_pages": [
+            29,
+            30
+          ],
+          "retrieved_pages": [
+            29,
+            31,
+            30,
+            45
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 0.5,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 0.5,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 0.9197207891481876
+        },
+        {
+          "id": 6,
+          "question": "What does the Measure function do in the AI RMF?",
+          "relevant_pages": [
+            32,
+            33
+          ],
+          "retrieved_pages": [
+            25,
+            37,
+            32,
+            36
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 0.5,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.3065735963827292
+        },
+        {
+          "id": 7,
+          "question": "What does the Manage function do in the AI RMF?",
+          "relevant_pages": [
+            36
+          ],
+          "retrieved_pages": [
+            25,
+            36,
+            37,
+            26
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 8,
+          "question": "What are the characteristics of trustworthy AI identified by the AI RMF?",
+          "relevant_pages": [
+            16
+          ],
+          "retrieved_pages": [
+            4,
+            6,
+            17,
+            16
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.25,
+          "ndcg_at_4": 0.43067655807339306
+        },
+        {
+          "id": 9,
+          "question": "What is risk tolerance according to the AI RMF?",
+          "relevant_pages": [
+            11
+          ],
+          "retrieved_pages": [
+            11,
+            46,
+            33,
+            37
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 10,
+          "question": "What are the three major categories of AI bias identified by NIST?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            28,
+            44,
+            5
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 11,
+          "question": "What does the MANAGE function address regarding response, recovery, and communication?",
+          "relevant_pages": [
+            37
+          ],
+          "retrieved_pages": [
+            36,
+            25,
+            35,
+            37
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.25,
+          "ndcg_at_4": 0.43067655807339306
+        },
+        {
+          "id": 12,
+          "question": "What factors can influence an organization's risk tolerance?",
+          "relevant_pages": [
+            11
+          ],
+          "retrieved_pages": [
+            11,
+            9,
+            26,
+            21
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 13,
+          "question": "What should happen when an AI system presents unacceptable negative risk levels?",
+          "relevant_pages": [
+            12
+          ],
+          "retrieved_pages": [
+            8,
+            10,
+            18,
+            12
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.25,
+          "ndcg_at_4": 0.43067655807339306
+        },
+        {
+          "id": 14,
+          "question": "What organizational mechanisms are needed for AI risk management to be effective?",
+          "relevant_pages": [
+            13
+          ],
+          "retrieved_pages": [
+            46,
+            26,
+            11,
+            23
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 0,
+          "precision_at_4": 0.0,
+          "recall_at_4": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg_at_4": 0.0
+        },
+        {
+          "id": 15,
+          "question": "What is the relationship between transparency, explainability, and interpretability?",
+          "relevant_pages": [
+            21
+          ],
+          "retrieved_pages": [
+            20,
+            19,
+            21,
+            16
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.5
+        },
+        {
+          "id": 16,
+          "question": "What is systemic bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            44,
+            21,
+            10
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 17,
+          "question": "What is computational and statistical bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            7,
+            44,
+            12
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 18,
+          "question": "What is human-cognitive bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            44,
+            5,
+            45
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 19,
+          "question": "What does the AI RMF say about the relationship between the four Core functions?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            25,
+            15,
+            36
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 20,
+          "question": "Are the actions in the AI RMF Core intended to be a checklist or an ordered set of steps?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            15,
+            24,
+            39,
+            37
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 21,
+          "question": "What is the purpose of the AI RMF Playbook?",
+          "relevant_pages": [
+            25
+          ],
+          "retrieved_pages": [
+            24,
+            15,
+            37,
+            25
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.25,
+          "ndcg_at_4": 0.43067655807339306
+        },
+        {
+          "id": 22,
+          "question": "What does the GOVERN function enable within the AI risk management process?",
+          "relevant_pages": [
+            26
+          ],
+          "retrieved_pages": [
+            25,
+            26,
+            35,
+            36
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 23,
+          "question": "What does the AI RMF recommend regarding ongoing monitoring and periodic review of the risk management process?",
+          "relevant_pages": [
+            27
+          ],
+          "retrieved_pages": [
+            46,
+            25,
+            37,
+            26
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 0,
+          "precision_at_4": 0.0,
+          "recall_at_4": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg_at_4": 0.0
+        },
+        {
+          "id": 24,
+          "question": "What does the GOVERN function require regarding AI system inventories?",
+          "relevant_pages": [
+            27
+          ],
+          "retrieved_pages": [
+            25,
+            26,
+            35,
+            36
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 0,
+          "precision_at_4": 0.0,
+          "recall_at_4": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg_at_4": 0.0
+        },
+        {
+          "id": 25,
+          "question": "What does the MAP function provide for the MEASURE and MANAGE functions?",
+          "relevant_pages": [
+            29
+          ],
+          "retrieved_pages": [
+            29,
+            25,
+            46,
+            32
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 26,
+          "question": "What information should be considered when identifying the intended purpose and context of an AI system?",
+          "relevant_pages": [
+            30
+          ],
+          "retrieved_pages": [
+            30,
+            45,
+            31,
+            6
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 27,
+          "question": "What types of methods can the MEASURE function use to analyze and assess AI risks?",
+          "relevant_pages": [
+            32
+          ],
+          "retrieved_pages": [
+            32,
+            33,
+            9,
+            10
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 28,
+          "question": "How should approaches and metrics for measuring AI risks be selected?",
+          "relevant_pages": [
+            33
+          ],
+          "retrieved_pages": [
+            10,
+            33,
+            46,
+            8
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 29,
+          "question": "What should be documented when an AI risk or trustworthiness characteristic cannot be measured?",
+          "relevant_pages": [
+            33
+          ],
+          "retrieved_pages": [
+            17,
+            16,
+            10,
+            9
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 0,
+          "precision_at_4": 0.0,
+          "recall_at_4": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg_at_4": 0.0
+        },
+        {
+          "id": 30,
+          "question": "What does the MANAGE function do with the risks identified through the MAP and MEASURE functions?",
+          "relevant_pages": [
+            36
+          ],
+          "retrieved_pages": [
+            25,
+            35,
+            32,
+            26
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 0,
+          "precision_at_4": 0.0,
+          "recall_at_4": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg_at_4": 0.0
+        }
+      ]
+    },
+    "bm25": {
+      "metrics": {
+        "hit_at_1": 0.7,
+        "hit_at_2": 0.8,
+        "hit_at_4": 0.9667,
+        "precision_at_1": 0.7,
+        "precision_at_2": 0.4167,
+        "precision_at_4": 0.2583,
+        "recall_at_1": 0.6833,
+        "recall_at_2": 0.7833,
+        "recall_at_4": 0.95,
+        "reciprocal_rank": 0.8056,
+        "ndcg_at_4": 0.8421,
+        "average_latency_ms": 1.373,
+        "median_latency_ms": 1.361
+      },
+      "results": [
+        {
+          "id": 1,
+          "question": "What is the purpose of the AI RMF Core?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            2,
+            7,
+            26
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 2,
+          "question": "What are the four functions of the NIST AI RMF Core?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            7,
+            21,
+            43
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 3,
+          "question": "What is the purpose of the Govern function in the AI RMF?",
+          "relevant_pages": [
+            26
+          ],
+          "retrieved_pages": [
+            26,
+            45,
+            2,
+            25
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 4,
+          "question": "Why is governance considered a cross-cutting function in the AI RMF?",
+          "relevant_pages": [
+            24,
+            26
+          ],
+          "retrieved_pages": [
+            4,
+            26,
+            24,
+            21
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 0.5,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6934264036172708
+        },
+        {
+          "id": 5,
+          "question": "What is the purpose of the Map function in the AI RMF?",
+          "relevant_pages": [
+            29,
+            30
+          ],
+          "retrieved_pages": [
+            29,
+            30,
+            36,
+            8
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 0.5,
+          "hit_at_2": 1,
+          "precision_at_2": 1.0,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 6,
+          "question": "What does the Measure function do in the AI RMF?",
+          "relevant_pages": [
+            32,
+            33
+          ],
+          "retrieved_pages": [
+            34,
+            24,
+            33,
+            38
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 0.5,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.3065735963827292
+        },
+        {
+          "id": 7,
+          "question": "What does the Manage function do in the AI RMF?",
+          "relevant_pages": [
+            36
+          ],
+          "retrieved_pages": [
+            24,
+            34,
+            43,
+            38
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 0,
+          "precision_at_4": 0.0,
+          "recall_at_4": 0.0,
+          "reciprocal_rank": 0.0,
+          "ndcg_at_4": 0.0
+        },
+        {
+          "id": 8,
+          "question": "What are the characteristics of trustworthy AI identified by the AI RMF?",
+          "relevant_pages": [
+            16
+          ],
+          "retrieved_pages": [
+            16,
+            33,
+            32,
+            4
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 9,
+          "question": "What is risk tolerance according to the AI RMF?",
+          "relevant_pages": [
+            11
+          ],
+          "retrieved_pages": [
+            11,
+            13,
+            26,
+            25
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 10,
+          "question": "What are the three major categories of AI bias identified by NIST?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            34,
+            2,
+            21
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 11,
+          "question": "What does the MANAGE function address regarding response, recovery, and communication?",
+          "relevant_pages": [
+            37
+          ],
+          "retrieved_pages": [
+            37,
+            32,
+            28,
+            43
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 12,
+          "question": "What factors can influence an organization's risk tolerance?",
+          "relevant_pages": [
+            11
+          ],
+          "retrieved_pages": [
+            11,
+            26,
+            21,
+            29
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 13,
+          "question": "What should happen when an AI system presents unacceptable negative risk levels?",
+          "relevant_pages": [
+            12
+          ],
+          "retrieved_pages": [
+            12,
+            19,
+            42,
+            20
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 14,
+          "question": "What organizational mechanisms are needed for AI risk management to be effective?",
+          "relevant_pages": [
+            13
+          ],
+          "retrieved_pages": [
+            37,
+            13,
+            26,
+            27
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 15,
+          "question": "What is the relationship between transparency, explainability, and interpretability?",
+          "relevant_pages": [
+            21
+          ],
+          "retrieved_pages": [
+            21,
+            20,
+            16,
+            19
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 16,
+          "question": "What is systemic bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            25,
+            13,
+            21
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 17,
+          "question": "What is computational and statistical bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            42,
+            43,
+            25
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 18,
+          "question": "What is human-cognitive bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            44,
+            21,
+            25
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 19,
+          "question": "What does the AI RMF say about the relationship between the four Core functions?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            7,
+            21,
+            20
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 20,
+          "question": "Are the actions in the AI RMF Core intended to be a checklist or an ordered set of steps?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            42,
+            43,
+            2
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 21,
+          "question": "What is the purpose of the AI RMF Playbook?",
+          "relevant_pages": [
+            25
+          ],
+          "retrieved_pages": [
+            2,
+            26,
+            25,
+            7
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.5
+        },
+        {
+          "id": 22,
+          "question": "What does the GOVERN function enable within the AI risk management process?",
+          "relevant_pages": [
+            26
+          ],
+          "retrieved_pages": [
+            27,
+            26,
+            25,
+            28
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 23,
+          "question": "What does the AI RMF recommend regarding ongoing monitoring and periodic review of the risk management process?",
+          "relevant_pages": [
+            27
+          ],
+          "retrieved_pages": [
+            27,
+            40,
+            18,
+            26
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 24,
+          "question": "What does the GOVERN function require regarding AI system inventories?",
+          "relevant_pages": [
+            27
+          ],
+          "retrieved_pages": [
+            28,
+            35,
+            27,
+            42
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.5
+        },
+        {
+          "id": 25,
+          "question": "What does the MAP function provide for the MEASURE and MANAGE functions?",
+          "relevant_pages": [
+            29
+          ],
+          "retrieved_pages": [
+            35,
+            32,
+            29,
+            34
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.5
+        },
+        {
+          "id": 26,
+          "question": "What information should be considered when identifying the intended purpose and context of an AI system?",
+          "relevant_pages": [
+            30
+          ],
+          "retrieved_pages": [
+            30,
+            29,
+            5,
+            31
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 27,
+          "question": "What types of methods can the MEASURE function use to analyze and assess AI risks?",
+          "relevant_pages": [
+            32
+          ],
+          "retrieved_pages": [
+            32,
+            36,
+            34,
+            33
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 28,
+          "question": "How should approaches and metrics for measuring AI risks be selected?",
+          "relevant_pages": [
+            33
+          ],
+          "retrieved_pages": [
+            33,
+            9,
+            10,
+            32
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 29,
+          "question": "What should be documented when an AI risk or trustworthiness characteristic cannot be measured?",
+          "relevant_pages": [
+            33
+          ],
+          "retrieved_pages": [
+            33,
+            37,
+            9,
+            19
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 30,
+          "question": "What does the MANAGE function do with the risks identified through the MAP and MEASURE functions?",
+          "relevant_pages": [
+            36
+          ],
+          "retrieved_pages": [
+            34,
+            24,
+            36,
+            29
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.5
+        }
+      ]
+    },
+    "hybrid": {
+      "metrics": {
+        "hit_at_1": 0.7667,
+        "hit_at_2": 0.9333,
+        "hit_at_4": 1.0,
+        "precision_at_1": 0.7667,
+        "precision_at_2": 0.4833,
+        "precision_at_4": 0.2667,
+        "recall_at_1": 0.7333,
+        "recall_at_2": 0.9167,
+        "recall_at_4": 0.9833,
+        "reciprocal_rank": 0.8722,
+        "ndcg_at_4": 0.8946,
+        "average_latency_ms": 111.345,
+        "median_latency_ms": 94.172
+      },
+      "results": [
+        {
+          "id": 1,
+          "question": "What is the purpose of the AI RMF Core?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            7,
+            25,
+            37
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 2,
+          "question": "What are the four functions of the NIST AI RMF Core?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            25,
+            37,
+            7
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 3,
+          "question": "What is the purpose of the Govern function in the AI RMF?",
+          "relevant_pages": [
+            26
+          ],
+          "retrieved_pages": [
+            26,
+            25,
+            24,
+            35
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 4,
+          "question": "Why is governance considered a cross-cutting function in the AI RMF?",
+          "relevant_pages": [
+            24,
+            26
+          ],
+          "retrieved_pages": [
+            26,
+            4,
+            25,
+            24
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 0.5,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 0.5,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 0.8772153153380493
+        },
+        {
+          "id": 5,
+          "question": "What is the purpose of the Map function in the AI RMF?",
+          "relevant_pages": [
+            29,
+            30
+          ],
+          "retrieved_pages": [
+            29,
+            30,
+            31,
+            32
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 0.5,
+          "hit_at_2": 1,
+          "precision_at_2": 1.0,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 6,
+          "question": "What does the Measure function do in the AI RMF?",
+          "relevant_pages": [
+            32,
+            33
+          ],
+          "retrieved_pages": [
+            24,
+            25,
+            32,
+            34
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 0.5,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.3065735963827292
+        },
+        {
+          "id": 7,
+          "question": "What does the Manage function do in the AI RMF?",
+          "relevant_pages": [
+            36
+          ],
+          "retrieved_pages": [
+            24,
+            36,
+            25,
+            37
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 8,
+          "question": "What are the characteristics of trustworthy AI identified by the AI RMF?",
+          "relevant_pages": [
+            16
+          ],
+          "retrieved_pages": [
+            16,
+            4,
+            6,
+            33
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 9,
+          "question": "What is risk tolerance according to the AI RMF?",
+          "relevant_pages": [
+            11
+          ],
+          "retrieved_pages": [
+            11,
+            37,
+            46,
+            25
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 10,
+          "question": "What are the three major categories of AI bias identified by NIST?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            33,
+            31,
+            42
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 11,
+          "question": "What does the MANAGE function address regarding response, recovery, and communication?",
+          "relevant_pages": [
+            37
+          ],
+          "retrieved_pages": [
+            37,
+            36,
+            35,
+            32
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 12,
+          "question": "What factors can influence an organization's risk tolerance?",
+          "relevant_pages": [
+            11
+          ],
+          "retrieved_pages": [
+            11,
+            26,
+            21,
+            9
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 13,
+          "question": "What should happen when an AI system presents unacceptable negative risk levels?",
+          "relevant_pages": [
+            12
+          ],
+          "retrieved_pages": [
+            12,
+            10,
+            8,
+            18
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 14,
+          "question": "What organizational mechanisms are needed for AI risk management to be effective?",
+          "relevant_pages": [
+            13
+          ],
+          "retrieved_pages": [
+            26,
+            13,
+            11,
+            37
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 15,
+          "question": "What is the relationship between transparency, explainability, and interpretability?",
+          "relevant_pages": [
+            21
+          ],
+          "retrieved_pages": [
+            20,
+            21,
+            19,
+            16
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 16,
+          "question": "What is systemic bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            21,
+            44,
+            42
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 17,
+          "question": "What is computational and statistical bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            42,
+            12,
+            18
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 18,
+          "question": "What is human-cognitive bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            44,
+            42,
+            21
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 19,
+          "question": "What does the AI RMF say about the relationship between the four Core functions?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            25,
+            7,
+            46
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 20,
+          "question": "Are the actions in the AI RMF Core intended to be a checklist or an ordered set of steps?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            25,
+            37,
+            7
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 21,
+          "question": "What is the purpose of the AI RMF Playbook?",
+          "relevant_pages": [
+            25
+          ],
+          "retrieved_pages": [
+            25,
+            7,
+            26,
+            2
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 22,
+          "question": "What does the GOVERN function enable within the AI risk management process?",
+          "relevant_pages": [
+            26
+          ],
+          "retrieved_pages": [
+            26,
+            25,
+            27,
+            35
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 23,
+          "question": "What does the AI RMF recommend regarding ongoing monitoring and periodic review of the risk management process?",
+          "relevant_pages": [
+            27
+          ],
+          "retrieved_pages": [
+            27,
+            26,
+            46,
+            25
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 24,
+          "question": "What does the GOVERN function require regarding AI system inventories?",
+          "relevant_pages": [
+            27
+          ],
+          "retrieved_pages": [
+            35,
+            27,
+            28,
+            26
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 25,
+          "question": "What does the MAP function provide for the MEASURE and MANAGE functions?",
+          "relevant_pages": [
+            29
+          ],
+          "retrieved_pages": [
+            29,
+            32,
+            35,
+            26
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 26,
+          "question": "What information should be considered when identifying the intended purpose and context of an AI system?",
+          "relevant_pages": [
+            30
+          ],
+          "retrieved_pages": [
+            30,
+            29,
+            31,
+            45
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 27,
+          "question": "What types of methods can the MEASURE function use to analyze and assess AI risks?",
+          "relevant_pages": [
+            32
+          ],
+          "retrieved_pages": [
+            32,
+            33,
+            34,
+            36
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 28,
+          "question": "How should approaches and metrics for measuring AI risks be selected?",
+          "relevant_pages": [
+            33
+          ],
+          "retrieved_pages": [
+            33,
+            10,
+            9,
+            46
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0
+        },
+        {
+          "id": 29,
+          "question": "What should be documented when an AI risk or trustworthiness characteristic cannot be measured?",
+          "relevant_pages": [
+            33
+          ],
+          "retrieved_pages": [
+            9,
+            33,
+            10,
+            19
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575
+        },
+        {
+          "id": 30,
+          "question": "What does the MANAGE function do with the risks identified through the MAP and MEASURE functions?",
+          "relevant_pages": [
+            36
+          ],
+          "retrieved_pages": [
+            25,
+            35,
+            36,
+            32
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.5
+        }
+      ]
+    },
+    "hybrid_reranker": {
+      "metrics": {
+        "hit_at_1": 0.8667,
+        "hit_at_2": 0.9667,
+        "hit_at_4": 1.0,
+        "precision_at_1": 0.8667,
+        "precision_at_2": 0.5167,
+        "precision_at_4": 0.275,
+        "recall_at_1": 0.8167,
+        "recall_at_2": 0.95,
+        "recall_at_4": 1.0,
+        "reciprocal_rank": 0.9278,
+        "ndcg_at_4": 0.9438,
+        "average_latency_ms": 1936.171,
+        "median_latency_ms": 1760.531
+      },
+      "results": [
+        {
+          "id": 1,
+          "question": "What is the purpose of the AI RMF Core?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            7,
+            25,
+            46
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            24,
+            7,
+            25,
+            37,
+            39,
+            26,
+            46,
+            6,
+            2,
+            15,
+            3,
+            36,
+            17,
+            21,
+            12,
+            43,
+            5,
+            34,
+            27,
+            41,
+            40,
+            10,
+            28,
+            13,
+            42
+          ],
+          "candidate_count": 25,
+          "reranked_pages": [
+            24,
+            7,
+            25,
+            46,
+            12,
+            13,
+            37,
+            2,
+            26,
+            6,
+            39,
+            36,
+            43,
+            15,
+            41,
+            28,
+            27,
+            40,
+            3,
+            34,
+            21,
+            5,
+            17,
+            10,
+            42
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 2,
+          "question": "What are the four functions of the NIST AI RMF Core?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            7,
+            37,
+            36
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            24,
+            25,
+            37,
+            7,
+            36,
+            46,
+            26,
+            23,
+            21,
+            15,
+            43,
+            2,
+            27,
+            31,
+            14,
+            3,
+            28,
+            34,
+            33,
+            41,
+            4,
+            32,
+            13,
+            40,
+            22,
+            29,
+            6,
+            45,
+            12
+          ],
+          "candidate_count": 29,
+          "reranked_pages": [
+            24,
+            7,
+            37,
+            36,
+            45,
+            28,
+            27,
+            31,
+            26,
+            32,
+            33,
+            25,
+            34,
+            23,
+            15,
+            46,
+            22,
+            40,
+            14,
+            4,
+            3,
+            21,
+            41,
+            43,
+            13,
+            6,
+            12,
+            2,
+            29
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 3,
+          "question": "What is the purpose of the Govern function in the AI RMF?",
+          "relevant_pages": [
+            26
+          ],
+          "retrieved_pages": [
+            45,
+            26,
+            28,
+            27
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575,
+          "candidate_pages": [
+            26,
+            25,
+            24,
+            35,
+            7,
+            27,
+            37,
+            29,
+            28,
+            34,
+            45,
+            2,
+            36,
+            39,
+            15,
+            17,
+            46,
+            21,
+            4,
+            6,
+            32
+          ],
+          "candidate_count": 21,
+          "reranked_pages": [
+            45,
+            26,
+            28,
+            27,
+            24,
+            7,
+            35,
+            25,
+            36,
+            4,
+            2,
+            46,
+            34,
+            37,
+            39,
+            6,
+            15,
+            32,
+            29,
+            21,
+            17
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 4,
+          "question": "Why is governance considered a cross-cutting function in the AI RMF?",
+          "relevant_pages": [
+            24,
+            26
+          ],
+          "retrieved_pages": [
+            26,
+            24,
+            4,
+            38
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 0.5,
+          "hit_at_2": 1,
+          "precision_at_2": 1.0,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            26,
+            4,
+            25,
+            24,
+            37,
+            41,
+            7,
+            21,
+            46,
+            22,
+            34,
+            38,
+            39,
+            13,
+            36,
+            20,
+            6,
+            32,
+            40,
+            2,
+            11,
+            43,
+            27,
+            14
+          ],
+          "candidate_count": 24,
+          "reranked_pages": [
+            26,
+            24,
+            4,
+            38,
+            41,
+            7,
+            25,
+            13,
+            27,
+            46,
+            20,
+            34,
+            22,
+            36,
+            39,
+            37,
+            14,
+            43,
+            11,
+            6,
+            21,
+            2,
+            40,
+            32
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 5,
+          "question": "What is the purpose of the Map function in the AI RMF?",
+          "relevant_pages": [
+            29,
+            30
+          ],
+          "retrieved_pages": [
+            30,
+            29,
+            36,
+            35
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 0.5,
+          "hit_at_2": 1,
+          "precision_at_2": 1.0,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            29,
+            30,
+            31,
+            32,
+            36,
+            28,
+            5,
+            27,
+            8,
+            45,
+            17,
+            20,
+            18,
+            35,
+            25,
+            42,
+            34,
+            10,
+            7,
+            44,
+            33,
+            24
+          ],
+          "candidate_count": 22,
+          "reranked_pages": [
+            30,
+            29,
+            36,
+            35,
+            32,
+            28,
+            5,
+            18,
+            31,
+            34,
+            45,
+            8,
+            20,
+            42,
+            44,
+            17,
+            25,
+            7,
+            24,
+            27,
+            33,
+            10
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 6,
+          "question": "What does the Measure function do in the AI RMF?",
+          "relevant_pages": [
+            32,
+            33
+          ],
+          "retrieved_pages": [
+            33,
+            34,
+            32,
+            24
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 0.5,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 0.5,
+          "hit_at_4": 1,
+          "precision_at_4": 0.5,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 0.9197207891481876,
+          "candidate_pages": [
+            24,
+            25,
+            32,
+            34,
+            33,
+            7,
+            38,
+            36,
+            27,
+            35,
+            37,
+            43,
+            46,
+            21,
+            26,
+            9,
+            17,
+            15,
+            39,
+            28,
+            41,
+            3,
+            2,
+            29
+          ],
+          "candidate_count": 24,
+          "reranked_pages": [
+            33,
+            34,
+            32,
+            24,
+            35,
+            25,
+            43,
+            36,
+            37,
+            26,
+            27,
+            38,
+            3,
+            17,
+            9,
+            15,
+            46,
+            39,
+            41,
+            21,
+            29,
+            7,
+            2,
+            28
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 7,
+          "question": "What does the Manage function do in the AI RMF?",
+          "relevant_pages": [
+            36
+          ],
+          "retrieved_pages": [
+            36,
+            37,
+            24,
+            7
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            24,
+            36,
+            25,
+            37,
+            27,
+            39,
+            41,
+            7,
+            32,
+            34,
+            43,
+            38,
+            26,
+            21,
+            35,
+            17,
+            15,
+            4,
+            28,
+            46,
+            13,
+            29,
+            18,
+            45,
+            11
+          ],
+          "candidate_count": 25,
+          "reranked_pages": [
+            36,
+            37,
+            24,
+            7,
+            43,
+            25,
+            32,
+            26,
+            27,
+            45,
+            38,
+            46,
+            34,
+            35,
+            41,
+            13,
+            39,
+            15,
+            4,
+            17,
+            29,
+            21,
+            18,
+            28,
+            11
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 8,
+          "question": "What are the characteristics of trustworthy AI identified by the AI RMF?",
+          "relevant_pages": [
+            16
+          ],
+          "retrieved_pages": [
+            16,
+            4,
+            33,
+            26
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            16,
+            4,
+            6,
+            33,
+            17,
+            24,
+            21,
+            37,
+            32,
+            18,
+            34,
+            12,
+            26,
+            31,
+            28,
+            13,
+            9,
+            19,
+            7,
+            36,
+            46,
+            39,
+            35,
+            43
+          ],
+          "candidate_count": 24,
+          "reranked_pages": [
+            16,
+            4,
+            33,
+            26,
+            32,
+            6,
+            43,
+            9,
+            24,
+            17,
+            34,
+            21,
+            18,
+            35,
+            12,
+            37,
+            39,
+            36,
+            19,
+            46,
+            28,
+            13,
+            7,
+            31
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 9,
+          "question": "What is risk tolerance according to the AI RMF?",
+          "relevant_pages": [
+            11
+          ],
+          "retrieved_pages": [
+            11,
+            12,
+            26,
+            34
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            11,
+            37,
+            46,
+            25,
+            33,
+            26,
+            27,
+            24,
+            7,
+            8,
+            29,
+            13,
+            12,
+            34,
+            36,
+            0,
+            21,
+            38,
+            2,
+            42,
+            3
+          ],
+          "candidate_count": 21,
+          "reranked_pages": [
+            11,
+            12,
+            26,
+            34,
+            3,
+            8,
+            13,
+            46,
+            29,
+            33,
+            37,
+            21,
+            25,
+            36,
+            38,
+            24,
+            0,
+            27,
+            2,
+            7,
+            42
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 10,
+          "question": "What are the three major categories of AI bias identified by NIST?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            34,
+            32,
+            33
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            22,
+            33,
+            31,
+            42,
+            32,
+            28,
+            34,
+            44,
+            2,
+            5,
+            21,
+            41,
+            24,
+            27,
+            7,
+            6,
+            9,
+            36,
+            37,
+            39,
+            45,
+            12,
+            35,
+            8,
+            23,
+            43,
+            10,
+            16
+          ],
+          "candidate_count": 28,
+          "reranked_pages": [
+            22,
+            34,
+            32,
+            33,
+            35,
+            7,
+            37,
+            36,
+            31,
+            21,
+            16,
+            28,
+            24,
+            39,
+            27,
+            2,
+            9,
+            45,
+            41,
+            5,
+            12,
+            23,
+            10,
+            44,
+            43,
+            8,
+            6,
+            42
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 11,
+          "question": "What does the MANAGE function address regarding response, recovery, and communication?",
+          "relevant_pages": [
+            37
+          ],
+          "retrieved_pages": [
+            37,
+            35,
+            32,
+            36
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            37,
+            36,
+            35,
+            32,
+            28,
+            27,
+            38,
+            25,
+            43,
+            26,
+            34,
+            21,
+            4,
+            46,
+            7,
+            39,
+            8,
+            24,
+            42,
+            40,
+            11,
+            30
+          ],
+          "candidate_count": 22,
+          "reranked_pages": [
+            37,
+            35,
+            32,
+            36,
+            7,
+            43,
+            25,
+            24,
+            26,
+            4,
+            8,
+            11,
+            28,
+            34,
+            27,
+            46,
+            38,
+            39,
+            21,
+            40,
+            30,
+            42
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 12,
+          "question": "What factors can influence an organization's risk tolerance?",
+          "relevant_pages": [
+            11
+          ],
+          "retrieved_pages": [
+            11,
+            26,
+            29,
+            9
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            11,
+            26,
+            21,
+            9,
+            29,
+            46,
+            37,
+            27,
+            42,
+            32,
+            44,
+            6,
+            4,
+            10,
+            8,
+            25,
+            41,
+            38,
+            17
+          ],
+          "candidate_count": 19,
+          "reranked_pages": [
+            11,
+            26,
+            29,
+            9,
+            41,
+            27,
+            8,
+            10,
+            37,
+            46,
+            6,
+            25,
+            21,
+            4,
+            44,
+            32,
+            38,
+            42,
+            17
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 13,
+          "question": "What should happen when an AI system presents unacceptable negative risk levels?",
+          "relevant_pages": [
+            12
+          ],
+          "retrieved_pages": [
+            12,
+            9,
+            18,
+            8
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            12,
+            10,
+            8,
+            18,
+            29,
+            42,
+            9,
+            11,
+            46,
+            19,
+            20,
+            21,
+            0,
+            5,
+            13,
+            44,
+            30
+          ],
+          "candidate_count": 17,
+          "reranked_pages": [
+            12,
+            9,
+            18,
+            8,
+            29,
+            42,
+            5,
+            11,
+            20,
+            13,
+            19,
+            21,
+            10,
+            30,
+            44,
+            0,
+            46
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 14,
+          "question": "What organizational mechanisms are needed for AI risk management to be effective?",
+          "relevant_pages": [
+            13
+          ],
+          "retrieved_pages": [
+            13,
+            37,
+            9,
+            26
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            26,
+            13,
+            11,
+            37,
+            27,
+            8,
+            12,
+            46,
+            23,
+            5,
+            14,
+            9,
+            3,
+            35,
+            24,
+            21,
+            42,
+            7,
+            28,
+            29,
+            36,
+            4,
+            34
+          ],
+          "candidate_count": 23,
+          "reranked_pages": [
+            13,
+            37,
+            9,
+            26,
+            27,
+            36,
+            28,
+            23,
+            34,
+            8,
+            5,
+            35,
+            11,
+            46,
+            12,
+            29,
+            3,
+            24,
+            7,
+            14,
+            4,
+            42,
+            21
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 15,
+          "question": "What is the relationship between transparency, explainability, and interpretability?",
+          "relevant_pages": [
+            21
+          ],
+          "retrieved_pages": [
+            20,
+            21,
+            16,
+            19
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575,
+          "candidate_pages": [
+            20,
+            21,
+            19,
+            16,
+            10,
+            17,
+            26,
+            30,
+            22,
+            4,
+            34,
+            28,
+            31,
+            35,
+            42,
+            44,
+            46,
+            43,
+            45,
+            12,
+            25
+          ],
+          "candidate_count": 21,
+          "reranked_pages": [
+            20,
+            21,
+            16,
+            19,
+            4,
+            22,
+            17,
+            10,
+            34,
+            44,
+            45,
+            35,
+            26,
+            43,
+            28,
+            46,
+            30,
+            42,
+            25,
+            12,
+            31
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 16,
+          "question": "What is systemic bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            45,
+            5,
+            43
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            22,
+            21,
+            44,
+            42,
+            5,
+            45,
+            37,
+            24,
+            46,
+            27,
+            25,
+            13,
+            10,
+            12,
+            16,
+            34,
+            43,
+            7,
+            28,
+            2,
+            8,
+            6,
+            36
+          ],
+          "candidate_count": 23,
+          "reranked_pages": [
+            22,
+            45,
+            5,
+            43,
+            44,
+            12,
+            16,
+            13,
+            8,
+            46,
+            6,
+            34,
+            25,
+            37,
+            24,
+            2,
+            36,
+            27,
+            7,
+            21,
+            42,
+            28,
+            10
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 17,
+          "question": "What is computational and statistical bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            43,
+            18,
+            5
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            22,
+            42,
+            12,
+            18,
+            6,
+            24,
+            7,
+            43,
+            44,
+            25,
+            13,
+            5,
+            21,
+            0,
+            31,
+            16,
+            28,
+            34,
+            27,
+            2,
+            45,
+            36,
+            37
+          ],
+          "candidate_count": 23,
+          "reranked_pages": [
+            22,
+            43,
+            18,
+            5,
+            45,
+            34,
+            21,
+            12,
+            16,
+            13,
+            25,
+            37,
+            0,
+            31,
+            2,
+            24,
+            36,
+            6,
+            27,
+            28,
+            7,
+            44,
+            42
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 18,
+          "question": "What is human-cognitive bias according to the AI RMF?",
+          "relevant_pages": [
+            22
+          ],
+          "retrieved_pages": [
+            22,
+            45,
+            44,
+            21
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            22,
+            44,
+            42,
+            21,
+            45,
+            6,
+            25,
+            5,
+            13,
+            7,
+            16,
+            34,
+            8,
+            43,
+            27,
+            12,
+            26,
+            10,
+            2,
+            20,
+            37,
+            0,
+            41,
+            24
+          ],
+          "candidate_count": 24,
+          "reranked_pages": [
+            22,
+            45,
+            44,
+            21,
+            5,
+            20,
+            43,
+            12,
+            16,
+            26,
+            13,
+            34,
+            25,
+            0,
+            24,
+            6,
+            37,
+            2,
+            27,
+            7,
+            10,
+            8,
+            42,
+            41
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 19,
+          "question": "What does the AI RMF say about the relationship between the four Core functions?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            7,
+            25,
+            45
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            24,
+            25,
+            7,
+            46,
+            27,
+            29,
+            26,
+            15,
+            21,
+            36,
+            20,
+            4,
+            43,
+            28,
+            3,
+            37,
+            17,
+            12,
+            14,
+            9,
+            5,
+            45,
+            39,
+            6,
+            41,
+            22
+          ],
+          "candidate_count": 26,
+          "reranked_pages": [
+            24,
+            7,
+            25,
+            45,
+            43,
+            28,
+            37,
+            46,
+            20,
+            3,
+            27,
+            12,
+            26,
+            14,
+            21,
+            22,
+            41,
+            17,
+            6,
+            29,
+            15,
+            39,
+            9,
+            4,
+            5,
+            36
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 20,
+          "question": "Are the actions in the AI RMF Core intended to be a checklist or an ordered set of steps?",
+          "relevant_pages": [
+            24
+          ],
+          "retrieved_pages": [
+            24,
+            2,
+            40,
+            25
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            24,
+            25,
+            37,
+            7,
+            40,
+            28,
+            12,
+            15,
+            42,
+            39,
+            43,
+            2,
+            17,
+            36,
+            5,
+            26,
+            13,
+            18,
+            6,
+            4,
+            11,
+            45,
+            30,
+            29,
+            16,
+            41
+          ],
+          "candidate_count": 26,
+          "reranked_pages": [
+            24,
+            2,
+            40,
+            25,
+            13,
+            12,
+            6,
+            37,
+            36,
+            30,
+            43,
+            26,
+            7,
+            15,
+            42,
+            41,
+            45,
+            29,
+            18,
+            4,
+            5,
+            11,
+            28,
+            39,
+            17,
+            16
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 21,
+          "question": "What is the purpose of the AI RMF Playbook?",
+          "relevant_pages": [
+            25
+          ],
+          "retrieved_pages": [
+            25,
+            7,
+            2,
+            29
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            25,
+            7,
+            26,
+            2,
+            36,
+            24,
+            39,
+            37,
+            29,
+            46,
+            15,
+            17,
+            21,
+            12,
+            33,
+            6,
+            45,
+            42,
+            35,
+            10,
+            28,
+            13
+          ],
+          "candidate_count": 22,
+          "reranked_pages": [
+            25,
+            7,
+            2,
+            29,
+            36,
+            26,
+            33,
+            13,
+            46,
+            24,
+            12,
+            37,
+            39,
+            45,
+            15,
+            6,
+            28,
+            21,
+            35,
+            17,
+            10,
+            42
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 22,
+          "question": "What does the GOVERN function enable within the AI risk management process?",
+          "relevant_pages": [
+            26
+          ],
+          "retrieved_pages": [
+            35,
+            28,
+            26,
+            27
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 0,
+          "precision_at_2": 0.0,
+          "recall_at_2": 0.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.3333333333333333,
+          "ndcg_at_4": 0.5,
+          "candidate_pages": [
+            26,
+            25,
+            27,
+            35,
+            24,
+            28,
+            3,
+            37,
+            36,
+            34,
+            4,
+            29,
+            13,
+            32,
+            8,
+            42,
+            12,
+            46,
+            9,
+            11
+          ],
+          "candidate_count": 20,
+          "reranked_pages": [
+            35,
+            28,
+            26,
+            27,
+            25,
+            24,
+            4,
+            29,
+            8,
+            32,
+            13,
+            3,
+            12,
+            34,
+            36,
+            11,
+            37,
+            46,
+            9,
+            42
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 23,
+          "question": "What does the AI RMF recommend regarding ongoing monitoring and periodic review of the risk management process?",
+          "relevant_pages": [
+            27
+          ],
+          "retrieved_pages": [
+            27,
+            37,
+            23,
+            26
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            27,
+            26,
+            46,
+            25,
+            37,
+            29,
+            11,
+            40,
+            18,
+            32,
+            36,
+            2,
+            34,
+            24,
+            35,
+            21,
+            13,
+            9,
+            23,
+            7,
+            43
+          ],
+          "candidate_count": 21,
+          "reranked_pages": [
+            27,
+            37,
+            23,
+            26,
+            2,
+            46,
+            43,
+            29,
+            24,
+            25,
+            40,
+            18,
+            34,
+            11,
+            36,
+            7,
+            21,
+            9,
+            13,
+            35,
+            32
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 24,
+          "question": "What does the GOVERN function require regarding AI system inventories?",
+          "relevant_pages": [
+            27
+          ],
+          "retrieved_pages": [
+            45,
+            27,
+            26,
+            28
+          ],
+          "hit_at_1": 0,
+          "precision_at_1": 0.0,
+          "recall_at_1": 0.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 0.5,
+          "ndcg_at_4": 0.6309297535714575,
+          "candidate_pages": [
+            35,
+            27,
+            28,
+            26,
+            25,
+            34,
+            45,
+            31,
+            36,
+            42,
+            18,
+            40,
+            21,
+            24,
+            38,
+            41,
+            44,
+            32,
+            14,
+            15,
+            9,
+            37,
+            29
+          ],
+          "candidate_count": 23,
+          "reranked_pages": [
+            45,
+            27,
+            26,
+            28,
+            25,
+            35,
+            24,
+            31,
+            32,
+            40,
+            34,
+            18,
+            44,
+            14,
+            29,
+            37,
+            36,
+            41,
+            42,
+            38,
+            21,
+            9,
+            15
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 25,
+          "question": "What does the MAP function provide for the MEASURE and MANAGE functions?",
+          "relevant_pages": [
+            29
+          ],
+          "retrieved_pages": [
+            29,
+            35,
+            32,
+            34
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            29,
+            32,
+            35,
+            26,
+            11,
+            9,
+            8,
+            25,
+            46,
+            34,
+            36,
+            37,
+            27,
+            33,
+            3,
+            31,
+            43,
+            28,
+            10,
+            7,
+            13,
+            1,
+            12,
+            23
+          ],
+          "candidate_count": 24,
+          "reranked_pages": [
+            29,
+            35,
+            32,
+            34,
+            33,
+            36,
+            28,
+            31,
+            7,
+            13,
+            27,
+            23,
+            8,
+            3,
+            25,
+            10,
+            12,
+            26,
+            9,
+            37,
+            11,
+            43,
+            46,
+            1
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 26,
+          "question": "What information should be considered when identifying the intended purpose and context of an AI system?",
+          "relevant_pages": [
+            30
+          ],
+          "retrieved_pages": [
+            30,
+            29,
+            11,
+            40
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            30,
+            29,
+            31,
+            45,
+            27,
+            40,
+            14,
+            5,
+            6,
+            11,
+            39,
+            32,
+            28,
+            13,
+            17,
+            41,
+            24,
+            10,
+            8,
+            36,
+            26,
+            4,
+            7,
+            22,
+            12
+          ],
+          "candidate_count": 25,
+          "reranked_pages": [
+            30,
+            29,
+            11,
+            40,
+            5,
+            12,
+            32,
+            31,
+            36,
+            6,
+            14,
+            10,
+            27,
+            28,
+            13,
+            8,
+            17,
+            7,
+            39,
+            45,
+            4,
+            41,
+            24,
+            26,
+            22
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 27,
+          "question": "What types of methods can the MEASURE function use to analyze and assess AI risks?",
+          "relevant_pages": [
+            32
+          ],
+          "retrieved_pages": [
+            32,
+            34,
+            33,
+            10
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            32,
+            33,
+            34,
+            36,
+            10,
+            29,
+            8,
+            35,
+            9,
+            25,
+            21,
+            5,
+            27,
+            18,
+            12,
+            46,
+            43,
+            11,
+            3,
+            45,
+            26,
+            42
+          ],
+          "candidate_count": 22,
+          "reranked_pages": [
+            32,
+            34,
+            33,
+            10,
+            35,
+            9,
+            36,
+            29,
+            43,
+            18,
+            25,
+            45,
+            12,
+            26,
+            5,
+            11,
+            3,
+            27,
+            46,
+            8,
+            21,
+            42
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 28,
+          "question": "How should approaches and metrics for measuring AI risks be selected?",
+          "relevant_pages": [
+            33
+          ],
+          "retrieved_pages": [
+            33,
+            34,
+            10,
+            9
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            33,
+            10,
+            9,
+            46,
+            32,
+            8,
+            12,
+            34,
+            0,
+            5,
+            42,
+            23,
+            11,
+            3,
+            37,
+            25,
+            17,
+            18,
+            16,
+            27
+          ],
+          "candidate_count": 20,
+          "reranked_pages": [
+            33,
+            34,
+            10,
+            9,
+            32,
+            46,
+            18,
+            42,
+            27,
+            25,
+            12,
+            37,
+            16,
+            23,
+            8,
+            3,
+            11,
+            17,
+            5,
+            0
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 29,
+          "question": "What should be documented when an AI risk or trustworthiness characteristic cannot be measured?",
+          "relevant_pages": [
+            33
+          ],
+          "retrieved_pages": [
+            33,
+            17,
+            18,
+            9
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            9,
+            33,
+            10,
+            19,
+            46,
+            32,
+            21,
+            11,
+            18,
+            20,
+            17,
+            16,
+            37,
+            4,
+            6,
+            35,
+            12,
+            3,
+            42,
+            30
+          ],
+          "candidate_count": 20,
+          "reranked_pages": [
+            33,
+            17,
+            18,
+            9,
+            16,
+            35,
+            32,
+            11,
+            6,
+            30,
+            10,
+            4,
+            37,
+            20,
+            46,
+            12,
+            21,
+            3,
+            42,
+            19
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        },
+        {
+          "id": 30,
+          "question": "What does the MANAGE function do with the risks identified through the MAP and MEASURE functions?",
+          "relevant_pages": [
+            36
+          ],
+          "retrieved_pages": [
+            36,
+            29,
+            32,
+            35
+          ],
+          "hit_at_1": 1,
+          "precision_at_1": 1.0,
+          "recall_at_1": 1.0,
+          "hit_at_2": 1,
+          "precision_at_2": 0.5,
+          "recall_at_2": 1.0,
+          "hit_at_4": 1,
+          "precision_at_4": 0.25,
+          "recall_at_4": 1.0,
+          "reciprocal_rank": 1.0,
+          "ndcg_at_4": 1.0,
+          "candidate_pages": [
+            25,
+            35,
+            36,
+            32,
+            29,
+            4,
+            37,
+            34,
+            24,
+            26,
+            9,
+            7,
+            43,
+            33,
+            31,
+            27,
+            21,
+            11,
+            46,
+            3,
+            28
+          ],
+          "candidate_count": 21,
+          "reranked_pages": [
+            36,
+            29,
+            32,
+            35,
+            25,
+            24,
+            34,
+            33,
+            7,
+            4,
+            43,
+            37,
+            3,
+            26,
+            31,
+            28,
+            9,
+            27,
+            11,
+            46,
+            21
+          ],
+          "candidate_recall": {
+            "candidate_recall_at_10": 1.0,
+            "candidate_recall_at_20": 1.0,
+            "candidate_recall_at_30": 1.0,
+            "candidate_recall_all": 1.0
+          }
+        }
+      ]
+    }
+  },
+  "candidate_pool_summary": {
+    "mean_candidates": 22.83,
+    "min_candidates": 17,
+    "max_candidates": 29
+  },
+  "candidate_recall_summary": {
+    "candidate_recall_at_10": 1.0,
+    "candidate_recall_at_20": 1.0,
+    "candidate_recall_at_30": 1.0,
+    "candidate_recall_all": 1.0
+  }
+}

@@ -1,0 +1,3773 @@
+{
+  "experiment": "Repeated Top 10 vs Full candidate-pool latency comparison",
+  "questions_evaluated": 30,
+  "repeats": 2,
+  "retrieval_configuration": {
+    "method": "Hybrid RRF",
+    "fetch_k": 20,
+    "candidate_aggregation": "Page-level"
+  },
+  "reranker_model": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+  "warmup_enabled": true,
+  "latency_methodology": {
+    "retrieval": "Hybrid retrieval is executed once per question in each repeat and shared by both configurations.",
+    "reranker": "Includes candidate pair construction, CrossEncoder prediction and sorting.",
+    "total": "Measured retrieval latency plus reranker latency.",
+    "execution_order": "Top 10 and Full execution order alternates across questions and repetitions.",
+    "warmup": "CrossEncoder warm-up is excluded from measurements."
+  },
+  "results": [
+    {
+      "repeat": 1,
+      "questions_evaluated": 30,
+      "duration_seconds": 120.003,
+      "retrieval_latency": {
+        "mean_ms": 187.183,
+        "median_ms": 133.164,
+        "stdev_ms": 126.447,
+        "min_ms": 106.963,
+        "max_ms": 650.073
+      },
+      "latency_reduction_percent": 57.43,
+      "configurations": {
+        "top_10": {
+          "reranker_latency": {
+            "mean_ms": 1137.581,
+            "median_ms": 1093.828,
+            "stdev_ms": 190.047,
+            "min_ms": 962.802,
+            "max_ms": 1941.102
+          },
+          "total_latency": {
+            "mean_ms": 1324.764,
+            "median_ms": 1228.435,
+            "stdev_ms": 295.882,
+            "min_ms": 1079.56,
+            "max_ms": 2591.175
+          },
+          "results": [
+            {
+              "id": 1,
+              "candidate_count": 10,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                24,
+                7,
+                25,
+                37,
+                39,
+                26,
+                46,
+                6,
+                2,
+                15
+              ],
+              "retrieval_latency_ms": 162.664,
+              "reranker_latency_ms": 1284.354,
+              "total_latency_ms": 1447.018,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 2,
+              "candidate_count": 10,
+              "available_candidate_count": 29,
+              "candidate_pages": [
+                24,
+                25,
+                37,
+                7,
+                36,
+                46,
+                26,
+                23,
+                21,
+                15
+              ],
+              "retrieval_latency_ms": 206.939,
+              "reranker_latency_ms": 1346.765,
+              "total_latency_ms": 1553.704,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 3,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                26,
+                25,
+                24,
+                35,
+                7,
+                27,
+                37,
+                29,
+                28,
+                34
+              ],
+              "retrieval_latency_ms": 329.285,
+              "reranker_latency_ms": 1354.206,
+              "total_latency_ms": 1683.491,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 4,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                26,
+                4,
+                25,
+                24,
+                37,
+                41,
+                7,
+                21,
+                46,
+                22
+              ],
+              "retrieval_latency_ms": 195.732,
+              "reranker_latency_ms": 1308.951,
+              "total_latency_ms": 1504.683,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 5,
+              "candidate_count": 10,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                29,
+                30,
+                31,
+                32,
+                36,
+                28,
+                5,
+                27,
+                8,
+                45
+              ],
+              "retrieval_latency_ms": 283.295,
+              "reranker_latency_ms": 1223.811,
+              "total_latency_ms": 1507.106,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 6,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                24,
+                25,
+                32,
+                34,
+                33,
+                7,
+                38,
+                36,
+                27,
+                35
+              ],
+              "retrieval_latency_ms": 137.067,
+              "reranker_latency_ms": 1146.584,
+              "total_latency_ms": 1283.651,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 7,
+              "candidate_count": 10,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                24,
+                36,
+                25,
+                37,
+                27,
+                39,
+                41,
+                7,
+                32,
+                34
+              ],
+              "retrieval_latency_ms": 129.406,
+              "reranker_latency_ms": 1290.962,
+              "total_latency_ms": 1420.368,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 8,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                16,
+                4,
+                6,
+                33,
+                17,
+                24,
+                21,
+                37,
+                32,
+                18
+              ],
+              "retrieval_latency_ms": 126.935,
+              "reranker_latency_ms": 1012.505,
+              "total_latency_ms": 1139.44,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 9,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                11,
+                37,
+                46,
+                25,
+                33,
+                26,
+                27,
+                24,
+                7,
+                8
+              ],
+              "retrieval_latency_ms": 121.758,
+              "reranker_latency_ms": 1112.67,
+              "total_latency_ms": 1234.428,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 10,
+              "candidate_count": 10,
+              "available_candidate_count": 28,
+              "candidate_pages": [
+                22,
+                33,
+                31,
+                42,
+                32,
+                28,
+                34,
+                44,
+                2,
+                5
+              ],
+              "retrieval_latency_ms": 138.935,
+              "reranker_latency_ms": 1063.352,
+              "total_latency_ms": 1202.287,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 11,
+              "candidate_count": 10,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                37,
+                36,
+                35,
+                32,
+                28,
+                27,
+                38,
+                25,
+                43,
+                26
+              ],
+              "retrieval_latency_ms": 132.253,
+              "reranker_latency_ms": 1122.441,
+              "total_latency_ms": 1254.694,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 12,
+              "candidate_count": 10,
+              "available_candidate_count": 19,
+              "candidate_pages": [
+                11,
+                26,
+                21,
+                9,
+                29,
+                46,
+                37,
+                27,
+                42,
+                32
+              ],
+              "retrieval_latency_ms": 106.963,
+              "reranker_latency_ms": 988.603,
+              "total_latency_ms": 1095.566,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 13,
+              "candidate_count": 10,
+              "available_candidate_count": 17,
+              "candidate_pages": [
+                12,
+                10,
+                8,
+                18,
+                29,
+                42,
+                9,
+                11,
+                46,
+                19
+              ],
+              "retrieval_latency_ms": 120.563,
+              "reranker_latency_ms": 1104.413,
+              "total_latency_ms": 1224.976,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 14,
+              "candidate_count": 10,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                26,
+                13,
+                11,
+                37,
+                27,
+                8,
+                12,
+                46,
+                23,
+                5
+              ],
+              "retrieval_latency_ms": 181.723,
+              "reranker_latency_ms": 1030.639,
+              "total_latency_ms": 1212.362,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 15,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                20,
+                21,
+                19,
+                16,
+                10,
+                17,
+                26,
+                30,
+                22,
+                4
+              ],
+              "retrieval_latency_ms": 132.564,
+              "reranker_latency_ms": 1010.242,
+              "total_latency_ms": 1142.806,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 16,
+              "candidate_count": 10,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                22,
+                21,
+                44,
+                42,
+                5,
+                45,
+                37,
+                24,
+                46,
+                27
+              ],
+              "retrieval_latency_ms": 130.589,
+              "reranker_latency_ms": 1003.221,
+              "total_latency_ms": 1133.81,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 17,
+              "candidate_count": 10,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                22,
+                42,
+                12,
+                18,
+                6,
+                24,
+                7,
+                43,
+                44,
+                25
+              ],
+              "retrieval_latency_ms": 128.963,
+              "reranker_latency_ms": 1002.553,
+              "total_latency_ms": 1131.516,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 18,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                22,
+                44,
+                42,
+                21,
+                45,
+                6,
+                25,
+                5,
+                13,
+                7
+              ],
+              "retrieval_latency_ms": 116.934,
+              "reranker_latency_ms": 994.488,
+              "total_latency_ms": 1111.422,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 19,
+              "candidate_count": 10,
+              "available_candidate_count": 26,
+              "candidate_pages": [
+                24,
+                25,
+                7,
+                46,
+                27,
+                29,
+                26,
+                15,
+                21,
+                36
+              ],
+              "retrieval_latency_ms": 115.645,
+              "reranker_latency_ms": 1103.586,
+              "total_latency_ms": 1219.231,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 20,
+              "candidate_count": 10,
+              "available_candidate_count": 26,
+              "candidate_pages": [
+                24,
+                25,
+                37,
+                7,
+                40,
+                28,
+                12,
+                15,
+                42,
+                39
+              ],
+              "retrieval_latency_ms": 150.188,
+              "reranker_latency_ms": 972.265,
+              "total_latency_ms": 1122.453,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 21,
+              "candidate_count": 10,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                25,
+                7,
+                26,
+                2,
+                36,
+                24,
+                39,
+                37,
+                29,
+                46
+              ],
+              "retrieval_latency_ms": 147.823,
+              "reranker_latency_ms": 1084.07,
+              "total_latency_ms": 1231.893,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 22,
+              "candidate_count": 10,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                26,
+                25,
+                27,
+                35,
+                24,
+                28,
+                3,
+                37,
+                36,
+                34
+              ],
+              "retrieval_latency_ms": 133.765,
+              "reranker_latency_ms": 1053.826,
+              "total_latency_ms": 1187.591,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 23,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                27,
+                26,
+                46,
+                25,
+                37,
+                29,
+                11,
+                40,
+                18,
+                32
+              ],
+              "retrieval_latency_ms": 126.616,
+              "reranker_latency_ms": 1032.311,
+              "total_latency_ms": 1158.927,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 24,
+              "candidate_count": 10,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                35,
+                27,
+                28,
+                26,
+                25,
+                34,
+                45,
+                31,
+                36,
+                42
+              ],
+              "retrieval_latency_ms": 111.044,
+              "reranker_latency_ms": 1050.19,
+              "total_latency_ms": 1161.234,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 25,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                29,
+                32,
+                35,
+                26,
+                11,
+                9,
+                8,
+                25,
+                46,
+                34
+              ],
+              "retrieval_latency_ms": 650.073,
+              "reranker_latency_ms": 1941.102,
+              "total_latency_ms": 2591.175,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 26,
+              "candidate_count": 10,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                30,
+                29,
+                31,
+                45,
+                27,
+                40,
+                14,
+                5,
+                6,
+                11
+              ],
+              "retrieval_latency_ms": 549.067,
+              "reranker_latency_ms": 1193.12,
+              "total_latency_ms": 1742.187,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 27,
+              "candidate_count": 10,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                32,
+                33,
+                34,
+                36,
+                10,
+                29,
+                8,
+                35,
+                9,
+                25
+              ],
+              "retrieval_latency_ms": 305.968,
+              "reranker_latency_ms": 1044.781,
+              "total_latency_ms": 1350.749,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 28,
+              "candidate_count": 10,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                33,
+                10,
+                9,
+                46,
+                32,
+                8,
+                12,
+                34,
+                0,
+                5
+              ],
+              "retrieval_latency_ms": 116.758,
+              "reranker_latency_ms": 962.802,
+              "total_latency_ms": 1079.56,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 29,
+              "candidate_count": 10,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                9,
+                33,
+                10,
+                19,
+                46,
+                32,
+                21,
+                11,
+                18,
+                20
+              ],
+              "retrieval_latency_ms": 125.302,
+              "reranker_latency_ms": 1142.17,
+              "total_latency_ms": 1267.472,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 30,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                25,
+                35,
+                36,
+                32,
+                29,
+                4,
+                37,
+                34,
+                24,
+                26
+              ],
+              "retrieval_latency_ms": 200.665,
+              "reranker_latency_ms": 1146.456,
+              "total_latency_ms": 1347.121,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            }
+          ]
+        },
+        "full": {
+          "reranker_latency": {
+            "mean_ms": 2672.353,
+            "median_ms": 2582.443,
+            "stdev_ms": 606.534,
+            "min_ms": 1788.596,
+            "max_ms": 4645.384
+          },
+          "total_latency": {
+            "mean_ms": 2859.536,
+            "median_ms": 2706.061,
+            "stdev_ms": 688.481,
+            "min_ms": 1909.159,
+            "max_ms": 5295.457
+          },
+          "results": [
+            {
+              "id": 1,
+              "candidate_count": 25,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                24,
+                7,
+                25,
+                37,
+                39,
+                26,
+                46,
+                6,
+                2,
+                15,
+                3,
+                36,
+                17,
+                21,
+                12,
+                43,
+                5,
+                34,
+                27,
+                41,
+                40,
+                10,
+                28,
+                13,
+                42
+              ],
+              "retrieval_latency_ms": 162.664,
+              "reranker_latency_ms": 3466.251,
+              "total_latency_ms": 3628.915,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 2,
+              "candidate_count": 29,
+              "available_candidate_count": 29,
+              "candidate_pages": [
+                24,
+                25,
+                37,
+                7,
+                36,
+                46,
+                26,
+                23,
+                21,
+                15,
+                43,
+                2,
+                27,
+                31,
+                14,
+                3,
+                28,
+                34,
+                33,
+                41,
+                4,
+                32,
+                13,
+                40,
+                22,
+                29,
+                6,
+                45,
+                12
+              ],
+              "retrieval_latency_ms": 206.939,
+              "reranker_latency_ms": 4179.698,
+              "total_latency_ms": 4386.637,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 3,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                26,
+                25,
+                24,
+                35,
+                7,
+                27,
+                37,
+                29,
+                28,
+                34,
+                45,
+                2,
+                36,
+                39,
+                15,
+                17,
+                46,
+                21,
+                4,
+                6,
+                32
+              ],
+              "retrieval_latency_ms": 329.285,
+              "reranker_latency_ms": 2756.149,
+              "total_latency_ms": 3085.434,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 4,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                26,
+                4,
+                25,
+                24,
+                37,
+                41,
+                7,
+                21,
+                46,
+                22,
+                34,
+                38,
+                39,
+                13,
+                36,
+                20,
+                6,
+                32,
+                40,
+                2,
+                11,
+                43,
+                27,
+                14
+              ],
+              "retrieval_latency_ms": 195.732,
+              "reranker_latency_ms": 3007.087,
+              "total_latency_ms": 3202.819,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 5,
+              "candidate_count": 22,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                29,
+                30,
+                31,
+                32,
+                36,
+                28,
+                5,
+                27,
+                8,
+                45,
+                17,
+                20,
+                18,
+                35,
+                25,
+                42,
+                34,
+                10,
+                7,
+                44,
+                33,
+                24
+              ],
+              "retrieval_latency_ms": 283.295,
+              "reranker_latency_ms": 2830.364,
+              "total_latency_ms": 3113.659,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 6,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                24,
+                25,
+                32,
+                34,
+                33,
+                7,
+                38,
+                36,
+                27,
+                35,
+                37,
+                43,
+                46,
+                21,
+                26,
+                9,
+                17,
+                15,
+                39,
+                28,
+                41,
+                3,
+                2,
+                29
+              ],
+              "retrieval_latency_ms": 137.067,
+              "reranker_latency_ms": 2620.584,
+              "total_latency_ms": 2757.651,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 7,
+              "candidate_count": 25,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                24,
+                36,
+                25,
+                37,
+                27,
+                39,
+                41,
+                7,
+                32,
+                34,
+                43,
+                38,
+                26,
+                21,
+                35,
+                17,
+                15,
+                4,
+                28,
+                46,
+                13,
+                29,
+                18,
+                45,
+                11
+              ],
+              "retrieval_latency_ms": 129.406,
+              "reranker_latency_ms": 2722.965,
+              "total_latency_ms": 2852.371,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 8,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                16,
+                4,
+                6,
+                33,
+                17,
+                24,
+                21,
+                37,
+                32,
+                18,
+                34,
+                12,
+                26,
+                31,
+                28,
+                13,
+                9,
+                19,
+                7,
+                36,
+                46,
+                39,
+                35,
+                43
+              ],
+              "retrieval_latency_ms": 126.935,
+              "reranker_latency_ms": 2597.68,
+              "total_latency_ms": 2724.615,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 9,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                11,
+                37,
+                46,
+                25,
+                33,
+                26,
+                27,
+                24,
+                7,
+                8,
+                29,
+                13,
+                12,
+                34,
+                36,
+                0,
+                21,
+                38,
+                2,
+                42,
+                3
+              ],
+              "retrieval_latency_ms": 121.758,
+              "reranker_latency_ms": 2333.777,
+              "total_latency_ms": 2455.535,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 10,
+              "candidate_count": 28,
+              "available_candidate_count": 28,
+              "candidate_pages": [
+                22,
+                33,
+                31,
+                42,
+                32,
+                28,
+                34,
+                44,
+                2,
+                5,
+                21,
+                41,
+                24,
+                27,
+                7,
+                6,
+                9,
+                36,
+                37,
+                39,
+                45,
+                12,
+                35,
+                8,
+                23,
+                43,
+                10,
+                16
+              ],
+              "retrieval_latency_ms": 138.935,
+              "reranker_latency_ms": 3166.936,
+              "total_latency_ms": 3305.871,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 11,
+              "candidate_count": 22,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                37,
+                36,
+                35,
+                32,
+                28,
+                27,
+                38,
+                25,
+                43,
+                26,
+                34,
+                21,
+                4,
+                46,
+                7,
+                39,
+                8,
+                24,
+                42,
+                40,
+                11,
+                30
+              ],
+              "retrieval_latency_ms": 132.253,
+              "reranker_latency_ms": 2454.281,
+              "total_latency_ms": 2586.534,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 12,
+              "candidate_count": 19,
+              "available_candidate_count": 19,
+              "candidate_pages": [
+                11,
+                26,
+                21,
+                9,
+                29,
+                46,
+                37,
+                27,
+                42,
+                32,
+                44,
+                6,
+                4,
+                10,
+                8,
+                25,
+                41,
+                38,
+                17
+              ],
+              "retrieval_latency_ms": 106.963,
+              "reranker_latency_ms": 1946.791,
+              "total_latency_ms": 2053.754,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 13,
+              "candidate_count": 17,
+              "available_candidate_count": 17,
+              "candidate_pages": [
+                12,
+                10,
+                8,
+                18,
+                29,
+                42,
+                9,
+                11,
+                46,
+                19,
+                20,
+                21,
+                0,
+                5,
+                13,
+                44,
+                30
+              ],
+              "retrieval_latency_ms": 120.563,
+              "reranker_latency_ms": 1788.596,
+              "total_latency_ms": 1909.159,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 14,
+              "candidate_count": 23,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                26,
+                13,
+                11,
+                37,
+                27,
+                8,
+                12,
+                46,
+                23,
+                5,
+                14,
+                9,
+                3,
+                35,
+                24,
+                21,
+                42,
+                7,
+                28,
+                29,
+                36,
+                4,
+                34
+              ],
+              "retrieval_latency_ms": 181.723,
+              "reranker_latency_ms": 2470.672,
+              "total_latency_ms": 2652.395,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 15,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                20,
+                21,
+                19,
+                16,
+                10,
+                17,
+                26,
+                30,
+                22,
+                4,
+                34,
+                28,
+                31,
+                35,
+                42,
+                44,
+                46,
+                43,
+                45,
+                12,
+                25
+              ],
+              "retrieval_latency_ms": 132.564,
+              "reranker_latency_ms": 2405.169,
+              "total_latency_ms": 2537.733,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 16,
+              "candidate_count": 23,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                22,
+                21,
+                44,
+                42,
+                5,
+                45,
+                37,
+                24,
+                46,
+                27,
+                25,
+                13,
+                10,
+                12,
+                16,
+                34,
+                43,
+                7,
+                28,
+                2,
+                8,
+                6,
+                36
+              ],
+              "retrieval_latency_ms": 130.589,
+              "reranker_latency_ms": 2556.918,
+              "total_latency_ms": 2687.507,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 17,
+              "candidate_count": 23,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                22,
+                42,
+                12,
+                18,
+                6,
+                24,
+                7,
+                43,
+                44,
+                25,
+                13,
+                5,
+                21,
+                0,
+                31,
+                16,
+                28,
+                34,
+                27,
+                2,
+                45,
+                36,
+                37
+              ],
+              "retrieval_latency_ms": 128.963,
+              "reranker_latency_ms": 2639.706,
+              "total_latency_ms": 2768.669,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 18,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                22,
+                44,
+                42,
+                21,
+                45,
+                6,
+                25,
+                5,
+                13,
+                7,
+                16,
+                34,
+                8,
+                43,
+                27,
+                12,
+                26,
+                10,
+                2,
+                20,
+                37,
+                0,
+                41,
+                24
+              ],
+              "retrieval_latency_ms": 116.934,
+              "reranker_latency_ms": 2567.205,
+              "total_latency_ms": 2684.139,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 19,
+              "candidate_count": 26,
+              "available_candidate_count": 26,
+              "candidate_pages": [
+                24,
+                25,
+                7,
+                46,
+                27,
+                29,
+                26,
+                15,
+                21,
+                36,
+                20,
+                4,
+                43,
+                28,
+                3,
+                37,
+                17,
+                12,
+                14,
+                9,
+                5,
+                45,
+                39,
+                6,
+                41,
+                22
+              ],
+              "retrieval_latency_ms": 115.645,
+              "reranker_latency_ms": 2710.605,
+              "total_latency_ms": 2826.25,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 20,
+              "candidate_count": 26,
+              "available_candidate_count": 26,
+              "candidate_pages": [
+                24,
+                25,
+                37,
+                7,
+                40,
+                28,
+                12,
+                15,
+                42,
+                39,
+                43,
+                2,
+                17,
+                36,
+                5,
+                26,
+                13,
+                18,
+                6,
+                4,
+                11,
+                45,
+                30,
+                29,
+                16,
+                41
+              ],
+              "retrieval_latency_ms": 150.188,
+              "reranker_latency_ms": 2953.523,
+              "total_latency_ms": 3103.711,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 21,
+              "candidate_count": 22,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                25,
+                7,
+                26,
+                2,
+                36,
+                24,
+                39,
+                37,
+                29,
+                46,
+                15,
+                17,
+                21,
+                12,
+                33,
+                6,
+                45,
+                42,
+                35,
+                10,
+                28,
+                13
+              ],
+              "retrieval_latency_ms": 147.823,
+              "reranker_latency_ms": 2415.862,
+              "total_latency_ms": 2563.685,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 22,
+              "candidate_count": 20,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                26,
+                25,
+                27,
+                35,
+                24,
+                28,
+                3,
+                37,
+                36,
+                34,
+                4,
+                29,
+                13,
+                32,
+                8,
+                42,
+                12,
+                46,
+                9,
+                11
+              ],
+              "retrieval_latency_ms": 133.765,
+              "reranker_latency_ms": 2122.9,
+              "total_latency_ms": 2256.665,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 23,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                27,
+                26,
+                46,
+                25,
+                37,
+                29,
+                11,
+                40,
+                18,
+                32,
+                36,
+                2,
+                34,
+                24,
+                35,
+                21,
+                13,
+                9,
+                23,
+                7,
+                43
+              ],
+              "retrieval_latency_ms": 126.616,
+              "reranker_latency_ms": 2359.947,
+              "total_latency_ms": 2486.563,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 24,
+              "candidate_count": 23,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                35,
+                27,
+                28,
+                26,
+                25,
+                34,
+                45,
+                31,
+                36,
+                42,
+                18,
+                40,
+                21,
+                24,
+                38,
+                41,
+                44,
+                32,
+                14,
+                15,
+                9,
+                37,
+                29
+              ],
+              "retrieval_latency_ms": 111.044,
+              "reranker_latency_ms": 2832.62,
+              "total_latency_ms": 2943.664,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 25,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                29,
+                32,
+                35,
+                26,
+                11,
+                9,
+                8,
+                25,
+                46,
+                34,
+                36,
+                37,
+                27,
+                33,
+                3,
+                31,
+                43,
+                28,
+                10,
+                7,
+                13,
+                1,
+                12,
+                23
+              ],
+              "retrieval_latency_ms": 650.073,
+              "reranker_latency_ms": 4645.384,
+              "total_latency_ms": 5295.457,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 26,
+              "candidate_count": 25,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                30,
+                29,
+                31,
+                45,
+                27,
+                40,
+                14,
+                5,
+                6,
+                11,
+                39,
+                32,
+                28,
+                13,
+                17,
+                41,
+                24,
+                10,
+                8,
+                36,
+                26,
+                4,
+                7,
+                22,
+                12
+              ],
+              "retrieval_latency_ms": 549.067,
+              "reranker_latency_ms": 3017.867,
+              "total_latency_ms": 3566.934,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 27,
+              "candidate_count": 22,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                32,
+                33,
+                34,
+                36,
+                10,
+                29,
+                8,
+                35,
+                9,
+                25,
+                21,
+                5,
+                27,
+                18,
+                12,
+                46,
+                43,
+                11,
+                3,
+                45,
+                26,
+                42
+              ],
+              "retrieval_latency_ms": 305.968,
+              "reranker_latency_ms": 2275.91,
+              "total_latency_ms": 2581.878,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 28,
+              "candidate_count": 20,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                33,
+                10,
+                9,
+                46,
+                32,
+                8,
+                12,
+                34,
+                0,
+                5,
+                42,
+                23,
+                11,
+                3,
+                37,
+                25,
+                17,
+                18,
+                16,
+                27
+              ],
+              "retrieval_latency_ms": 116.758,
+              "reranker_latency_ms": 1906.096,
+              "total_latency_ms": 2022.854,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 29,
+              "candidate_count": 20,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                9,
+                33,
+                10,
+                19,
+                46,
+                32,
+                21,
+                11,
+                18,
+                20,
+                17,
+                16,
+                37,
+                4,
+                6,
+                35,
+                12,
+                3,
+                42,
+                30
+              ],
+              "retrieval_latency_ms": 125.302,
+              "reranker_latency_ms": 2169.694,
+              "total_latency_ms": 2294.996,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 30,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                25,
+                35,
+                36,
+                32,
+                29,
+                4,
+                37,
+                34,
+                24,
+                26,
+                9,
+                7,
+                43,
+                33,
+                31,
+                27,
+                21,
+                11,
+                46,
+                3,
+                28
+              ],
+              "retrieval_latency_ms": 200.665,
+              "reranker_latency_ms": 2249.351,
+              "total_latency_ms": 2450.016,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            }
+          ]
+        }
+      }
+    },
+    {
+      "repeat": 2,
+      "questions_evaluated": 30,
+      "duration_seconds": 117.487,
+      "retrieval_latency": {
+        "mean_ms": 156.708,
+        "median_ms": 146.423,
+        "stdev_ms": 58.991,
+        "min_ms": 102.538,
+        "max_ms": 422.743
+      },
+      "latency_reduction_percent": 58.05,
+      "configurations": {
+        "top_10": {
+          "reranker_latency": {
+            "mean_ms": 1110.472,
+            "median_ms": 1095.622,
+            "stdev_ms": 91.438,
+            "min_ms": 932.222,
+            "max_ms": 1325.623
+          },
+          "total_latency": {
+            "mean_ms": 1267.18,
+            "median_ms": 1242.514,
+            "stdev_ms": 128.137,
+            "min_ms": 1055.151,
+            "max_ms": 1632.593
+          },
+          "results": [
+            {
+              "id": 1,
+              "candidate_count": 10,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                24,
+                7,
+                25,
+                37,
+                39,
+                26,
+                46,
+                6,
+                2,
+                15
+              ],
+              "retrieval_latency_ms": 112.528,
+              "reranker_latency_ms": 1082.887,
+              "total_latency_ms": 1195.415,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 2,
+              "candidate_count": 10,
+              "available_candidate_count": 29,
+              "candidate_pages": [
+                24,
+                25,
+                37,
+                7,
+                36,
+                46,
+                26,
+                23,
+                21,
+                15
+              ],
+              "retrieval_latency_ms": 118.347,
+              "reranker_latency_ms": 1121.174,
+              "total_latency_ms": 1239.521,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 3,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                26,
+                25,
+                24,
+                35,
+                7,
+                27,
+                37,
+                29,
+                28,
+                34
+              ],
+              "retrieval_latency_ms": 102.538,
+              "reranker_latency_ms": 1025.078,
+              "total_latency_ms": 1127.616,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 4,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                26,
+                4,
+                25,
+                24,
+                37,
+                41,
+                7,
+                21,
+                46,
+                22
+              ],
+              "retrieval_latency_ms": 131.623,
+              "reranker_latency_ms": 1029.505,
+              "total_latency_ms": 1161.128,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 5,
+              "candidate_count": 10,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                29,
+                30,
+                31,
+                32,
+                36,
+                28,
+                5,
+                27,
+                8,
+                45
+              ],
+              "retrieval_latency_ms": 141.389,
+              "reranker_latency_ms": 1102.92,
+              "total_latency_ms": 1244.309,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 6,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                24,
+                25,
+                32,
+                34,
+                33,
+                7,
+                38,
+                36,
+                27,
+                35
+              ],
+              "retrieval_latency_ms": 119.579,
+              "reranker_latency_ms": 1211.047,
+              "total_latency_ms": 1330.626,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 7,
+              "candidate_count": 10,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                24,
+                36,
+                25,
+                37,
+                27,
+                39,
+                41,
+                7,
+                32,
+                34
+              ],
+              "retrieval_latency_ms": 147.98,
+              "reranker_latency_ms": 1201.221,
+              "total_latency_ms": 1349.201,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 8,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                16,
+                4,
+                6,
+                33,
+                17,
+                24,
+                21,
+                37,
+                32,
+                18
+              ],
+              "retrieval_latency_ms": 151.836,
+              "reranker_latency_ms": 1200.74,
+              "total_latency_ms": 1352.576,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 9,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                11,
+                37,
+                46,
+                25,
+                33,
+                26,
+                27,
+                24,
+                7,
+                8
+              ],
+              "retrieval_latency_ms": 128.624,
+              "reranker_latency_ms": 1080.768,
+              "total_latency_ms": 1209.392,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 10,
+              "candidate_count": 10,
+              "available_candidate_count": 28,
+              "candidate_pages": [
+                22,
+                33,
+                31,
+                42,
+                32,
+                28,
+                34,
+                44,
+                2,
+                5
+              ],
+              "retrieval_latency_ms": 140.569,
+              "reranker_latency_ms": 1100.149,
+              "total_latency_ms": 1240.718,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 11,
+              "candidate_count": 10,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                37,
+                36,
+                35,
+                32,
+                28,
+                27,
+                38,
+                25,
+                43,
+                26
+              ],
+              "retrieval_latency_ms": 148.306,
+              "reranker_latency_ms": 1091.095,
+              "total_latency_ms": 1239.401,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 12,
+              "candidate_count": 10,
+              "available_candidate_count": 19,
+              "candidate_pages": [
+                11,
+                26,
+                21,
+                9,
+                29,
+                46,
+                37,
+                27,
+                42,
+                32
+              ],
+              "retrieval_latency_ms": 145.739,
+              "reranker_latency_ms": 1248.675,
+              "total_latency_ms": 1394.414,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 13,
+              "candidate_count": 10,
+              "available_candidate_count": 17,
+              "candidate_pages": [
+                12,
+                10,
+                8,
+                18,
+                29,
+                42,
+                9,
+                11,
+                46,
+                19
+              ],
+              "retrieval_latency_ms": 173.486,
+              "reranker_latency_ms": 1051.205,
+              "total_latency_ms": 1224.691,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 14,
+              "candidate_count": 10,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                26,
+                13,
+                11,
+                37,
+                27,
+                8,
+                12,
+                46,
+                23,
+                5
+              ],
+              "retrieval_latency_ms": 158.872,
+              "reranker_latency_ms": 1088.116,
+              "total_latency_ms": 1246.988,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 15,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                20,
+                21,
+                19,
+                16,
+                10,
+                17,
+                26,
+                30,
+                22,
+                4
+              ],
+              "retrieval_latency_ms": 122.811,
+              "reranker_latency_ms": 1040.476,
+              "total_latency_ms": 1163.287,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 16,
+              "candidate_count": 10,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                22,
+                21,
+                44,
+                42,
+                5,
+                45,
+                37,
+                24,
+                46,
+                27
+              ],
+              "retrieval_latency_ms": 145.546,
+              "reranker_latency_ms": 1170.089,
+              "total_latency_ms": 1315.635,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 17,
+              "candidate_count": 10,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                22,
+                42,
+                12,
+                18,
+                6,
+                24,
+                7,
+                43,
+                44,
+                25
+              ],
+              "retrieval_latency_ms": 171.118,
+              "reranker_latency_ms": 1018.171,
+              "total_latency_ms": 1189.289,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 18,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                22,
+                44,
+                42,
+                21,
+                45,
+                6,
+                25,
+                5,
+                13,
+                7
+              ],
+              "retrieval_latency_ms": 113.35,
+              "reranker_latency_ms": 1004.771,
+              "total_latency_ms": 1118.121,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 19,
+              "candidate_count": 10,
+              "available_candidate_count": 26,
+              "candidate_pages": [
+                24,
+                25,
+                7,
+                46,
+                27,
+                29,
+                26,
+                15,
+                21,
+                36
+              ],
+              "retrieval_latency_ms": 111.902,
+              "reranker_latency_ms": 951.828,
+              "total_latency_ms": 1063.73,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 20,
+              "candidate_count": 10,
+              "available_candidate_count": 26,
+              "candidate_pages": [
+                24,
+                25,
+                37,
+                7,
+                40,
+                28,
+                12,
+                15,
+                42,
+                39
+              ],
+              "retrieval_latency_ms": 162.493,
+              "reranker_latency_ms": 1244.986,
+              "total_latency_ms": 1407.479,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 21,
+              "candidate_count": 10,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                25,
+                7,
+                26,
+                2,
+                36,
+                24,
+                39,
+                37,
+                29,
+                46
+              ],
+              "retrieval_latency_ms": 164.576,
+              "reranker_latency_ms": 1140.123,
+              "total_latency_ms": 1304.699,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 22,
+              "candidate_count": 10,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                26,
+                25,
+                27,
+                35,
+                24,
+                28,
+                3,
+                37,
+                36,
+                34
+              ],
+              "retrieval_latency_ms": 207.947,
+              "reranker_latency_ms": 1076.542,
+              "total_latency_ms": 1284.489,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 23,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                27,
+                26,
+                46,
+                25,
+                37,
+                29,
+                11,
+                40,
+                18,
+                32
+              ],
+              "retrieval_latency_ms": 122.929,
+              "reranker_latency_ms": 932.222,
+              "total_latency_ms": 1055.151,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 24,
+              "candidate_count": 10,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                35,
+                27,
+                28,
+                26,
+                25,
+                34,
+                45,
+                31,
+                36,
+                42
+              ],
+              "retrieval_latency_ms": 255.839,
+              "reranker_latency_ms": 1325.623,
+              "total_latency_ms": 1581.462,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 25,
+              "candidate_count": 10,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                29,
+                32,
+                35,
+                26,
+                11,
+                9,
+                8,
+                25,
+                46,
+                34
+              ],
+              "retrieval_latency_ms": 422.743,
+              "reranker_latency_ms": 1209.85,
+              "total_latency_ms": 1632.593,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 26,
+              "candidate_count": 10,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                30,
+                29,
+                31,
+                45,
+                27,
+                40,
+                14,
+                5,
+                6,
+                11
+              ],
+              "retrieval_latency_ms": 176.908,
+              "reranker_latency_ms": 1150.837,
+              "total_latency_ms": 1327.745,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 27,
+              "candidate_count": 10,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                32,
+                33,
+                34,
+                36,
+                10,
+                29,
+                8,
+                35,
+                9,
+                25
+              ],
+              "retrieval_latency_ms": 147.108,
+              "reranker_latency_ms": 1059.805,
+              "total_latency_ms": 1206.913,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 28,
+              "candidate_count": 10,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                33,
+                10,
+                9,
+                46,
+                32,
+                8,
+                12,
+                34,
+                0,
+                5
+              ],
+              "retrieval_latency_ms": 141.137,
+              "reranker_latency_ms": 1119.199,
+              "total_latency_ms": 1260.336,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 29,
+              "candidate_count": 10,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                9,
+                33,
+                10,
+                19,
+                46,
+                32,
+                21,
+                11,
+                18,
+                20
+              ],
+              "retrieval_latency_ms": 164.341,
+              "reranker_latency_ms": 1043.497,
+              "total_latency_ms": 1207.838,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 30,
+              "candidate_count": 10,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                25,
+                35,
+                36,
+                32,
+                29,
+                4,
+                37,
+                34,
+                24,
+                26
+              ],
+              "retrieval_latency_ms": 149.09,
+              "reranker_latency_ms": 1191.56,
+              "total_latency_ms": 1340.65,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            }
+          ]
+        },
+        "full": {
+          "reranker_latency": {
+            "mean_ms": 2647.295,
+            "median_ms": 2655.645,
+            "stdev_ms": 384.83,
+            "min_ms": 1856.684,
+            "max_ms": 3569.705
+          },
+          "total_latency": {
+            "mean_ms": 2804.004,
+            "median_ms": 2779.244,
+            "stdev_ms": 407.07,
+            "min_ms": 2030.17,
+            "max_ms": 3825.544
+          },
+          "results": [
+            {
+              "id": 1,
+              "candidate_count": 25,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                24,
+                7,
+                25,
+                37,
+                39,
+                26,
+                46,
+                6,
+                2,
+                15,
+                3,
+                36,
+                17,
+                21,
+                12,
+                43,
+                5,
+                34,
+                27,
+                41,
+                40,
+                10,
+                28,
+                13,
+                42
+              ],
+              "retrieval_latency_ms": 112.528,
+              "reranker_latency_ms": 2654.294,
+              "total_latency_ms": 2766.822,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 2,
+              "candidate_count": 29,
+              "available_candidate_count": 29,
+              "candidate_pages": [
+                24,
+                25,
+                37,
+                7,
+                36,
+                46,
+                26,
+                23,
+                21,
+                15,
+                43,
+                2,
+                27,
+                31,
+                14,
+                3,
+                28,
+                34,
+                33,
+                41,
+                4,
+                32,
+                13,
+                40,
+                22,
+                29,
+                6,
+                45,
+                12
+              ],
+              "retrieval_latency_ms": 118.347,
+              "reranker_latency_ms": 3186.902,
+              "total_latency_ms": 3305.249,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 3,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                26,
+                25,
+                24,
+                35,
+                7,
+                27,
+                37,
+                29,
+                28,
+                34,
+                45,
+                2,
+                36,
+                39,
+                15,
+                17,
+                46,
+                21,
+                4,
+                6,
+                32
+              ],
+              "retrieval_latency_ms": 102.538,
+              "reranker_latency_ms": 2288.807,
+              "total_latency_ms": 2391.345,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 4,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                26,
+                4,
+                25,
+                24,
+                37,
+                41,
+                7,
+                21,
+                46,
+                22,
+                34,
+                38,
+                39,
+                13,
+                36,
+                20,
+                6,
+                32,
+                40,
+                2,
+                11,
+                43,
+                27,
+                14
+              ],
+              "retrieval_latency_ms": 131.623,
+              "reranker_latency_ms": 2687.239,
+              "total_latency_ms": 2818.862,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 5,
+              "candidate_count": 22,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                29,
+                30,
+                31,
+                32,
+                36,
+                28,
+                5,
+                27,
+                8,
+                45,
+                17,
+                20,
+                18,
+                35,
+                25,
+                42,
+                34,
+                10,
+                7,
+                44,
+                33,
+                24
+              ],
+              "retrieval_latency_ms": 141.389,
+              "reranker_latency_ms": 2797.704,
+              "total_latency_ms": 2939.093,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 6,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                24,
+                25,
+                32,
+                34,
+                33,
+                7,
+                38,
+                36,
+                27,
+                35,
+                37,
+                43,
+                46,
+                21,
+                26,
+                9,
+                17,
+                15,
+                39,
+                28,
+                41,
+                3,
+                2,
+                29
+              ],
+              "retrieval_latency_ms": 119.579,
+              "reranker_latency_ms": 2675.057,
+              "total_latency_ms": 2794.636,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 7,
+              "candidate_count": 25,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                24,
+                36,
+                25,
+                37,
+                27,
+                39,
+                41,
+                7,
+                32,
+                34,
+                43,
+                38,
+                26,
+                21,
+                35,
+                17,
+                15,
+                4,
+                28,
+                46,
+                13,
+                29,
+                18,
+                45,
+                11
+              ],
+              "retrieval_latency_ms": 147.98,
+              "reranker_latency_ms": 2917.248,
+              "total_latency_ms": 3065.228,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 8,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                16,
+                4,
+                6,
+                33,
+                17,
+                24,
+                21,
+                37,
+                32,
+                18,
+                34,
+                12,
+                26,
+                31,
+                28,
+                13,
+                9,
+                19,
+                7,
+                36,
+                46,
+                39,
+                35,
+                43
+              ],
+              "retrieval_latency_ms": 151.836,
+              "reranker_latency_ms": 2712.771,
+              "total_latency_ms": 2864.607,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 9,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                11,
+                37,
+                46,
+                25,
+                33,
+                26,
+                27,
+                24,
+                7,
+                8,
+                29,
+                13,
+                12,
+                34,
+                36,
+                0,
+                21,
+                38,
+                2,
+                42,
+                3
+              ],
+              "retrieval_latency_ms": 128.624,
+              "reranker_latency_ms": 2464.384,
+              "total_latency_ms": 2593.008,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 10,
+              "candidate_count": 28,
+              "available_candidate_count": 28,
+              "candidate_pages": [
+                22,
+                33,
+                31,
+                42,
+                32,
+                28,
+                34,
+                44,
+                2,
+                5,
+                21,
+                41,
+                24,
+                27,
+                7,
+                6,
+                9,
+                36,
+                37,
+                39,
+                45,
+                12,
+                35,
+                8,
+                23,
+                43,
+                10,
+                16
+              ],
+              "retrieval_latency_ms": 140.569,
+              "reranker_latency_ms": 3277.695,
+              "total_latency_ms": 3418.264,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 11,
+              "candidate_count": 22,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                37,
+                36,
+                35,
+                32,
+                28,
+                27,
+                38,
+                25,
+                43,
+                26,
+                34,
+                21,
+                4,
+                46,
+                7,
+                39,
+                8,
+                24,
+                42,
+                40,
+                11,
+                30
+              ],
+              "retrieval_latency_ms": 148.306,
+              "reranker_latency_ms": 2733.789,
+              "total_latency_ms": 2882.095,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 12,
+              "candidate_count": 19,
+              "available_candidate_count": 19,
+              "candidate_pages": [
+                11,
+                26,
+                21,
+                9,
+                29,
+                46,
+                37,
+                27,
+                42,
+                32,
+                44,
+                6,
+                4,
+                10,
+                8,
+                25,
+                41,
+                38,
+                17
+              ],
+              "retrieval_latency_ms": 145.739,
+              "reranker_latency_ms": 2118.421,
+              "total_latency_ms": 2264.16,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 13,
+              "candidate_count": 17,
+              "available_candidate_count": 17,
+              "candidate_pages": [
+                12,
+                10,
+                8,
+                18,
+                29,
+                42,
+                9,
+                11,
+                46,
+                19,
+                20,
+                21,
+                0,
+                5,
+                13,
+                44,
+                30
+              ],
+              "retrieval_latency_ms": 173.486,
+              "reranker_latency_ms": 1856.684,
+              "total_latency_ms": 2030.17,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 14,
+              "candidate_count": 23,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                26,
+                13,
+                11,
+                37,
+                27,
+                8,
+                12,
+                46,
+                23,
+                5,
+                14,
+                9,
+                3,
+                35,
+                24,
+                21,
+                42,
+                7,
+                28,
+                29,
+                36,
+                4,
+                34
+              ],
+              "retrieval_latency_ms": 158.872,
+              "reranker_latency_ms": 2630.718,
+              "total_latency_ms": 2789.59,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 15,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                20,
+                21,
+                19,
+                16,
+                10,
+                17,
+                26,
+                30,
+                22,
+                4,
+                34,
+                28,
+                31,
+                35,
+                42,
+                44,
+                46,
+                43,
+                45,
+                12,
+                25
+              ],
+              "retrieval_latency_ms": 122.811,
+              "reranker_latency_ms": 2464.803,
+              "total_latency_ms": 2587.614,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 16,
+              "candidate_count": 23,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                22,
+                21,
+                44,
+                42,
+                5,
+                45,
+                37,
+                24,
+                46,
+                27,
+                25,
+                13,
+                10,
+                12,
+                16,
+                34,
+                43,
+                7,
+                28,
+                2,
+                8,
+                6,
+                36
+              ],
+              "retrieval_latency_ms": 145.546,
+              "reranker_latency_ms": 2534.386,
+              "total_latency_ms": 2679.932,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 17,
+              "candidate_count": 23,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                22,
+                42,
+                12,
+                18,
+                6,
+                24,
+                7,
+                43,
+                44,
+                25,
+                13,
+                5,
+                21,
+                0,
+                31,
+                16,
+                28,
+                34,
+                27,
+                2,
+                45,
+                36,
+                37
+              ],
+              "retrieval_latency_ms": 171.118,
+              "reranker_latency_ms": 2678.4,
+              "total_latency_ms": 2849.518,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 18,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                22,
+                44,
+                42,
+                21,
+                45,
+                6,
+                25,
+                5,
+                13,
+                7,
+                16,
+                34,
+                8,
+                43,
+                27,
+                12,
+                26,
+                10,
+                2,
+                20,
+                37,
+                0,
+                41,
+                24
+              ],
+              "retrieval_latency_ms": 113.35,
+              "reranker_latency_ms": 2506.276,
+              "total_latency_ms": 2619.626,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 19,
+              "candidate_count": 26,
+              "available_candidate_count": 26,
+              "candidate_pages": [
+                24,
+                25,
+                7,
+                46,
+                27,
+                29,
+                26,
+                15,
+                21,
+                36,
+                20,
+                4,
+                43,
+                28,
+                3,
+                37,
+                17,
+                12,
+                14,
+                9,
+                5,
+                45,
+                39,
+                6,
+                41,
+                22
+              ],
+              "retrieval_latency_ms": 111.902,
+              "reranker_latency_ms": 2656.996,
+              "total_latency_ms": 2768.898,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 20,
+              "candidate_count": 26,
+              "available_candidate_count": 26,
+              "candidate_pages": [
+                24,
+                25,
+                37,
+                7,
+                40,
+                28,
+                12,
+                15,
+                42,
+                39,
+                43,
+                2,
+                17,
+                36,
+                5,
+                26,
+                13,
+                18,
+                6,
+                4,
+                11,
+                45,
+                30,
+                29,
+                16,
+                41
+              ],
+              "retrieval_latency_ms": 162.493,
+              "reranker_latency_ms": 3152.852,
+              "total_latency_ms": 3315.345,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 21,
+              "candidate_count": 22,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                25,
+                7,
+                26,
+                2,
+                36,
+                24,
+                39,
+                37,
+                29,
+                46,
+                15,
+                17,
+                21,
+                12,
+                33,
+                6,
+                45,
+                42,
+                35,
+                10,
+                28,
+                13
+              ],
+              "retrieval_latency_ms": 164.576,
+              "reranker_latency_ms": 2536.916,
+              "total_latency_ms": 2701.492,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 22,
+              "candidate_count": 20,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                26,
+                25,
+                27,
+                35,
+                24,
+                28,
+                3,
+                37,
+                36,
+                34,
+                4,
+                29,
+                13,
+                32,
+                8,
+                42,
+                12,
+                46,
+                9,
+                11
+              ],
+              "retrieval_latency_ms": 207.947,
+              "reranker_latency_ms": 2156.017,
+              "total_latency_ms": 2363.964,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 23,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                27,
+                26,
+                46,
+                25,
+                37,
+                29,
+                11,
+                40,
+                18,
+                32,
+                36,
+                2,
+                34,
+                24,
+                35,
+                21,
+                13,
+                9,
+                23,
+                7,
+                43
+              ],
+              "retrieval_latency_ms": 122.929,
+              "reranker_latency_ms": 2705.82,
+              "total_latency_ms": 2828.749,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 24,
+              "candidate_count": 23,
+              "available_candidate_count": 23,
+              "candidate_pages": [
+                35,
+                27,
+                28,
+                26,
+                25,
+                34,
+                45,
+                31,
+                36,
+                42,
+                18,
+                40,
+                21,
+                24,
+                38,
+                41,
+                44,
+                32,
+                14,
+                15,
+                9,
+                37,
+                29
+              ],
+              "retrieval_latency_ms": 255.839,
+              "reranker_latency_ms": 3569.705,
+              "total_latency_ms": 3825.544,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 25,
+              "candidate_count": 24,
+              "available_candidate_count": 24,
+              "candidate_pages": [
+                29,
+                32,
+                35,
+                26,
+                11,
+                9,
+                8,
+                25,
+                46,
+                34,
+                36,
+                37,
+                27,
+                33,
+                3,
+                31,
+                43,
+                28,
+                10,
+                7,
+                13,
+                1,
+                12,
+                23
+              ],
+              "retrieval_latency_ms": 422.743,
+              "reranker_latency_ms": 3139.594,
+              "total_latency_ms": 3562.337,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 26,
+              "candidate_count": 25,
+              "available_candidate_count": 25,
+              "candidate_pages": [
+                30,
+                29,
+                31,
+                45,
+                27,
+                40,
+                14,
+                5,
+                6,
+                11,
+                39,
+                32,
+                28,
+                13,
+                17,
+                41,
+                24,
+                10,
+                8,
+                36,
+                26,
+                4,
+                7,
+                22,
+                12
+              ],
+              "retrieval_latency_ms": 176.908,
+              "reranker_latency_ms": 3019.541,
+              "total_latency_ms": 3196.449,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 27,
+              "candidate_count": 22,
+              "available_candidate_count": 22,
+              "candidate_pages": [
+                32,
+                33,
+                34,
+                36,
+                10,
+                29,
+                8,
+                35,
+                9,
+                25,
+                21,
+                5,
+                27,
+                18,
+                12,
+                46,
+                43,
+                11,
+                3,
+                45,
+                26,
+                42
+              ],
+              "retrieval_latency_ms": 147.108,
+              "reranker_latency_ms": 2512.696,
+              "total_latency_ms": 2659.804,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 28,
+              "candidate_count": 20,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                33,
+                10,
+                9,
+                46,
+                32,
+                8,
+                12,
+                34,
+                0,
+                5,
+                42,
+                23,
+                11,
+                3,
+                37,
+                25,
+                17,
+                18,
+                16,
+                27
+              ],
+              "retrieval_latency_ms": 141.137,
+              "reranker_latency_ms": 2017.899,
+              "total_latency_ms": 2159.036,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            },
+            {
+              "id": 29,
+              "candidate_count": 20,
+              "available_candidate_count": 20,
+              "candidate_pages": [
+                9,
+                33,
+                10,
+                19,
+                46,
+                32,
+                21,
+                11,
+                18,
+                20,
+                17,
+                16,
+                37,
+                4,
+                6,
+                35,
+                12,
+                3,
+                42,
+                30
+              ],
+              "retrieval_latency_ms": 164.341,
+              "reranker_latency_ms": 2204.054,
+              "total_latency_ms": 2368.395,
+              "execution_order": [
+                "top_10",
+                "full"
+              ]
+            },
+            {
+              "id": 30,
+              "candidate_count": 21,
+              "available_candidate_count": 21,
+              "candidate_pages": [
+                25,
+                35,
+                36,
+                32,
+                29,
+                4,
+                37,
+                34,
+                24,
+                26,
+                9,
+                7,
+                43,
+                33,
+                31,
+                27,
+                21,
+                11,
+                46,
+                3,
+                28
+              ],
+              "retrieval_latency_ms": 149.09,
+              "reranker_latency_ms": 2561.186,
+              "total_latency_ms": 2710.276,
+              "execution_order": [
+                "full",
+                "top_10"
+              ]
+            }
+          ]
+        }
+      }
+    }
+  ]
+}
